@@ -75,9 +75,9 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The name of the job to close
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no jobs. (This includes `_all` string or when no jobs have been specified)
-	 *     force?: bool, // True if the job should be forcefully closed
-	 *     timeout?: int|string, // Controls the time to wait until a job has closed. Default to 30 minutes
+	 *     allow_no_match?: bool, // Specifies what to do when the request: contains wildcard expressions and there are no jobs that match; contains the  `_all` string or no identifiers and there are no matches; or contains wildcard expressions and there are only partial matches. By default, it returns an empty jobs array when there are no matches and the subset of results when there are partial matches. If `false`, the request returns a 404 status code when there are no matches or only partial matches. (DEFAULT: 1)
+	 *     force?: bool, // Use to close a failed job, or to forcefully close a job which has not responded to its initial close request; the request returns without performing the associated actions such as flushing buffers and persisting the model snapshots. If you want the job to be in a consistent state after the close job API returns, do not set to `true`. This parameter should be used only in situations where the job has already failed or where you are not interested in results the job might have recently produced or might produce in the future.
+	 *     timeout?: int|string, // Controls the time to wait until a job has closed. (DEFAULT: 30m)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -238,8 +238,8 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The ID of the data frame analytics to delete
-	 *     force?: bool, // True if the job should be forcefully deleted
-	 *     timeout?: int|string, // Controls the time to wait until a job is deleted. Defaults to 1 minute
+	 *     force?: bool, // If `true`, it deletes a job that is not stopped; this method is quicker than stopping and deleting the job.
+	 *     timeout?: int|string, // The time to wait for the job to be deleted. (DEFAULT: 1m)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -279,7 +279,7 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     datafeed_id: string, // (REQUIRED) The ID of the datafeed to delete
-	 *     force?: bool, // True if the datafeed should be forcefully deleted
+	 *     force?: bool, // Use to forcefully delete a started datafeed; this method is quicker than stopping and deleting the datafeed.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -318,8 +318,8 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id?: string, // The ID of the job(s) to perform expired data hygiene for
-	 *     requests_per_second?: int, // The desired requests per second for the deletion processes.
-	 *     timeout?: int|string, // How long can the underlying delete processes run until they are canceled
+	 *     requests_per_second?: int, // The desired requests per second for the deletion processes. The default behavior is no throttling.
+	 *     timeout?: int|string, // How long can the underlying delete processes run until they are canceled. (DEFAULT: 8h)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -402,8 +402,8 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job from which to delete forecasts
 	 *     forecast_id?: string, // The ID of the forecast to delete, can be comma delimited list. Leaving blank implies `_all`
-	 *     allow_no_forecasts?: bool, // Whether to ignore if `_all` matches no forecasts
-	 *     timeout?: int|string, // Controls the time to wait until the forecast(s) are deleted. Default to 30 seconds
+	 *     allow_no_forecasts?: bool, // Specifies whether an error occurs when there are no forecasts. In particular, if this parameter is set to `false` and there are no forecasts associated with the job, attempts to delete all forecasts return an error. (DEFAULT: 1)
+	 *     timeout?: int|string, // Specifies the period of time to wait for the completion of the delete operation. When this period of time elapses, the API fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -447,9 +447,9 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job to delete
-	 *     force?: bool, // True if the job should be forcefully deleted
-	 *     wait_for_completion?: bool, // Should this request wait until the operation has completed before returning
-	 *     delete_user_annotations?: bool, // Should annotations added by the user be deleted
+	 *     force?: bool, // Use to forcefully delete an opened job; this method is quicker than closing and deleting the job.
+	 *     wait_for_completion?: bool, // Specifies whether the request should return immediately or wait until the job deletion completes. (DEFAULT: 1)
+	 *     delete_user_annotations?: bool, // Specifies whether annotations that have been added by the user should be deleted along with any auto-generated annotations when the job is reset.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -528,8 +528,8 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     model_id: string, // (REQUIRED) The ID of the trained model to delete
-	 *     timeout?: int|string, // Controls the amount of time to wait for the model to be deleted.
-	 *     force?: bool, // True if the model should be forcefully deleted
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     force?: bool, // Forcefully deletes a trained model that is referenced by ingest pipelines or has a started deployment.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -730,11 +730,11 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The name of the job to flush
-	 *     calc_interim?: bool, // Calculates interim results for the most recent bucket or all buckets within the latency period
-	 *     start?: string, // When used in conjunction with calc_interim, specifies the range of buckets on which to calculate interim results
-	 *     end?: string, // When used in conjunction with calc_interim, specifies the range of buckets on which to calculate interim results
-	 *     advance_time?: string, // Advances time to the given value generating results and updating the model for the advanced interval
-	 *     skip_time?: string, // Skips time to the given value without generating results or updating the model for the skipped interval
+	 *     calc_interim?: bool, // If true, calculates the interim results for the most recent bucket or all buckets within the latency period.
+	 *     start?: string, // When used in conjunction with `calc_interim`, specifies the range of buckets on which to calculate interim results.
+	 *     end?: string, // When used in conjunction with `calc_interim` and `start`, specifies the range of buckets on which to calculate interim results.
+	 *     advance_time?: string, // Specifies to advance to a particular time value. Results are generated and the model is updated for data from the specified time interval.
+	 *     skip_time?: string, // Specifies to skip to a particular time value. Results are not generated and the model is not updated for data from the specified time interval.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -775,9 +775,9 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job to forecast for
-	 *     duration?: int|string, // The duration of the forecast
-	 *     expires_in?: int|string, // The time interval after which the forecast expires. Expired forecasts will be deleted at the first opportunity.
-	 *     max_model_memory?: string, // The max memory able to be used by the forecast. Default is 20mb.
+	 *     duration?: int|string, // A period of time that indicates how far into the future to forecast. For example, `30d` corresponds to 30 days. The forecast starts at the last record that was processed. (DEFAULT: 1d)
+	 *     expires_in?: int|string, // The period of time that forecast results are retained. After a forecast expires, the results are deleted. If set to a value of 0, the forecast is never automatically deleted. (DEFAULT: 14d)
+	 *     max_model_memory?: string, // The maximum memory the forecast can use. If the forecast needs to use more than the provided amount, it will spool to disk. Default is 20mb, maximum is 500mb and minimum is 1mb. If set to 40% or more of the job’s configured memory limit, it is automatically reduced to below that amount. (DEFAULT: 20mb)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -819,15 +819,15 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) ID of the job to get bucket results from
 	 *     timestamp?: string, // The timestamp of the desired single bucket result
-	 *     expand?: bool, // Include anomaly records
-	 *     exclude_interim?: bool, // Exclude interim results
-	 *     from?: int, // skips a number of buckets
-	 *     size?: int, // specifies a max number of buckets to get
-	 *     start?: string, // Start time filter for buckets
-	 *     end?: string, // End time filter for buckets
-	 *     anomaly_score?: float, // Filter for the most anomalous buckets
-	 *     sort?: string, // Sort buckets by a particular field
-	 *     desc?: bool, // Set the sort direction
+	 *     expand?: bool, // If true, the output includes anomaly records.
+	 *     exclude_interim?: bool, // If `true`, the output excludes interim results.
+	 *     from?: int, // Skips the specified number of buckets.
+	 *     size?: int, // Specifies the maximum number of buckets to obtain. (DEFAULT: 100)
+	 *     start?: string, // Returns buckets with timestamps after this time. `-1` means it is unset and results are not limited to specific timestamps. (DEFAULT: -1)
+	 *     end?: string, // Returns buckets with timestamps earlier than this time. `-1` means it is unset and results are not limited to specific timestamps. (DEFAULT: -1)
+	 *     anomaly_score?: float, // Returns buckets with anomaly scores greater or equal than this value.
+	 *     sort?: string, // Specifies the sort field for the requested buckets. (DEFAULT: timestamp)
+	 *     desc?: bool, // If `true`, the buckets are sorted in descending order.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -873,11 +873,11 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     calendar_id: string, // (REQUIRED) The ID of the calendar containing the events
-	 *     job_id?: string, // Get events for the job. When this option is used calendar_id must be '_all'
-	 *     start?: string, // Get events after this time
-	 *     end?: string, // Get events before this time
-	 *     from?: int, // Skips a number of events
-	 *     size?: int, // Specifies a max number of events to get
+	 *     job_id?: string, // Specifies to get events for a specific anomaly detection job identifier or job group. It must be used with a calendar identifier of `_all` or `*`.
+	 *     start?: string, // Specifies to get events with timestamps after this time.
+	 *     end?: string, // Specifies to get events with timestamps earlier than this time.
+	 *     from?: int, // Skips the specified number of events.
+	 *     size?: int, // Specifies the maximum number of events to obtain. (DEFAULT: 100)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -917,8 +917,8 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     calendar_id?: string, // The ID of the calendar to fetch
-	 *     from?: int, // skips a number of calendars
-	 *     size?: int, // specifies a max number of calendars to get
+	 *     from?: int, // Skips the specified number of calendars. This parameter is supported only when you omit the calendar identifier.
+	 *     size?: int, // Specifies the maximum number of calendars to obtain. This parameter is supported only when you omit the calendar identifier. (DEFAULT: 10000)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -962,9 +962,9 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The name of the job
 	 *     category_id?: int, // The identifier of the category definition of interest
-	 *     from?: int, // skips a number of categories
-	 *     size?: int, // specifies a max number of categories to get
-	 *     partition_field_value?: string, // Specifies the partition to retrieve categories for. This is optional, and should never be used for jobs where per-partition categorization is disabled.
+	 *     from?: int, // Skips the specified number of categories.
+	 *     size?: int, // Specifies the maximum number of categories to obtain. (DEFAULT: 100)
+	 *     partition_field_value?: string, // Only return categories for the specified partition.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1010,10 +1010,10 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id?: string, // The ID of the data frame analytics to fetch
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no data frame analytics. (This includes `_all` string or when no data frame analytics have been specified)
-	 *     from?: int, // skips a number of analytics
-	 *     size?: int, // specifies a max number of analytics to get
-	 *     exclude_generated?: bool, // Omits fields that are illegal to set on data frame analytics PUT
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  1. Contains wildcard expressions and there are no data frame analytics jobs that match. 2. Contains the `_all` string or no identifiers and there are no matches. 3. Contains wildcard expressions and there are only partial matches.  The default value returns an empty data_frame_analytics array when there are no matches and the subset of results when there are partial matches. If this parameter is `false`, the request returns a 404 status code when there are no matches or only partial matches. (DEFAULT: 1)
+	 *     from?: int, // Skips the specified number of data frame analytics jobs.
+	 *     size?: int, // Specifies the maximum number of data frame analytics jobs to obtain. (DEFAULT: 100)
+	 *     exclude_generated?: bool, // Indicates if certain fields should be removed from the configuration on retrieval. This allows the configuration to be in an acceptable format to be retrieved and then added to another cluster.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1055,10 +1055,10 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id?: string, // The ID of the data frame analytics stats to fetch
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no data frame analytics. (This includes `_all` string or when no data frame analytics have been specified)
-	 *     from?: int, // skips a number of analytics
-	 *     size?: int, // specifies a max number of analytics to get
-	 *     verbose?: bool, // whether the stats response should be verbose
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  1. Contains wildcard expressions and there are no data frame analytics jobs that match. 2. Contains the `_all` string or no identifiers and there are no matches. 3. Contains wildcard expressions and there are only partial matches.  The default value returns an empty data_frame_analytics array when there are no matches and the subset of results when there are partial matches. If this parameter is `false`, the request returns a 404 status code when there are no matches or only partial matches. (DEFAULT: 1)
+	 *     from?: int, // Skips the specified number of data frame analytics jobs.
+	 *     size?: int, // Specifies the maximum number of data frame analytics jobs to obtain. (DEFAULT: 100)
+	 *     verbose?: bool, // Defines whether the stats response should be verbose.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1100,7 +1100,7 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     datafeed_id?: string|array<string>, // Comma-separated list of datafeed identifiers or wildcard expressions. If you do not specify one of these options, the API returns information about all datafeeds.
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no datafeeds. (This includes `_all` string or when no datafeeds have been specified)
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  1. Contains wildcard expressions and there are no datafeeds that match. 2. Contains the `_all` string or no identifiers and there are no matches. 3. Contains wildcard expressions and there are only partial matches.  The default value is `true`, which returns an empty `datafeeds` array when there are no matches and the subset of results when there are partial matches. If this parameter is `false`, the request returns a `404` status code when there are no matches or only partial matches.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1142,8 +1142,8 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     datafeed_id?: string|array<string>, // Identifier for the datafeed. It can be a datafeed identifier or a wildcard expression. If you do not specify one of these options, the API returns information about all datafeeds.
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no datafeeds. (This includes `_all` string or when no datafeeds have been specified)
-	 *     exclude_generated?: bool, // Omits fields that are illegal to set on datafeed PUT
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  1. Contains wildcard expressions and there are no datafeeds that match. 2. Contains the `_all` string or no identifiers and there are no matches. 3. Contains wildcard expressions and there are only partial matches.  The default value is `true`, which returns an empty `datafeeds` array when there are no matches and the subset of results when there are partial matches. If this parameter is `false`, the request returns a `404` status code when there are no matches or only partial matches.
+	 *     exclude_generated?: bool, // Indicates if certain fields should be removed from the configuration on retrieval. This allows the configuration to be in an acceptable format to be retrieved and then added to another cluster.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1185,8 +1185,8 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     filter_id?: string|array<string>, // Comma-separated list of strings that uniquely identify a filter.
-	 *     from?: int, // skips a number of filters
-	 *     size?: int, // specifies a max number of filters to get
+	 *     from?: int, // Skips the specified number of filters.
+	 *     size?: int, // Specifies the maximum number of filters to obtain. (DEFAULT: 100)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1227,14 +1227,14 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) Identifier for the anomaly detection job
-	 *     exclude_interim?: bool, // Exclude interim results
-	 *     from?: int, // skips a number of influencers
-	 *     size?: int, // specifies a max number of influencers to get
-	 *     start?: string, // start timestamp for the requested influencers
-	 *     end?: string, // end timestamp for the requested influencers
-	 *     influencer_score?: float, // influencer score threshold for the requested influencers
-	 *     sort?: string, // sort field for the requested influencers
-	 *     desc?: bool, // whether the results should be sorted in decending order
+	 *     exclude_interim?: bool, // If true, the output excludes interim results. By default, interim results are included.
+	 *     from?: int, // Skips the specified number of influencers.
+	 *     size?: int, // Specifies the maximum number of influencers to obtain. (DEFAULT: 100)
+	 *     start?: string, // Returns influencers with timestamps after this time. The default value means it is unset and results are not limited to specific timestamps. (DEFAULT: -1)
+	 *     end?: string, // Returns influencers with timestamps earlier than this time. The default value means it is unset and results are not limited to specific timestamps. (DEFAULT: -1)
+	 *     influencer_score?: float, // Returns influencers with anomaly scores greater than or equal to this value.
+	 *     sort?: string, // Specifies the sort field for the requested influencers. By default, the influencers are sorted by the `influencer_score` value.
+	 *     desc?: bool, // If true, the results are sorted in descending order.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1276,7 +1276,7 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id?: string, // The ID of the jobs stats to fetch
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no jobs. (This includes `_all` string or when no jobs have been specified)
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  1. Contains wildcard expressions and there are no jobs that match. 2. Contains the _all string or no identifiers and there are no matches. 3. Contains wildcard expressions and there are only partial matches.  If `true`, the API returns an empty `jobs` array when there are no matches and the subset of results when there are partial matches. If `false`, the API returns a `404` status code when there are no matches or only partial matches. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1318,8 +1318,8 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id?: string|array<string>, // Comma-separated list of identifiers for the anomaly detection job. It can be a job identifier, a group name, or a wildcard expression. If you do not specify one of these options, the API returns information for all anomaly detection jobs.
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no jobs. (This includes `_all` string or when no jobs have been specified)
-	 *     exclude_generated?: bool, // Omits fields that are illegal to set on job PUT
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  1. Contains wildcard expressions and there are no jobs that match. 2. Contains the _all string or no identifiers and there are no matches. 3. Contains wildcard expressions and there are only partial matches.  The default value is `true`, which returns an empty `jobs` array when there are no matches and the subset of results when there are partial matches. If this parameter is `false`, the request returns a `404` status code when there are no matches or only partial matches. (DEFAULT: 1)
+	 *     exclude_generated?: bool, // Indicates if certain fields should be removed from the configuration on retrieval. This allows the configuration to be in an acceptable format to be retrieved and then added to another cluster.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1360,8 +1360,8 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     node_id?: string, // Specifies the node or nodes to retrieve stats for.
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1403,7 +1403,7 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job. May be a wildcard, comma separated list or `_all`.
 	 *     snapshot_id: string, // (REQUIRED) The ID of the snapshot. May be a wildcard, comma separated list or `_all`.
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no jobs or no snapshots. (This includes the `_all` string.)
+	 *     allow_no_match?: bool, // Specifies what to do when the request:   -  Contains wildcard expressions and there are no jobs that match.  -  Contains the _all string or no identifiers and there are no matches.  -  Contains wildcard expressions and there are only partial matches.  The default value is true, which returns an empty jobs array when there are no matches and the subset of results when there are partial matches. If this parameter is false, the request returns a 404 status code when there are no matches or only partial matches.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1443,12 +1443,12 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job to fetch
 	 *     snapshot_id?: string, // The ID of the snapshot to fetch
-	 *     from?: int, // Skips a number of documents
-	 *     size?: int, // The default number of documents returned in queries as a string.
-	 *     start?: string, // The filter 'start' query parameter
-	 *     end?: string, // The filter 'end' query parameter
-	 *     sort?: string, // Name of the field to sort on
-	 *     desc?: bool, // True if the results should be sorted in descending order
+	 *     from?: int, // Skips the specified number of snapshots.
+	 *     size?: int, // Specifies the maximum number of snapshots to obtain. (DEFAULT: 100)
+	 *     start?: string, // Returns snapshots with timestamps after this time.
+	 *     end?: string, // Returns snapshots with timestamps earlier than this time.
+	 *     sort?: string, // Specifies the sort field for the requested snapshots. By default, the snapshots are sorted by their timestamp.
+	 *     desc?: bool, // If true, the results are sorted in descending order.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1494,13 +1494,13 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The job IDs for which to calculate overall bucket results
-	 *     top_n?: int, // The number of top job bucket scores to be used in the overall_score calculation
-	 *     bucket_span?: int|string, // The span of the overall buckets. Defaults to the longest job bucket_span
-	 *     overall_score?: float, // Returns overall buckets with overall scores higher than this value
-	 *     exclude_interim?: bool, // If true overall buckets that include interim buckets will be excluded
-	 *     start?: string, // Returns overall buckets with timestamps after this time
-	 *     end?: string, // Returns overall buckets with timestamps earlier than this time
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no jobs. (This includes `_all` string or when no jobs have been specified)
+	 *     top_n?: int, // The number of top anomaly detection job bucket scores to be used in the `overall_score` calculation. (DEFAULT: 1)
+	 *     bucket_span?: int|string, // The span of the overall buckets. Must be greater or equal to the largest bucket span of the specified anomaly detection jobs, which is the default value.  By default, an overall bucket has a span equal to the largest bucket span of the specified anomaly detection jobs. To override that behavior, use the optional `bucket_span` parameter.
+	 *     overall_score?: float, // Returns overall buckets with overall scores greater than or equal to this value.
+	 *     exclude_interim?: bool, // If `true`, the output excludes interim results.
+	 *     start?: string, // Returns overall buckets with timestamps after this time.
+	 *     end?: string, // Returns overall buckets with timestamps earlier than this time.
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  1. Contains wildcard expressions and there are no jobs that match. 2. Contains the `_all` string or no identifiers and there are no matches. 3. Contains wildcard expressions and there are only partial matches.  If `true`, the request returns an empty `jobs` array when there are no matches and the subset of results when there are partial matches. If this parameter is `false`, the request returns a `404` status code when there are no matches or only partial matches. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1541,14 +1541,14 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job
-	 *     exclude_interim?: bool, // Exclude interim results
-	 *     from?: int, // skips a number of records
-	 *     size?: int, // specifies a max number of records to get
-	 *     start?: string, // Start time filter for records
-	 *     end?: string, // End time filter for records
-	 *     record_score?: float, // Returns records with anomaly scores greater or equal than this value
-	 *     sort?: string, // Sort records by a particular field
-	 *     desc?: bool, // Set the sort direction
+	 *     exclude_interim?: bool, // If `true`, the output excludes interim results.
+	 *     from?: int, // Skips the specified number of records.
+	 *     size?: int, // Specifies the maximum number of records to obtain. (DEFAULT: 100)
+	 *     start?: string, // Returns records with timestamps after this time. The default value means results are not limited to specific timestamps. (DEFAULT: -1)
+	 *     end?: string, // Returns records with timestamps earlier than this time. The default value means results are not limited to specific timestamps. (DEFAULT: -1)
+	 *     record_score?: float, // Returns records with anomaly scores greater or equal than this value.
+	 *     sort?: string, // Specifies the sort field for the requested records. (DEFAULT: record_score)
+	 *     desc?: bool, // If true, the results are sorted in descending order.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1590,13 +1590,13 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     model_id?: string|array<string>, // The unique identifier of the trained model or a model alias.  You can get information for multiple trained models in a single API request by using a comma-separated list of model IDs or a wildcard expression.
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no trained models. (This includes `_all` string or when no trained models have been specified)
-	 *     include?: string, // A comma delimited string of optional fields to include in the responsebody.
-	 *     decompress_definition?: bool, // Should the model definition be decompressed into valid JSON or returned in a custom compressed format. Defaults to true.
-	 *     from?: int, // skips a number of trained models
-	 *     size?: int, // specifies a max number of trained models to get
-	 *     tags?: string|array<string>, // A comma-separated list of tags that the model must have.
-	 *     exclude_generated?: bool, // Omits fields that are illegal to set on model PUT
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  - Contains wildcard expressions and there are no models that match. - Contains the _all string or no identifiers and there are no matches. - Contains wildcard expressions and there are only partial matches.  If true, it returns an empty array when there are no matches and the subset of results when there are partial matches. (DEFAULT: 1)
+	 *     include?: string, // A comma delimited string of optional fields to include in the response body.
+	 *     decompress_definition?: bool, // Specifies whether the included model definition should be returned as a JSON map (true) or in a custom compressed format (false). (DEFAULT: 1)
+	 *     from?: int, // Skips the specified number of models.
+	 *     size?: int, // Specifies the maximum number of models to obtain. (DEFAULT: 100)
+	 *     tags?: string|array<string>, // A comma delimited string of tags. A trained model can have many tags, or none. When supplied, only trained models that contain all the supplied tags are returned.
+	 *     exclude_generated?: bool, // Indicates if certain fields should be removed from the configuration on retrieval. This allows the configuration to be in an acceptable format to be retrieved and then added to another cluster.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1638,9 +1638,9 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     model_id?: string|array<string>, // The unique identifier of the trained model or a model alias. It can be a comma-separated list or a wildcard expression.
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no trained models. (This includes `_all` string or when no trained models have been specified)
-	 *     from?: int, // skips a number of trained models
-	 *     size?: int, // specifies a max number of trained models to get
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  - Contains wildcard expressions and there are no models that match. - Contains the _all string or no identifiers and there are no matches. - Contains wildcard expressions and there are only partial matches.  If true, it returns an empty array when there are no matches and the subset of results when there are partial matches. (DEFAULT: 1)
+	 *     from?: int, // Skips the specified number of models.
+	 *     size?: int, // Specifies the maximum number of models to obtain. (DEFAULT: 100)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1682,7 +1682,7 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     model_id: string, // (REQUIRED) The unique identifier of the trained model.
-	 *     timeout?: int|string, // Controls the amount of time to wait for inference results.
+	 *     timeout?: int|string, // Controls the amount of time to wait for inference results. (DEFAULT: 10s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1759,7 +1759,7 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job to open
-	 *     timeout?: int|string, // Controls the time to wait until a job has opened.
+	 *     timeout?: int|string, // Controls the time to wait until a job has opened. (DEFAULT: 30m)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1841,8 +1841,8 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The name of the job receiving the data
-	 *     reset_start?: string, // Optional parameter to specify the start of the bucket resetting range
-	 *     reset_end?: string, // Optional parameter to specify the end of the bucket resetting range
+	 *     reset_start?: string, // Specifies the start of the bucket resetting range.
+	 *     reset_end?: string, // Specifies the end of the bucket resetting range.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2094,10 +2094,10 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     datafeed_id: string, // (REQUIRED) The ID of the datafeed to create
-	 *     ignore_unavailable?: bool, // Ignore unavailable indexes (default: false)
-	 *     allow_no_indices?: bool, // Ignore if the source indices expressions resolves to no concrete indices (default: true)
-	 *     ignore_throttled?: bool, // Ignore indices that are marked as throttled (default: true)
-	 *     expand_wildcards?: string|array<string>, // Whether source index expressions should get expanded to open or closed indices (default: open)
+	 *     ignore_unavailable?: bool, // If true, unavailable indices (missing or closed) are ignored.
+	 *     allow_no_indices?: bool, // If true, wildcard indices expressions that resolve into no concrete indices are ignored. This includes the `_all` string or when no indices are specified. (DEFAULT: 1)
+	 *     ignore_throttled?: bool, // If true, concrete, expanded, or aliased indices are ignored when frozen. (DEFAULT: 1)
+	 *     expand_wildcards?: string|array<string>, // Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values. (DEFAULT: open)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2180,10 +2180,10 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job to create
-	 *     ignore_unavailable?: bool, // Ignore unavailable indexes (default: false). Only set if datafeed_config is provided.
-	 *     allow_no_indices?: bool, // Ignore if the source indices expressions resolves to no concrete indices (default: true). Only set if datafeed_config is provided.
-	 *     ignore_throttled?: bool, // Ignore indices that are marked as throttled (default: true). Only set if datafeed_config is provided.
-	 *     expand_wildcards?: string|array<string>, // Whether source index expressions should get expanded to open or closed indices (default: open). Only set if datafeed_config is provided.
+	 *     ignore_unavailable?: bool, // If `true`, unavailable indices (missing or closed) are ignored.
+	 *     allow_no_indices?: bool, // If `true`, wildcard indices expressions that resolve into no concrete indices are ignored. This includes the `_all` string or when no indices are specified. (DEFAULT: 1)
+	 *     ignore_throttled?: bool, // If `true`, concrete, expanded or aliased indices are ignored when frozen. (DEFAULT: 1)
+	 *     expand_wildcards?: string|array<string>, // Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values. (DEFAULT: open)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2226,7 +2226,7 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     model_id: string, // (REQUIRED) The ID of the trained models to store
 	 *     defer_definition_decompression?: bool, // If set to `true` and a `compressed_definition` is provided, the request defers definition decompression and skips relevant validations.
-	 *     wait_for_completion?: bool, // Whether to wait for all child operations(e.g. model download) to complete, before returning or not. Default to false
+	 *     wait_for_completion?: bool, // Whether to wait for all child operations (e.g. model download) to complete.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2269,7 +2269,7 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     model_alias: string, // (REQUIRED) The trained model alias to update
 	 *     model_id: string, // (REQUIRED) The trained model where the model alias should be assigned
-	 *     reassign?: bool, // If the model_alias already exists and points to a separate model_id, this parameter must be true. Defaults to false.
+	 *     reassign?: bool, // Specifies whether the alias gets reassigned to the specified trained model if it is already assigned to a different model. If the alias is already assigned and this parameter is false, the API returns an error.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2393,8 +2393,8 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job to reset
-	 *     wait_for_completion?: bool, // Should this request wait until the operation has completed before returning
-	 *     delete_user_annotations?: bool, // Should annotations added by the user be deleted
+	 *     wait_for_completion?: bool, // Should this request wait until the operation has completed before returning. (DEFAULT: 1)
+	 *     delete_user_annotations?: bool, // Specifies whether annotations that have been added by the user should be deleted along with any auto-generated annotations when the job is reset.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2434,7 +2434,7 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job to fetch
 	 *     snapshot_id: string, // (REQUIRED) The ID of the snapshot to revert to
-	 *     delete_intervening_results?: bool, // Should we reset the results back to the time of the snapshot?
+	 *     delete_intervening_results?: bool, // If true, deletes the results in the time period between the latest results and the time of the reverted snapshot. It also resets the model to accept records for this time period. If you choose not to delete intervening results when reverting a snapshot, the job will not accept input data that is older than the current time. If you want to resend data, then delete the intervening results.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2474,8 +2474,8 @@ class Ml extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-set-upgrade-mode
 	 *
 	 * @param array{
-	 *     enabled?: bool, // Whether to enable upgrade_mode ML setting or not. Defaults to false.
-	 *     timeout?: int|string, // Controls the time to wait before action times out. Defaults to 30 seconds
+	 *     enabled?: bool, // When `true`, it enables `upgrade_mode` which temporarily halts all job and datafeed tasks and prohibits new job and datafeed tasks from starting.
+	 *     timeout?: int|string, // The time to wait for the request to be completed. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2513,7 +2513,7 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The ID of the data frame analytics to start
-	 *     timeout?: int|string, // Controls the time to wait until the task has started. Defaults to 20 seconds
+	 *     timeout?: int|string, // Controls the amount of time to wait until the data frame analytics job starts. (DEFAULT: 20s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2555,9 +2555,9 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     datafeed_id: string, // (REQUIRED) The ID of the datafeed to start
-	 *     start?: string, // The start time from where the datafeed should begin
-	 *     end?: string, // The end time when the datafeed should stop. When not set, the datafeed continues in real time
-	 *     timeout?: int|string, // Controls the time to wait until a datafeed has started. Default to 20 seconds
+	 *     start?: string, // The time that the datafeed should begin, which can be specified by using the same formats as the `end` parameter. This value is inclusive. If you do not specify a start time and the datafeed is associated with a new anomaly detection job, the analysis starts from the earliest time for which data is available. If you restart a stopped datafeed and specify a start value that is earlier than the timestamp of the latest processed record, the datafeed continues from 1 millisecond after the timestamp of the latest processed record.
+	 *     end?: string, // The time that the datafeed should end, which can be specified by using one of the following formats:  * ISO 8601 format with milliseconds, for example `2017-01-22T06:00:00.000Z` * ISO 8601 format without milliseconds, for example `2017-01-22T06:00:00+00:00` * Milliseconds since the epoch, for example `1485061200000`  Date-time arguments using either of the ISO 8601 formats must have a time zone designator, where `Z` is accepted as an abbreviation for UTC time. When a URL is expected (for example, in browsers), the `+` used in time zone designators must be encoded as `%2B`. The end time value is exclusive. If you do not specify an end time, the datafeed runs continuously.
+	 *     timeout?: int|string, // Specifies the amount of time to wait until a datafeed starts. (DEFAULT: 20s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2599,14 +2599,14 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     model_id: string, // (REQUIRED) The unique identifier of the trained model.
-	 *     cache_size?: string, // A byte-size value for configuring the inference cache size. For example, 20mb.
-	 *     deployment_id?: string, // The Id of the new deployment. Defaults to the model_id if not set.
-	 *     number_of_allocations?: int, // The total number of allocations this model is assigned across machine learning nodes.
-	 *     threads_per_allocation?: int, // The number of threads used by each model allocation during inference.
-	 *     priority?: string, // The deployment priority.
-	 *     queue_capacity?: int, // Controls how many inference requests are allowed in the queue at a time.
-	 *     timeout?: int|string, // Controls the amount of time to wait for the model to deploy.
-	 *     wait_for?: string, // Specifies the allocation status to wait for before returning.
+	 *     cache_size?: string, // The inference cache size (in memory outside the JVM heap) per node for the model. The default value is the same size as the `model_size_bytes`. To disable the cache, `0b` can be provided.
+	 *     deployment_id?: string, // A unique identifier for the deployment of the model.
+	 *     number_of_allocations?: int, // The number of model allocations on each node where the model is deployed. All allocations on a node share the same copy of the model in memory but use a separate set of threads to evaluate the model. Increasing this value generally increases the throughput. If this setting is greater than the number of hardware threads it will automatically be changed to a value less than the number of hardware threads. If adaptive_allocations is enabled, do not set this value, because it’s automatically set. (DEFAULT: 1)
+	 *     threads_per_allocation?: int, // Sets the number of threads used by each model allocation during inference. This generally increases the inference speed. The inference process is a compute-bound process; any number greater than the number of available hardware threads on the machine does not increase the inference speed. If this setting is greater than the number of hardware threads it will automatically be changed to a value less than the number of hardware threads. (DEFAULT: 1)
+	 *     priority?: string, // The deployment priority
+	 *     queue_capacity?: int, // Specifies the number of inference requests that are allowed in the queue. After the number of requests exceeds this value, new requests are rejected with a 429 error. (DEFAULT: 1024)
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the model to deploy. (DEFAULT: 20s)
+	 *     wait_for?: string, // Specifies the allocation status to wait for before returning. (DEFAULT: started)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2648,9 +2648,9 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The ID of the data frame analytics to stop
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no data frame analytics. (This includes `_all` string or when no data frame analytics have been specified)
-	 *     force?: bool, // True if the data frame analytics should be forcefully stopped
-	 *     timeout?: int|string, // Controls the time to wait until the task has stopped. Defaults to 20 seconds
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  1. Contains wildcard expressions and there are no data frame analytics jobs that match. 2. Contains the _all string or no identifiers and there are no matches. 3. Contains wildcard expressions and there are only partial matches.  The default value is true, which returns an empty data_frame_analytics array when there are no matches and the subset of results when there are partial matches. If this parameter is false, the request returns a 404 status code when there are no matches or only partial matches. (DEFAULT: 1)
+	 *     force?: bool, // If true, the data frame analytics job is stopped forcefully.
+	 *     timeout?: int|string, // Controls the amount of time to wait until the data frame analytics job stops. Defaults to 20 seconds. (DEFAULT: 20s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2692,9 +2692,9 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     datafeed_id: string, // (REQUIRED) The ID of the datafeed to stop
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no datafeeds. (This includes `_all` string or when no datafeeds have been specified)
-	 *     force?: bool, // True if the datafeed should be forcefully stopped.
-	 *     timeout?: int|string, // Controls the time to wait until a datafeed has stopped. Default to 20 seconds
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  * Contains wildcard expressions and there are no datafeeds that match. * Contains the `_all` string or no identifiers and there are no matches. * Contains wildcard expressions and there are only partial matches.  If `true`, the API returns an empty datafeeds array when there are no matches and the subset of results when there are partial matches. If `false`, the API returns a 404 status code when there are no matches or only partial matches. (DEFAULT: 1)
+	 *     force?: bool, // If `true`, the datafeed is stopped forcefully.
+	 *     timeout?: int|string, // Specifies the amount of time to wait until a datafeed stops. (DEFAULT: 20s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2736,8 +2736,8 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     model_id: string, // (REQUIRED) The unique identifier of the trained model.
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no deployments. (This includes `_all` string or when no deployments have been specified)
-	 *     force?: bool, // True if the deployment should be forcefully stopped
+	 *     allow_no_match?: bool, // Specifies what to do when the request: contains wildcard expressions and there are no deployments that match; contains the  `_all` string or no identifiers and there are no matches; or contains wildcard expressions and there are only partial matches. By default, it returns an empty array when there are no matches and the subset of results when there are partial matches. If `false`, the request returns a 404 status code when there are no matches or only partial matches. (DEFAULT: 1)
+	 *     force?: bool, // Forcefully stops the deployment, even if it is used by ingest pipelines. You can't use these pipelines until you restart the model deployment.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2820,10 +2820,10 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     datafeed_id: string, // (REQUIRED) The ID of the datafeed to update
-	 *     ignore_unavailable?: bool, // Ignore unavailable indexes (default: false)
-	 *     allow_no_indices?: bool, // Ignore if the source indices expressions resolves to no concrete indices (default: true)
-	 *     ignore_throttled?: bool, // Ignore indices that are marked as throttled (default: true)
-	 *     expand_wildcards?: string|array<string>, // Whether source index expressions should get expanded to open or closed indices (default: open)
+	 *     ignore_unavailable?: bool, // If `true`, unavailable indices (missing or closed) are ignored.
+	 *     allow_no_indices?: bool, // If `true`, wildcard indices expressions that resolve into no concrete indices are ignored. This includes the `_all` string or when no indices are specified. (DEFAULT: 1)
+	 *     ignore_throttled?: bool, // If `true`, concrete, expanded or aliased indices are ignored when frozen. (DEFAULT: 1)
+	 *     expand_wildcards?: string|array<string>, // Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values. (DEFAULT: open)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -2988,7 +2988,7 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     model_id: string, // (REQUIRED) The unique identifier of the trained model.
-	 *     number_of_allocations?: int, // Update the model deployment to this number of allocations.
+	 *     number_of_allocations?: int, // The number of model allocations on each node where the model is deployed. All allocations on a node share the same copy of the model in memory but use a separate set of threads to evaluate the model. Increasing this value generally increases the throughput. If this setting is greater than the number of hardware threads it will automatically be changed to a value less than the number of hardware threads. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -3030,8 +3030,8 @@ class Ml extends AbstractEndpoint
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job
 	 *     snapshot_id: string, // (REQUIRED) The ID of the snapshot
-	 *     timeout?: int|string, // How long should the API wait for the job to be opened and the old snapshot to be loaded.
-	 *     wait_for_completion?: bool, // Should the request wait until the task is complete before responding to the caller. Default is false.
+	 *     timeout?: int|string, // Controls the time to wait for the request to complete. (DEFAULT: 30m)
+	 *     wait_for_completion?: bool, // When true, the API won’t respond until the upgrade is complete. Otherwise, it responds as soon as the upgrade task is assigned to a node.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

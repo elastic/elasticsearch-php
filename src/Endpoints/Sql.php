@@ -114,10 +114,10 @@ class Sql extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async search ID
-	 *     delimiter?: string, // Separator for CSV results
-	 *     format?: string, // Short version of the Accept header, e.g. json, yaml
-	 *     keep_alive?: int|string, // Retention period for the search and its results
-	 *     wait_for_completion_timeout?: int|string, // Duration to wait for complete results
+	 *     delimiter?: string, // The separator for CSV results. The API supports this parameter only for CSV responses. (DEFAULT: ,)
+	 *     format?: string, // The format for the response. You must specify a format using this parameter or the `Accept` HTTP header. If you specify both, the API uses this parameter.
+	 *     keep_alive?: int|string, // The retention period for the search and its results. It defaults to the `keep_alive` period for the original SQL search. (DEFAULT: 5d)
+	 *     wait_for_completion_timeout?: int|string, // The period to wait for complete results. It defaults to no timeout, meaning the request waits for complete search results.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -195,8 +195,8 @@ class Sql extends AbstractEndpoint
 	 * @group serverless
 	 *
 	 * @param array{
-	 *     format?: string, // The format for the response.You can also specify a format using the `Accept` HTTP header.If you specify both this parameter and the `Accept` HTTP header, this parameter takes precedence.
-	 *     project_routing?: string, // A Lucene query using project metadata tags to limit which projects to search, such as _alias:_origin or _alias:*pr*. Only supported in serverless.
+	 *     format?: string, // The format for the response. You can also specify a format using the `Accept` HTTP header. If you specify both this parameter and the `Accept` HTTP header, this parameter takes precedence.
+	 *     project_routing?: string, // Specifies a subset of projects to target for the search using project metadata tags in a subset of Lucene query syntax. Allowed Lucene queries: the _alias tag and a single value (possibly wildcarded). Examples:  _alias:my-project  _alias:_origin  _alias:*pr* Supported in serverless only.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

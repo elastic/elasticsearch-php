@@ -36,8 +36,8 @@ class Simulate extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index?: string, // Default index for docs which don't provide one
-	 *     pipeline?: string, // The pipeline id to preprocess incoming documents with if no pipeline is given for a particular document
-	 *     merge_type?: string, // The mapping merge type if mapping overrides are being provided in mapping_addition.The allowed values are one of index or template.The index option merges mappings the way they would be merged into an existing index.The template option merges mappings the way they would be merged into a template.
+	 *     pipeline?: string, // The pipeline to use as the default pipeline. This value can be used to override the default pipeline of the index.
+	 *     merge_type?: string, // The mapping merge type if mapping overrides are being provided in mapping_addition. The allowed values are one of index or template. The index option merges mappings the way they would be merged into an existing index. The template option merges mappings the way they would be merged into a template. (DEFAULT: index)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

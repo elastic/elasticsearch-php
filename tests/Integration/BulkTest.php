@@ -15,6 +15,7 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Tests\Integration;
 
 use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\Helper\BulkHelper;
 use Elastic\Elasticsearch\Helper\Vectors;
 use Elastic\Elasticsearch\Tests\Utility;
 use PHPUnit\Framework\TestCase;
@@ -132,5 +133,44 @@ class BulkTest extends TestCase
         ]);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertCount(2, $response['items']);
+    }
+
+    public function testBulkHelper()
+    {
+        function getActions() {
+            yield BulkHelper::createAction(['data' => 'one']);
+            yield BulkHelper::createAction(['data' => 'two'], '2');
+            yield BulkHelper::indexAction(['data' => 'three']);
+            yield BulkHelper::indexAction(['data' => 'fuor'], '4');
+            yield BulkHelper::updateAction(['data' => 'four'], '4');
+            yield BulkHelper::deleteAction('2');
+        }
+
+        $count = BulkHelper::bulk($this->client, self::TEST_INDEX, getActions(), 2);
+        $this->assertEquals($count, 6);
+
+        $response = $this->client->indices()->refresh([
+            'index' => self::TEST_INDEX,
+        ]);
+        $response = $this->client->search([
+            'index' => self::TEST_INDEX,
+            'body' => ['query' => ['match_all' => new \ArrayObject([])]]
+        ]);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(3, $response['hits']['total']['value']);
+        foreach ($response['hits']['hits'] as $hit) {
+            switch ($hit['_source']['data']) {
+                case 'one':
+                    break;
+                case 'three':
+                    break;
+                case 'four':
+                    $this->assertEquals($hit['_id'], '4');
+                    break;
+                default:
+                    $this->assertFalse(true, 'Unexpected data: ' . $hit['_source']['data']);
+                    break;
+            }
+        }
     }
 }

@@ -2094,8 +2094,8 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     datafeed_id: string, // (REQUIRED) The ID of the datafeed to create
-	 *     ignore_unavailable?: bool, // If true, unavailable indices (missing or closed) are ignored.
-	 *     allow_no_indices?: bool, // If true, wildcard indices expressions that resolve into no concrete indices are ignored. This includes the `_all` string or when no indices are specified. (DEFAULT: 1)
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a concrete (non-wildcarded) index, alias, or data stream that is missing, closed, or otherwise unavailable. If `true`, unavailable concrete targets are silently ignored.
+	 *     allow_no_indices?: bool, // A setting that does two separate checks on the index expression. If `false`, the request returns an error (1) if any wildcard expression (including `_all` and `*`) resolves to zero matching indices or (2) if the complete set of resolved indices, aliases or data streams is empty after all expressions are evaluated. If `true`, index expressions that resolve to no indices are allowed and the request returns an empty result. (DEFAULT: 1)
 	 *     ignore_throttled?: bool, // If true, concrete, expanded, or aliased indices are ignored when frozen. (DEFAULT: 1)
 	 *     expand_wildcards?: string|array<string>, // Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values. (DEFAULT: open)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -2180,8 +2180,8 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job to create
-	 *     ignore_unavailable?: bool, // If `true`, unavailable indices (missing or closed) are ignored.
-	 *     allow_no_indices?: bool, // If `true`, wildcard indices expressions that resolve into no concrete indices are ignored. This includes the `_all` string or when no indices are specified. (DEFAULT: 1)
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a concrete (non-wildcarded) index, alias, or data stream that is missing, closed, or otherwise unavailable. If `true`, unavailable concrete targets are silently ignored.
+	 *     allow_no_indices?: bool, // A setting that does two separate checks on the index expression. If `false`, the request returns an error (1) if any wildcard expression (including `_all` and `*`) resolves to zero matching indices or (2) if the complete set of resolved indices, aliases or data streams is empty after all expressions are evaluated. If `true`, index expressions that resolve to no indices are allowed and the request returns an empty result. (DEFAULT: 1)
 	 *     ignore_throttled?: bool, // If `true`, concrete, expanded or aliased indices are ignored when frozen. (DEFAULT: 1)
 	 *     expand_wildcards?: string|array<string>, // Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values. (DEFAULT: open)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -2821,8 +2821,8 @@ class Ml extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     datafeed_id: string, // (REQUIRED) The ID of the datafeed to update
-	 *     ignore_unavailable?: bool, // If `true`, unavailable indices (missing or closed) are ignored.
-	 *     allow_no_indices?: bool, // If `true`, wildcard indices expressions that resolve into no concrete indices are ignored. This includes the `_all` string or when no indices are specified. (DEFAULT: 1)
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a concrete (non-wildcarded) index, alias, or data stream that is missing, closed, or otherwise unavailable. If `true`, unavailable concrete targets are silently ignored.
+	 *     allow_no_indices?: bool, // A setting that does two separate checks on the index expression. If `false`, the request returns an error (1) if any wildcard expression (including `_all` and `*`) resolves to zero matching indices or (2) if the complete set of resolved indices, aliases or data streams is empty after all expressions are evaluated. If `true`, index expressions that resolve to no indices are allowed and the request returns an empty result. (DEFAULT: 1)
 	 *     ignore_throttled?: bool, // If `true`, concrete, expanded or aliased indices are ignored when frozen. (DEFAULT: 1)
 	 *     expand_wildcards?: string|array<string>, // Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values. (DEFAULT: open)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)

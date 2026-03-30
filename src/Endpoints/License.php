@@ -179,7 +179,7 @@ class License extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-post
 	 *
 	 * @param array{
-	 *     acknowledge?: bool, // Specifies whether you acknowledge the license changes.
+	 *     acknowledge?: bool, // To update a license, you must accept the acknowledge messages and set this parameter to `true`. In particular, if you are upgrading or downgrading a license, you must acknowlege the feature changes.
 	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. (DEFAULT: 30s)
 	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -219,7 +219,7 @@ class License extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-license-post-start-basic
 	 *
 	 * @param array{
-	 *     acknowledge?: bool, // Whether the user has acknowledged acknowledge messages
+	 *     acknowledge?: bool, // To start a basic license, you must accept the acknowledge messages and set this parameter to `true`.
 	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
 	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -258,7 +258,7 @@ class License extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     type?: string, // The type of trial license to generate (DEFAULT: trial)
-	 *     acknowledge?: bool, // Whether the user has acknowledged acknowledge messages
+	 *     acknowledge?: bool, // To start a trial, you must accept the acknowledge messages and set this parameter to `true`.
 	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)

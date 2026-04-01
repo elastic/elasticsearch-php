@@ -45,9 +45,11 @@ class BulkHelper
                 $chunkBytes += strlen($encodedItem) + 1;
                 $body[] = $encodedItem;
             }
-            $chunkCount++;
-            $totalCount++;
-            if ($chunkCount >= $chunkSize || $chunkBytes >= $maxChunkBytes) {
+            if (count($action) > 0) {
+                $chunkCount++;
+                $totalCount++;
+            }
+            if (count($action) == 0 || $chunkCount >= $chunkSize || $chunkBytes >= $maxChunkBytes) {
                 $response = $client->bulk(['index' => $defaultIndex, 'body' => $body]);
                 if ($response['errors']) {
                     $error = new BulkHelperException('Bulk upload error');
@@ -157,5 +159,18 @@ class BulkHelper
             $metadata = array_merge($other_metadata, $metadata);
         }
         return BulkHelper::action('delete', $metadata, null);
+    }
+
+    /**
+     * Return a flush action for the bulk helper.
+     *
+     * This isn't a proper action that is sent to the server, but just an indicator
+     * for the bulk helper to write all the entries that have been accumulated so
+     * far, even if they do not meet the count or size criteria for writing.
+     *
+     * @return array
+     */
+    public static function flushAction(): array {
+        return [];
     }
 }

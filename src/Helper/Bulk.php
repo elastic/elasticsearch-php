@@ -100,7 +100,7 @@ class Bulk
      * @param $metadata Additional metadata to include.
      * @return array
      */
-    public static function indexAction(array $document, ?string $id = null, ?array $other_metadata = null): array {
+    public static function index_action(array $document, ?string $id = null, ?array $other_metadata = null): array {
         $metadata = [];
         if (isset($id)) {
             $metadata['_id'] = $id;
@@ -119,7 +119,7 @@ class Bulk
      * @param $metadata Additional metadata to include.
      * @return array
      */
-    public static function createAction(array $document, ?string $id = null, ?array $other_metadata = null): array {
+    public static function create_action(array $document, ?string $id = null, ?array $other_metadata = null): array {
         $metadata = [];
         if (isset($id)) {
             $metadata['_id'] = $id;
@@ -138,12 +138,12 @@ class Bulk
      * @param $metadata Additional metadata to include.
      * @return array
      */
-    public static function updateAction(array $document, string $id, ?array $other_metadata = null): array {
+    public static function update_action(array $document_updates, string $id, ?array $other_metadata = null): array {
         $metadata = ['_id' => $id];
         if (isset($other_metadata)) {
             $metadata = array_merge($other_metadata, $metadata);
         }
-        return Bulk::action('update', $metadata, ['doc' => $document]);
+        return Bulk::action('update', $metadata, ['doc' => $document_updates]);
     }
 
     /**
@@ -153,7 +153,7 @@ class Bulk
      * @param $other_metadata Additional metadata to include.
      * @return array
      */
-    public static function deleteAction(string $id, ?array $other_metadata = null): array {
+    public static function delete_action(string $id, ?array $other_metadata = null): array {
         $metadata = ['_id' => $id];
         if (isset($other_metadata)) {
             $metadata = array_merge($other_metadata, $metadata);
@@ -170,7 +170,7 @@ class Bulk
      *
      * @return array
      */
-    public static function flushAction(): array {
+    public static function flush_action(): array {
         return [];
     }
 }

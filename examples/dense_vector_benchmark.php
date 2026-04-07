@@ -32,7 +32,7 @@ function get_next_document($dataset, $repetitions, $packed) {
     $len = sizeof($dataset);
     for ($i = 1; $i <= $len * $repetitions; $i++) {
         $doc = $dataset[($i - 1) % $len];
-        yield Bulk::indexAction([
+        yield Bulk::index_action([
             'docid' => $doc['docid'],
             'title' => $doc['title'],
             'text' => $doc['text'],

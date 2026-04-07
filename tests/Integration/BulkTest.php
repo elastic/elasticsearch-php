@@ -150,28 +150,28 @@ class BulkTest extends TestCase
     public function testBulkHelperFlushByCount()
     {
         function flushByCountActions($client, $index) {
-            yield Bulk::createAction(['data' => 'one']);
-            yield Bulk::createAction(['data' => 'two'], '2');
+            yield Bulk::create_action(['data' => 'one']);
+            yield Bulk::create_action(['data' => 'two'], '2');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield Bulk::indexAction(['data' => 'three']);
+            yield Bulk::index_action(['data' => 'three']);
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield Bulk::indexAction(['data' => 'fuor'], '4');
+            yield Bulk::index_action(['data' => 'fuor'], '4');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 4);
 
-            yield Bulk::updateAction(['data' => 'four'], '4');
+            yield Bulk::update_action(['data' => 'four'], '4');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 4);
 
-            yield Bulk::deleteAction('2');
+            yield Bulk::delete_action('2');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 3);
@@ -205,28 +205,28 @@ class BulkTest extends TestCase
     public function testBulkHelperFlushBySize()
     {
         function flushBySizeActions($client, $index) {
-            yield Bulk::createAction(['data' => 'one']);
-            yield Bulk::createAction(['data' => 'two'], '2');
+            yield Bulk::create_action(['data' => 'one']);
+            yield Bulk::create_action(['data' => 'two'], '2');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield Bulk::indexAction(['data' => 'three']);
+            yield Bulk::index_action(['data' => 'three']);
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield Bulk::indexAction(['data' => 'fuor'], '4');
+            yield Bulk::index_action(['data' => 'fuor'], '4');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 4);
 
-            yield Bulk::updateAction(['data' => 'four'], '4');
+            yield Bulk::update_action(['data' => 'four'], '4');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 4);
 
-            yield Bulk::deleteAction('2');
+            yield Bulk::delete_action('2');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 4);
@@ -261,34 +261,34 @@ class BulkTest extends TestCase
     public function testBulkHelperExplicitFlush()
     {
         function explicitFlushActions($client, $index) {
-            yield Bulk::createAction(['data' => 'one']);
-            yield Bulk::createAction(['data' => 'two'], '2');
-            yield Bulk::flushAction();
+            yield Bulk::create_action(['data' => 'one']);
+            yield Bulk::create_action(['data' => 'two'], '2');
+            yield Bulk::flush_action();
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield Bulk::indexAction(['data' => 'three']);
+            yield Bulk::index_action(['data' => 'three']);
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield Bulk::indexAction(['data' => 'fuor'], '4');
+            yield Bulk::index_action(['data' => 'fuor'], '4');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield Bulk::updateAction(['data' => 'four'], '4');
+            yield Bulk::update_action(['data' => 'four'], '4');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield Bulk::deleteAction('2');
+            yield Bulk::delete_action('2');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield Bulk::flushAction();
+            yield Bulk::flush_action();
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 3);

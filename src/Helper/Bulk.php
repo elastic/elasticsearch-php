@@ -20,7 +20,7 @@ use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Iterator;
 
-class BulkHelper
+class Bulk
 {
     /**
      * Bulk Helper
@@ -34,7 +34,7 @@ class BulkHelper
      * @throws ClientResponseException
      * @throws ServerResponseException
      */
-    public static function bulk(Client $client, string $defaultIndex, Iterator $actions, int $chunkSize = 500, int $maxChunkBytes = 100 * 1024 * 1024): int {
+    public static function bulk(Client $client, string $index, Iterator $actions, int $chunk_size = 500, int $max_chunk_bytes = 100 * 1024 * 1024): int {
         $totalCount = 0;
         $chunkCount = 0;
         $chunkBytes = 0;
@@ -49,8 +49,8 @@ class BulkHelper
                 $chunkCount++;
                 $totalCount++;
             }
-            if (count($action) == 0 || $chunkCount >= $chunkSize || $chunkBytes >= $maxChunkBytes) {
-                $response = $client->bulk(['index' => $defaultIndex, 'body' => $body]);
+            if (count($action) == 0 || $chunkCount >= $chunk_size || $chunkBytes >= $max_chunk_bytes) {
+                $response = $client->bulk(['index' => $index, 'body' => $body]);
                 if ($response['errors']) {
                     $error = new BulkHelperException('Bulk upload error');
                     $error->setResponse($response);
@@ -63,7 +63,7 @@ class BulkHelper
             }
         }
         if (!empty($body)) {
-            $response = $client->bulk(['index' => $defaultIndex, 'body' => $body]);
+            $response = $client->bulk(['index' => $index, 'body' => $body]);
             if ($response['errors']) {
                 $error = new BulkHelperException('Bulk upload error');
                 $error->setResponse($response);
@@ -108,7 +108,7 @@ class BulkHelper
         if (isset($other_metadata)) {
             $metadata = array_merge($other_metadata, $metadata);
         }
-        return BulkHelper::action('index', $metadata, $document);
+        return Bulk::action('index', $metadata, $document);
     }
 
     /**
@@ -127,7 +127,7 @@ class BulkHelper
         if (isset($other_metadata)) {
             $metadata = array_merge($other_metadata, $metadata);
         }
-        return BulkHelper::action('create', $metadata, $document);
+        return Bulk::action('create', $metadata, $document);
     }
 
     /**
@@ -143,7 +143,7 @@ class BulkHelper
         if (isset($other_metadata)) {
             $metadata = array_merge($other_metadata, $metadata);
         }
-        return BulkHelper::action('update', $metadata, ['doc' => $document]);
+        return Bulk::action('update', $metadata, ['doc' => $document]);
     }
 
     /**
@@ -158,7 +158,7 @@ class BulkHelper
         if (isset($other_metadata)) {
             $metadata = array_merge($other_metadata, $metadata);
         }
-        return BulkHelper::action('delete', $metadata, null);
+        return Bulk::action('delete', $metadata, null);
     }
 
     /**

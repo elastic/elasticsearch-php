@@ -9,6 +9,7 @@ The PHP client comes with the following helpers:
 
 * [Iterators](/reference/iterators.md)
 * [ES|QL](/reference/esql.md)
+* [Bulk ingest](/reference/bulk.md)
 
 
 

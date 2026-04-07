@@ -15,7 +15,7 @@ ini_set('memory_limit', '1024M');
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Elastic\Elasticsearch\Helper\BulkHelper;
+use Elastic\Elasticsearch\Helper\Bulk;
 use Elastic\Elasticsearch\Helper\Vectors;
 
 $ELASTICSEARCH_URL = '';
@@ -28,11 +28,11 @@ $rest_index = null;
 $dataset = [];
 $index = 'benchmark';
 
-function get_next_document($index, $dataset, $repetitions, $packed) {
+function get_next_document($dataset, $repetitions, $packed) {
     $len = sizeof($dataset);
     for ($i = 1; $i <= $len * $repetitions; $i++) {
         $doc = $dataset[($i - 1) % $len];
-        yield BulkHelper::indexAction([
+        yield Bulk::indexAction([
             'docid' => $doc['docid'],
             'title' => $doc['title'],
             'text' => $doc['text'],
@@ -76,7 +76,7 @@ function upload($client, $index, $dataset, $chunk_size, $repetitions, $packed) {
     $len = sizeof($dataset);
     $body = [];
     $start = microtime(true);
-    BulkHelper::bulk($client, $index, get_next_document($index, $dataset, $repetitions, $packed), $chunk_size);
+    Bulk::bulk($client, $index, get_next_document($dataset, $repetitions, $packed), $chunk_size);
     return microtime(true) - $start;
 }
 

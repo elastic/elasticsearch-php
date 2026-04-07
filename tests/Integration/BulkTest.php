@@ -15,7 +15,7 @@ declare(strict_types = 1);
 namespace Elastic\Elasticsearch\Tests\Integration;
 
 use Elastic\Elasticsearch\Client;
-use Elastic\Elasticsearch\Helper\BulkHelper;
+use Elastic\Elasticsearch\Helper\Bulk;
 use Elastic\Elasticsearch\Helper\Vectors;
 use Elastic\Elasticsearch\Tests\Utility;
 use PHPUnit\Framework\TestCase;
@@ -150,34 +150,34 @@ class BulkTest extends TestCase
     public function testBulkHelperFlushByCount()
     {
         function flushByCountActions($client, $index) {
-            yield BulkHelper::createAction(['data' => 'one']);
-            yield BulkHelper::createAction(['data' => 'two'], '2');
+            yield Bulk::createAction(['data' => 'one']);
+            yield Bulk::createAction(['data' => 'two'], '2');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield BulkHelper::indexAction(['data' => 'three']);
+            yield Bulk::indexAction(['data' => 'three']);
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield BulkHelper::indexAction(['data' => 'fuor'], '4');
+            yield Bulk::indexAction(['data' => 'fuor'], '4');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 4);
 
-            yield BulkHelper::updateAction(['data' => 'four'], '4');
+            yield Bulk::updateAction(['data' => 'four'], '4');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 4);
 
-            yield BulkHelper::deleteAction('2');
+            yield Bulk::deleteAction('2');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 3);
         }
 
-        $count = BulkHelper::bulk(
+        $count = Bulk::bulk(
             $this->client, self::TEST_INDEX,
             flushByCountActions($this->client, self::TEST_INDEX), 2
         );
@@ -205,34 +205,34 @@ class BulkTest extends TestCase
     public function testBulkHelperFlushBySize()
     {
         function flushBySizeActions($client, $index) {
-            yield BulkHelper::createAction(['data' => 'one']);
-            yield BulkHelper::createAction(['data' => 'two'], '2');
+            yield Bulk::createAction(['data' => 'one']);
+            yield Bulk::createAction(['data' => 'two'], '2');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield BulkHelper::indexAction(['data' => 'three']);
+            yield Bulk::indexAction(['data' => 'three']);
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield BulkHelper::indexAction(['data' => 'fuor'], '4');
+            yield Bulk::indexAction(['data' => 'fuor'], '4');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 4);
 
-            yield BulkHelper::updateAction(['data' => 'four'], '4');
+            yield Bulk::updateAction(['data' => 'four'], '4');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 4);
 
-            yield BulkHelper::deleteAction('2');
+            yield Bulk::deleteAction('2');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 4);
         }
 
-        $count = BulkHelper::bulk(
+        $count = Bulk::bulk(
             $this->client, self::TEST_INDEX,
             flushBySizeActions($this->client, self::TEST_INDEX), 500, 40
         );
@@ -261,40 +261,40 @@ class BulkTest extends TestCase
     public function testBulkHelperExplicitFlush()
     {
         function explicitFlushActions($client, $index) {
-            yield BulkHelper::createAction(['data' => 'one']);
-            yield BulkHelper::createAction(['data' => 'two'], '2');
-            yield BulkHelper::flushAction();
+            yield Bulk::createAction(['data' => 'one']);
+            yield Bulk::createAction(['data' => 'two'], '2');
+            yield Bulk::flushAction();
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield BulkHelper::indexAction(['data' => 'three']);
+            yield Bulk::indexAction(['data' => 'three']);
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield BulkHelper::indexAction(['data' => 'fuor'], '4');
+            yield Bulk::indexAction(['data' => 'fuor'], '4');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield BulkHelper::updateAction(['data' => 'four'], '4');
+            yield Bulk::updateAction(['data' => 'four'], '4');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield BulkHelper::deleteAction('2');
+            yield Bulk::deleteAction('2');
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 2);
 
-            yield BulkHelper::flushAction();
+            yield Bulk::flushAction();
             $response = readIndex($client, $index);
             assert($response->getStatusCode() == 200);
             assert($response['hits']['total']['value'] == 3);
         }
 
-        $count = BulkHelper::bulk(
+        $count = Bulk::bulk(
             $this->client, self::TEST_INDEX,
             explicitFlushActions($this->client, self::TEST_INDEX)
         );

@@ -25,3 +25,4 @@ toc:
     children:
       - file: iterators.md
       - file: esql.md
+      - file: bulk.md

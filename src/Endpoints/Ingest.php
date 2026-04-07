@@ -35,8 +35,8 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string|array<string>, // (REQUIRED) A comma-separated list of geoip database configurations to delete
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -75,8 +75,8 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string|array<string>, // (REQUIRED) A comma-separated list of ip location database configurations to delete
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. A value of `-1` indicates that the request should never time out. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. A value of `-1` indicates that the request should never time out. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -116,8 +116,8 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) Pipeline ID
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -272,8 +272,8 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id?: string, // Comma separated list of pipeline ids. Wildcards supported
-	 *     summary?: bool, // Return pipelines without their definitions (default: false)
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     summary?: bool, // Return pipelines without their definitions
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -350,8 +350,8 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The id of the database configuration
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -392,8 +392,8 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The id of the database configuration
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. A value of `-1` indicates that the request should never time out. (DEFAULT: 30s)
+	 *     timeout?: int|string, // The period to wait for a response from all relevant nodes in the cluster after updating the cluster metadata. If no response is received before the timeout expires, the cluster metadata update still applies but the response indicates that it was not completely acknowledged. A value of `-1` indicates that the request should never time out. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -436,8 +436,8 @@ class Ingest extends AbstractEndpoint
 	 * @param array{
 	 *     id: string, // (REQUIRED) Pipeline ID
 	 *     if_version?: int, // Required version for optimistic concurrency control for pipeline updates
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     timeout?: int|string, // Explicit operation timeout
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -479,7 +479,7 @@ class Ingest extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id?: string, // Pipeline ID
-	 *     verbose?: bool, // Verbose mode. Display data output for each processor in executed pipeline
+	 *     verbose?: bool, // If `true`, the response includes output data for each processor in the executed pipeline.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

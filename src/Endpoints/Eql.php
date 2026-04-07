@@ -75,8 +75,8 @@ class Eql extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async search ID
-	 *     wait_for_completion_timeout?: int|string, // Specify the time that the request should block waiting for the final response
-	 *     keep_alive?: int|string, // Update the time interval in which the results (partial or final) for this search will be available
+	 *     wait_for_completion_timeout?: int|string, // Timeout duration to wait for the request to finish. Defaults to no timeout, meaning the request waits for complete search results.
+	 *     keep_alive?: int|string, // Period for which the search and its results are stored on the cluster. Defaults to the keep_alive value set by the search’s EQL search API request. (DEFAULT: 5d)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -155,15 +155,15 @@ class Eql extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) Comma-separated list of index names to scope the operation
-	 *     wait_for_completion_timeout?: int|string, // Specify the time that the request should block waiting for the final response
-	 *     keep_on_completion?: bool, // Control whether the response should be stored in the cluster if it completed within the provided [wait_for_completion] time (default: false)
-	 *     keep_alive?: int|string, // Update the time interval in which the results (partial or final) for this search will be available
-	 *     allow_partial_search_results?: bool, // Control whether the query should keep running in case of shard failures, and return partial results
-	 *     allow_partial_sequence_results?: bool, // Control whether a sequence query should return partial results or no results at all in case of shard failures. This option has effect only if [allow_partial_search_results] is true.
-	 *     ccs_minimize_roundtrips?: bool, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     wait_for_completion_timeout?: int|string, // Timeout duration to wait for the request to finish. Defaults to no timeout, meaning the request waits for complete search results.
+	 *     keep_on_completion?: bool, // If true, the search and its results are stored on the cluster.
+	 *     keep_alive?: int|string, // Period for which the search and its results are stored on the cluster. (DEFAULT: 5d)
+	 *     allow_partial_search_results?: bool, // If true, returns partial results if there are shard failures. If false, returns an error with no partial results. (DEFAULT: 1)
+	 *     allow_partial_sequence_results?: bool, // If true, sequence queries will return partial results in case of shard failures. If false, they will return no results at all. This flag has effect only if allow_partial_search_results is true.
+	 *     ccs_minimize_roundtrips?: bool, // Indicates whether network round-trips should be minimized as part of cross-cluster search requests execution (DEFAULT: 1)
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a concrete (non-wildcarded) index, alias, or data stream that is missing, closed, or otherwise unavailable. If `true`, unavailable concrete targets are silently ignored. (DEFAULT: 1)
+	 *     allow_no_indices?: bool, // A setting that does two separate checks on the index expression. If `false`, the request returns an error (1) if any wildcard expression (including `_all` and `*`) resolves to zero matching indices or (2) if the complete set of resolved indices, aliases or data streams is empty after all expressions are evaluated. If `true`, index expressions that resolve to no indices are allowed and the request returns an empty result. (DEFAULT: 1)
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both. (DEFAULT: open)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

@@ -75,10 +75,10 @@ class AsyncSearch extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async search ID
-	 *     wait_for_completion_timeout?: int|string, // Specify the time that the request should block waiting for the final response
-	 *     keep_alive?: int|string, // Specify the time interval in which the results (partial or final) for this search will be available
+	 *     wait_for_completion_timeout?: int|string, // Specifies to wait for the search to be completed up until the provided timeout. Final results will be returned if available before the timeout expires, otherwise the currently available results will be returned once the timeout expires. By default no timeout is set meaning that the currently available results will be returned without any additional wait.
+	 *     keep_alive?: int|string, // The length of time that the async search should be available in the cluster. When not specified, the `keep_alive` set with the corresponding submit async request will be used. Otherwise, it is possible to override the value and extend the validity of the request. When this period expires, the search, if still running, is cancelled. If the search is completed, its saved results are deleted.
 	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
-	 *     return_intermediate_results?: bool, // Indicates whether partial intermediate results should be returned when the wait for completion timeout occurs and the query is not yet complete.
+	 *     return_intermediate_results?: bool, // Specifies whether the response should contain intermediate results if the query is still running when the wait_for_completion_timeout expires or if no wait_for_completion_timeout is specified. If true and the search is still running, the search response will include any hits and partial aggregations that are available. If false and the search is still running, the search response will not include any hits (but possibly include total hits) nor will include any partial aggregations. When not specified, the intermediate results are returned for running queries. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -118,7 +118,7 @@ class AsyncSearch extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The async search ID
-	 *     keep_alive?: int|string, // Specify the time interval in which the results (partial or final) for this search will be available
+	 *     keep_alive?: int|string, // The length of time that the async search needs to be available. Ongoing async searches and any saved search results are deleted after this period. (DEFAULT: 5d)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -158,49 +158,49 @@ class AsyncSearch extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
-	 *     wait_for_completion_timeout?: int|string, // Specify the time that the request should block waiting for the final response
-	 *     keep_on_completion?: bool, // Control whether the response should be stored in the cluster if it completed within the provided [wait_for_completion] time (default: false)
-	 *     keep_alive?: int|string, // Update the time interval in which the results (partial or final) for this search will be available
-	 *     batched_reduce_size?: int, // The number of shard results that should be reduced at once on the coordinating node. This value should be used as the granularity at which progress results will be made available.
-	 *     request_cache?: bool, // Specify if request cache should be used for this request or not, defaults to true
+	 *     wait_for_completion_timeout?: int|string, // Blocks and waits until the search is completed up to a certain timeout. When the async search completes within the timeout, the response won’t include the ID as the results are not stored in the cluster. (DEFAULT: 1s)
+	 *     keep_on_completion?: bool, // If `true`, results are stored for later retrieval when the search completes within the `wait_for_completion_timeout`.
+	 *     keep_alive?: int|string, // Specifies how long the async search needs to be available. Ongoing async searches and any saved search results are deleted after this period. (DEFAULT: 5d)
+	 *     batched_reduce_size?: int, // Affects how often partial results become available, which happens whenever shard results are reduced. A partial reduction is performed every time the coordinating node has received a certain number of new shard responses (5 by default). (DEFAULT: 5)
+	 *     request_cache?: bool, // Specify if request cache should be used for this request or not, defaults to true (DEFAULT: 1)
 	 *     analyzer?: string, // The analyzer to use for the query string
-	 *     analyze_wildcard?: bool, // Specify whether wildcard and prefix queries should be analyzed (default: false)
-	 *     ccs_minimize_roundtrips?: bool, // When doing a cross-cluster search, setting it to true may improve overall search latency, particularly when searching clusters with a large number of shards. However, when set to true, the progress of searches on the remote clusters will not be received until the search finishes on all clusters.
-	 *     default_operator?: string, // The default operator for query string query (AND or OR)
+	 *     analyze_wildcard?: bool, // Specify whether wildcard and prefix queries should be analyzed
+	 *     ccs_minimize_roundtrips?: bool, // The default value is the only supported value.
+	 *     default_operator?: string, // The default operator for query string query (AND or OR) (DEFAULT: or)
 	 *     df?: string, // The field to use as default where no field prefix is given in the query string
 	 *     explain?: bool, // Specify whether to return detailed information about score computation as part of a hit
 	 *     stored_fields?: string|array<string>, // A comma-separated list of stored fields to return as part of a hit
 	 *     docvalue_fields?: string|array<string>, // A comma-separated list of fields to return as the docvalue representation of a field for each hit
 	 *     from?: int, // Starting offset
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed)
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a concrete (non-wildcarded) index, alias, or data stream that is missing, closed, or otherwise unavailable. If `true`, unavailable concrete targets are silently ignored.
 	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     allow_no_indices?: bool, // A setting that does two separate checks on the index expression. If `false`, the request returns an error (1) if any wildcard expression (including `_all` and `*`) resolves to zero matching indices or (2) if the complete set of resolved indices, aliases or data streams is empty after all expressions are evaluated. If `true`, index expressions that resolve to no indices are allowed and the request returns an empty result.
+	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both (DEFAULT: open)
 	 *     lenient?: bool, // Specify whether format-based query failures (such as providing text to a numeric field) should be ignored
-	 *     preference?: string, // Specify the node or shard the operation should be performed on (default: random)
+	 *     preference?: string, // Specify the node or shard the operation should be performed on (DEFAULT: random)
 	 *     rest_total_hits_as_int?: bool, // Indicates whether hits.total should be rendered as an integer or an object in the rest search response
 	 *     q?: string, // Query in the Lucene query string syntax
 	 *     routing?: string|array<string>, // A comma-separated list of specific routing values
 	 *     search_type?: string, // Search operation type
-	 *     size?: int, // Number of hits to return
+	 *     size?: int, // Number of hits to return (DEFAULT: 10)
 	 *     sort?: string|array<string>, // A comma-separated list of <field>:<direction> pairs
 	 *     _source?: string|array<string>, // True or false to return the _source field or not, or a list of fields to return
 	 *     _source_excludes?: string|array<string>, // A list of fields to exclude from the returned _source field
 	 *     _source_includes?: string|array<string>, // A list of fields to extract and return from the _source field
-	 *     terminate_after?: int, // The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early.
+	 *     terminate_after?: int, // The maximum number of documents to collect for each shard, upon reaching which the query execution will terminate early
 	 *     stats?: string|array<string>, // Specific 'tag' of the request for logging and statistical purposes
-	 *     suggest_field?: string, // Specify which field to use for suggestions
-	 *     suggest_mode?: string, // Specify suggest mode
+	 *     suggest_field?: string, // Specifies which field to use for suggestions.
+	 *     suggest_mode?: string, // Specify suggest mode (DEFAULT: missing)
 	 *     suggest_size?: int, // How many suggestions to return in response
-	 *     suggest_text?: string, // The source text for which the suggestions should be returned
+	 *     suggest_text?: string, // The source text for which the suggestions should be returned.
 	 *     timeout?: int|string, // Explicit operation timeout
 	 *     track_scores?: bool, // Whether to calculate and return scores even if they are not used for sorting
 	 *     track_total_hits?: bool|int, // Indicate if the number of documents that match the query should be tracked. A number can also be specified, to accurately track the total hit count up to the number.
-	 *     allow_partial_search_results?: bool, // Indicate if an error should be returned if there is a partial search failure or timeout
+	 *     allow_partial_search_results?: bool, // Indicate if an error should be returned if there is a partial search failure or timeout (DEFAULT: 1)
 	 *     typed_keys?: bool, // Specify whether aggregation and suggester names should be prefixed by their respective types in the response
 	 *     version?: bool, // Specify whether to return document version as part of a hit
 	 *     seq_no_primary_term?: bool, // Specify whether to return sequence number and primary term of the last modification of each hit
-	 *     max_concurrent_shard_requests?: int, // The number of concurrent shard requests per node this search executes concurrently. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests
+	 *     max_concurrent_shard_requests?: int, // The number of concurrent shard requests per node this search executes concurrently. This value should be used to limit the impact of the search on the cluster in order to limit the number of concurrent shard requests (DEFAULT: 5)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

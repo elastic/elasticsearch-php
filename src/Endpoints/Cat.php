@@ -36,13 +36,13 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name?: string|array<string>, // A comma-separated list of alias names to return
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     v?: bool, // Verbose mode. Display column headers
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
-	 *     master_timeout?: int|string, // Timeout for waiting for new cluster state in case it is blocked
+	 *     expand_wildcards?: string|array<string>, // The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. It supports comma-separated values, such as `open,hidden`. (DEFAULT: all)
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. If the master node is not available before the timeout expires, the request fails and returns an error. To indicated that the request should never timeout, you can set it to `-1`. (DEFAULT: 30s)
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     time?: string, // The unit in which to display time values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -85,14 +85,14 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     node_id?: string|array<string>, // A comma-separated list of node IDs or names to limit the returned information
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     time?: string, // The unit in which to display time values
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     local?: bool, // If `true`, the request computes the list of selected nodes from the local cluster state. If `false` the list of selected nodes are computed from the cluster state of the master node. In both cases the coordinating node will send requests for further information to each selected node.
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -134,13 +134,13 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     circuit_breaker_patterns?: string|array<string>, // A comma-separated list of regular-expressions to filter the circuit breakers in the output
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
 	 *     time?: string, // The unit in which to display time values
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     local?: bool, // If `true`, the request computes the list of selected nodes from the local cluster state. If `false` the list of selected nodes are computed from the cluster state of the master node. In both cases the coordinating node will send requests for further information to each selected node.
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -184,12 +184,12 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name?: string, // A pattern that returned component template names must match
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     local?: bool, // If `true`, the request computes the list of selected nodes from the local cluster state. If `false` the list of selected nodes are computed from the cluster state of the master node. In both cases the coordinating node will send requests for further information to each selected node.
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     time?: string, // The unit in which to display time values
@@ -234,10 +234,10 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to limit the returned information
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     time?: string, // The unit in which to display time values
@@ -281,11 +281,11 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     fields?: string|array<string>, // A comma-separated list of fields to return the fielddata size
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
 	 *     bytes?: string, // The unit in which to display byte values
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     time?: string, // The unit in which to display time values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -327,12 +327,12 @@ class Cat extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-health
 	 *
 	 * @param array{
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     time?: string, // The unit in which to display time values
-	 *     ts?: bool, // Set to false to disable timestamping
+	 *     ts?: bool, // If true, returns `HH:MM:SS` and Unix epoch timestamps. (DEFAULT: 1)
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -408,18 +408,18 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to limit the returned information
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
 	 *     bytes?: string, // The unit in which to display byte values
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
-	 *     health?: string, // A health status ("green", "yellow", or "red" to filter only indices matching the specified health status
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards.
+	 *     health?: string, // The health status used to limit returned indices. By default, the response includes indices of any health status.
 	 *     help?: bool, // Return help information
-	 *     pri?: bool, // Set to true to return stats only for primary shards
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     pri?: bool, // If true, the response only includes information from primary shards.
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
-	 *     include_unloaded_segments?: bool, // If set to true segment stats will include stats for segments that are not currently loaded into memory
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     include_unloaded_segments?: bool, // If true, the response includes information from segments that are not loaded into memory.
+	 *     expand_wildcards?: string|array<string>, // The type of index that wildcard patterns can match. (DEFAULT: all)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -459,12 +459,12 @@ class Cat extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-master
 	 *
 	 * @param array{
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     local?: bool, // If `true`, the request computes the list of selected nodes from the local cluster state. If `false` the list of selected nodes are computed from the cluster state of the master node. In both cases the coordinating node will send requests for further information to each selected node.
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     time?: string, // The unit in which to display time values
@@ -505,12 +505,12 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id?: string, // The ID of the data frame analytics to fetch
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no configs. (This includes `_all` string or when no configs have been specified)
+	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no configs. (This includes `_all` string or when no configs have been specified.)
 	 *     bytes?: string, // The unit in which to display byte values
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     h?: string|array<string>, // Comma-separated list of column names to display. (DEFAULT: create_time,id,state,type)
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases used to sort the response.
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -554,11 +554,11 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     datafeed_id?: string, // The ID of the datafeeds stats to fetch
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no datafeeds. (This includes `_all` string or when no datafeeds have been specified)
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  * Contains wildcard expressions and there are no datafeeds that match. * Contains the `_all` string or no identifiers and there are no matches. * Contains wildcard expressions and there are only partial matches.  If `true`, the API returns an empty datafeeds array when there are no matches and the subset of results when there are partial matches. If `false`, the API returns a 404 status code when there are no matches or only partial matches. (DEFAULT: 1)
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     h?: string|array<string>, // Comma-separated list of column names to display. (DEFAULT: ['bc', 'id', 'sc', 's'])
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases used to sort the response.
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     bytes?: string, // The unit in which to display byte values
@@ -603,12 +603,12 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     job_id?: string, // The ID of the jobs stats to fetch
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no jobs. (This includes `_all` string or when no jobs have been specified)
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  * Contains wildcard expressions and there are no jobs that match. * Contains the `_all` string or no identifiers and there are no matches. * Contains wildcard expressions and there are only partial matches.  If `true`, the API returns an empty jobs array when there are no matches and the subset of results when there are partial matches. If `false`, the API returns a 404 status code when there are no matches or only partial matches. (DEFAULT: 1)
 	 *     bytes?: string, // The unit in which to display byte values
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     h?: string|array<string>, // Comma-separated list of column names to display. (DEFAULT: buckets.count,data.processed_records,forecasts.total,id,model.bytes,model.memory_status,state)
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases used to sort the response.
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -652,14 +652,14 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     model_id?: string, // The ID of the trained models stats to fetch
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no trained models. (This includes `_all` string or when no trained models have been specified)
-	 *     from?: int, // skips a number of trained models
-	 *     size?: int, // specifies a max number of trained models to get
+	 *     allow_no_match?: bool, // Specifies what to do when the request: contains wildcard expressions and there are no models that match; contains the `_all` string or no identifiers and there are no matches; contains wildcard expressions and there are only partial matches. If `true`, the API returns an empty array when there are no matches and the subset of results when there are partial matches. If `false`, the API returns a 404 status code when there are no matches or only partial matches. (DEFAULT: 1)
+	 *     from?: int, // Skips the specified number of transforms.
+	 *     size?: int, // The maximum number of transforms to display. (DEFAULT: 100)
 	 *     bytes?: string, // The unit in which to display byte values
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     h?: string|array<string>, // A comma-separated list of column names to display.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // A comma-separated list of column names or aliases used to sort the response.
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -701,12 +701,12 @@ class Cat extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-nodeattrs
 	 *
 	 * @param array{
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     local?: bool, // If `true`, the request computes the list of selected nodes from the local cluster state. If `false` the list of selected nodes are computed from the cluster state of the master node. In both cases the coordinating node will send requests for further information to each selected node.
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     time?: string, // The unit in which to display time values
@@ -746,15 +746,15 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     bytes?: string, // The unit in which to display byte values
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     full_id?: bool, // Return the full node ID instead of the shortened version (default: false)
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     full_id?: bool, // If `true`, return the full node ID. If `false`, return the shortened node ID.
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards. (DEFAULT: ip,hp,rp,r,m,n,cpu,l)
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // A comma-separated list of column names or aliases that determines the sort order. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
-	 *     include_unloaded_segments?: bool, // If set to true segment stats will include stats for segments that are not currently loaded into memory
+	 *     include_unloaded_segments?: bool, // If true, the response includes information from segments that are not loaded into memory.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -790,12 +790,12 @@ class Cat extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-pending-tasks
 	 *
 	 * @param array{
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     local?: bool, // If `true`, the request computes the list of selected nodes from the local cluster state. If `false` the list of selected nodes are computed from the cluster state of the master node. In both cases the coordinating node will send requests for further information to each selected node.
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     bytes?: string, // The unit in which to display byte values
@@ -834,13 +834,13 @@ class Cat extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-plugins
 	 *
 	 * @param array{
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     local?: bool, // If `true`, the request computes the list of selected nodes from the local cluster state. If `false` the list of selected nodes are computed from the cluster state of the master node. In both cases the coordinating node will send requests for further information to each selected node.
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards.
 	 *     help?: bool, // Return help information
 	 *     include_bootstrap?: bool, // Include bootstrap plugins in the response
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     time?: string, // The unit in which to display time values
@@ -880,13 +880,13 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // Comma-separated list or wildcard expression of index names to limit the returned information
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     active_only?: bool, // If `true`, the response only includes ongoing shard recoveries
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     active_only?: bool, // If `true`, the response only includes ongoing shard recoveries.
 	 *     bytes?: string, // The unit in which to display byte values
-	 *     detailed?: bool, // If `true`, the response includes detailed information about shard recoveries
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     detailed?: bool, // If `true`, the response includes detailed information about shard recoveries.
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards. (DEFAULT: ip,hp,rp,r,m,n,cpu,l)
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // A comma-separated list of column names or aliases that determines the sort order. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -928,12 +928,12 @@ class Cat extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cat-repositories
 	 *
 	 * @param array{
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     local?: bool, // Return local information, do not retrieve the state from master node
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     local?: bool, // If `true`, the request computes the list of selected nodes from the local cluster state. If `false` the list of selected nodes are computed from the cluster state of the master node. In both cases the coordinating node will send requests for further information to each selected node.
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     h?: string|array<string>, // List of columns to appear in the response. Supports simple wildcards.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     time?: string, // The unit in which to display time values
@@ -973,19 +973,19 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to limit the returned information
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     local?: bool, // If `true`, the request computes the list of selected nodes from the local cluster state. If `false` the list of selected nodes are computed from the cluster state of the master node. In both cases the coordinating node will send requests for further information to each selected node.
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
 	 *     bytes?: string, // The unit in which to display byte values
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards. (DEFAULT: ip,hp,rp,r,m,n,cpu,l)
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // A comma-separated list of column names or aliases that determines the sort order. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     time?: string, // The unit in which to display time values
-	 *     ignore_unavailable?: bool, // Whether specified concrete indices should be ignored when unavailable (missing or closed). Only allowed when providing an index expression.
-	 *     ignore_throttled?: bool, // Whether specified concrete, expanded or aliased indices should be ignored when throttled. Only allowed when providing an index expression.
-	 *     allow_no_indices?: bool, // Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified). Only allowed when providing an index expression.
-	 *     expand_wildcards?: string|array<string>, // Whether to expand wildcard expression to concrete indices that are open, closed or both.
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a concrete (non-wildcarded) index, alias, or data stream that is missing, closed, or otherwise unavailable. If `true`, unavailable concrete targets are silently ignored.
+	 *     ignore_throttled?: bool, // If true, concrete, expanded or aliased indices are ignored when frozen.
+	 *     allow_no_indices?: bool, // A setting that does two separate checks on the index expression. If `false`, the request returns an error (1) if any wildcard expression (including `_all` and `*`) resolves to zero matching indices or (2) if the complete set of resolved indices, aliases or data streams is empty after all expressions are evaluated. If `true`, index expressions that resolve to no indices are allowed and the request returns an empty result. (DEFAULT: 1)
+	 *     expand_wildcards?: string|array<string>, // Type of index that wildcard expressions can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as open,hidden. (DEFAULT: open)
 	 *     allow_closed?: bool, // If true, allow closed indices to be returned in the response otherwise if false, keep the legacy behaviour of throwing an exception if index pattern matches closed indices
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -1027,12 +1027,12 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to limit the returned information
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
 	 *     bytes?: string, // The unit in which to display byte values
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     h?: string|array<string>, // List of columns to appear in the response. Supports simple wildcards.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // A comma-separated list of column names or aliases that determines the sort order. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1075,12 +1075,12 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     repository?: string|array<string>, // Name of repository from which to fetch the snapshot information
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     ignore_unavailable?: bool, // Set to true to ignore unavailable snapshots
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     ignore_unavailable?: bool, // If `true`, the response does not include information from unavailable snapshots.
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards. (DEFAULT: ip,hp,rp,r,m,n,cpu,l)
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     bytes?: string, // The unit in which to display byte values
@@ -1124,17 +1124,17 @@ class Cat extends AbstractEndpoint
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     nodes?: string|array<string>, // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you're connecting to, leave empty to get information from all nodes
-	 *     actions?: string|array<string>, // A comma-separated list of actions that should be returned. Leave empty to return all.
-	 *     detailed?: bool, // Return detailed task information (default: false)
-	 *     parent_task_id?: string, // Return tasks with specified parent task id (node_id:task_number). Set to -1 to return all.
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     nodes?: string|array<string>, // Unique node identifiers, which are used to limit the response.
+	 *     actions?: string|array<string>, // The task action names, which are used to limit the response.
+	 *     detailed?: bool, // If `true`, the response includes detailed information about shard recoveries.
+	 *     parent_task_id?: string, // The parent task identifier, which is used to limit the response.
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
-	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error.
+	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     wait_for_completion?: bool, // If `true`, the request blocks until the task has completed.
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1173,12 +1173,12 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name?: string, // A pattern that returned template names must match
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     local?: bool, // If `true`, the request computes the list of selected nodes from the local cluster state. If `false` the list of selected nodes are computed from the cluster state of the master node. In both cases the coordinating node will send requests for further information to each selected node.
+	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // List of columns that determine how the table should be sorted. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     time?: string, // The unit in which to display time values
@@ -1222,13 +1222,13 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     thread_pool_patterns?: string|array<string>, // A comma-separated list of regular-expressions to filter the thread pools in the output
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
 	 *     time?: string, // The unit in which to display time values
-	 *     local?: bool, // Return local information, do not retrieve the state from master node (default: false)
-	 *     master_timeout?: int|string, // Explicit operation timeout for connection to master node
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     local?: bool, // If `true`, the request computes the list of selected nodes from the local cluster state. If `false` the list of selected nodes are computed from the cluster state of the master node. In both cases the coordinating node will send requests for further information to each selected node.
+	 *     master_timeout?: int|string, // The period to wait for a connection to the master node. (DEFAULT: 30s)
+	 *     h?: string|array<string>, // List of columns to appear in the response. Supports simple wildcards.
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // A comma-separated list of column names or aliases that determines the sort order. Sorting defaults to ascending and can be changed by setting `:asc` or `:desc` as a suffix to the column name.
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -1272,13 +1272,13 @@ class Cat extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     transform_id?: string, // The id of the transform for which to get stats. '_all' or '*' implies all transforms
-	 *     from?: int, // skips a number of transform configs, defaults to 0
-	 *     size?: int, // specifies a max number of transforms to get, defaults to 100
-	 *     allow_no_match?: bool, // Whether to ignore if a wildcard expression matches no transforms. (This includes `_all` string or when no transforms have been specified)
-	 *     format?: string, // a short version of the Accept header, e.g. json, yaml
-	 *     h?: string|array<string>, // Comma-separated list of column names to display
+	 *     from?: int, // Skips the specified number of transforms.
+	 *     size?: int, // The maximum number of transforms to obtain. (DEFAULT: 100)
+	 *     allow_no_match?: bool, // Specifies what to do when the request: contains wildcard expressions and there are no transforms that match; contains the `_all` string or no identifiers and there are no matches; contains wildcard expressions and there are only partial matches. If `true`, it returns an empty transforms array when there are no matches and the subset of results when there are partial matches. If `false`, the request returns a 404 status code when there are no matches or only partial matches. (DEFAULT: 1)
+	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
+	 *     h?: string|array<string>, // Comma-separated list of column names to display. (DEFAULT: changes_last_detection_time,checkpoint,checkpoint_progress,documents_processed,id,last_search_time,state)
 	 *     help?: bool, // Return help information
-	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases to sort by
+	 *     s?: string|array<string>, // Comma-separated list of column names or column aliases used to sort the response.
 	 *     time?: string, // The unit in which to display time values
 	 *     v?: bool, // Verbose mode. Display column headers
 	 *     bytes?: string, // The unit in which to display byte values

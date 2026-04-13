@@ -7,7 +7,7 @@ steps:
     # env:
     #   PHP_VERSION: "{{ matrix.php }}"
     #   TEST_SUITE: "{{ matrix.suite }}"
-    #   STACK_VERSION: 8.19.14-SNAPSHOT
+    #   STACK_VERSION: 8.19.15-SNAPSHOT
     # matrix:
     #   setup:
     #     suite:

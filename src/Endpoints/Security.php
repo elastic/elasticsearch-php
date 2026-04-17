@@ -461,7 +461,7 @@ class Security extends AbstractEndpoint
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-clone-api-key
 	 *
 	 * @param array{
-	 *     refresh?: string, // If `true` then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes. Default is `wait_for` in stateful and `true` in serverless.
+	 *     refresh?: string, // If `true` (the default) then refresh the affected shards to make this operation visible to search, if `wait_for` then wait for a refresh to make this operation visible to search, if `false` then do nothing with refreshes.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

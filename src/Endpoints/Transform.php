@@ -331,6 +331,7 @@ class Transform extends AbstractEndpoint
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform.
 	 *     timeout?: int|string, // Controls the time to wait for the scheduling to take place (DEFAULT: 30s)
+	 *     defer?: bool, // When true, defers the scheduling by the transform's configured sync delay instead of triggering immediately. The transform will process new data after the delay elapses rather than right away.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -352,7 +353,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . $this->encode($params['transform_id']) . '/_schedule_now';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','defer','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

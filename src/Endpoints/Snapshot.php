@@ -392,6 +392,7 @@ class Snapshot extends AbstractEndpoint
 	 *     timeout?: int|string, // The period of time to wait for the test to complete. If no response is received before the timeout expires, the test is cancelled and returns an error. For realistic experiments, set this parameter sufficiently long to allow the test to complete. (DEFAULT: 30s)
 	 *     detailed?: bool, // Indicates whether to return detailed results, including timing information for every operation performed during the analysis. If false, it returns only a summary of the analysis.
 	 *     rarely_abort_writes?: bool, // Indicates whether to rarely cancel writes before they complete. For realistic experiments, leave this parameter unset. (DEFAULT: 1)
+	 *     check_overwrite_protection?: bool, // Whether to run the overwrite protection check. Defaults to 'true'. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -413,7 +414,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . $this->encode($params['repository']) . '/_analyze';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['blob_count','concurrency','register_operation_count','read_node_count','early_read_node_count','seed','rare_action_probability','max_blob_size','max_total_data_size','timeout','detailed','rarely_abort_writes','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['blob_count','concurrency','register_operation_count','read_node_count','early_read_node_count','seed','rare_action_probability','max_blob_size','max_total_data_size','timeout','detailed','rarely_abort_writes','check_overwrite_protection','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

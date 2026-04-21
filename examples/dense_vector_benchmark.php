@@ -76,18 +76,20 @@ function upload($client, $index, $dataset, $chunk_size, $repetitions, $packed) {
     $len = sizeof($dataset);
     $body = [];
     $start = microtime(true);
-    Bulk::bulk($client, $index, get_next_document($dataset, $repetitions, $packed), $chunk_size);
+    $response = Bulk::bulk($client, $index, get_next_document($dataset, $repetitions, $packed), true, $chunk_size);
+    assert ($response[0] == sizeof($dataset));  // make sure all items were ingested
+    assert ($response[1] == 0);  // make sure there were no errors
     return microtime(true) - $start;
 }
 
 $opts = getopt('s:r:', array('url:', 'json', 'runs:', 'help'), $rest_index);
 if (array_key_exists('help', $opts)) {
-    echo 'Usage: ' . $argv[0] . '[-s CHUNK_SIZES] [-r REPETITIONS] [--url URL] [--json] [--runs RUNS] DATASET_FILE\n';
-    echo '  -s CHUNK_SIZES List of chunk sizes to use, separated by commas (default: 100,250,500,1000)\n';
-    echo '  -r REPETITIONS Number of times the dataset is repeated (default: 20)\n';
-    echo '  --url URL      The Elasticsearch connection URL\n';
-    echo '  --json         Output benchmark results in JSON format\n';
-    echo '  --runs         Number of runs that are averaged for each chunk size (default: 3)\n';
+    echo "Usage: " . $argv[0] . "[-s CHUNK_SIZES] [-r REPETITIONS] [--url URL] [--json] [--runs RUNS] DATASET_FILE\n";
+    echo "  -s CHUNK_SIZES List of chunk sizes to use, separated by commas (default: 100,250,500,1000)\n";
+    echo "  -r REPETITIONS Number of times the dataset is repeated (default: 20)\n";
+    echo "  --url URL      The Elasticsearch connection URL\n";
+    echo "  --json         Output benchmark results in JSON format\n";
+    echo "  --runs         Number of runs that are averaged for each chunk size (default: 3)\n";
     exit(0);
 }
 if (!array_key_exists('url', $opts)) {

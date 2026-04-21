@@ -40,7 +40,7 @@ The bulk helper can be called as follows:
 ```php
 use Elastic\Elasticsearch\Helper\Bulk;
 
-$count = Bulk::bulk($client, $index, $actions, $chunk_size = 500, $max_chunk_bytes = 100 * 1024 * 1024);
+$response = Bulk::bulk($client, $index, $actions, $statS_only = false, $chunk_size = 500, $max_chunk_bytes = 100 * 1024 * 1024);
 ```
 
 This function has three required arguments:
@@ -50,6 +50,10 @@ This function has three required arguments:
 - `$actions` is the iterable that yields the bulk actions, normally implemented
    as a generator.
 
+The `$stats_only` optional argument controls wether details of each individual
+operation are included in the response. A value of `true` can be passed to only
+return total amount of operations processed and count of errors.
+
 The two optional arguments, `$chunk_size` and`$max_chunk_bytes`, determine when
 a Bulk API request is issued. The helper accumulates actions and submits a Bulk
 API request when the action count reaches `$chunk_size` or the payload size
@@ -57,8 +61,12 @@ reaches `$max_chunk_bytes`, whichever happens first. The application can
 trigger a Bulk API request to be sent at specific times by yielding a `flush`
 action from its generator.
 
-The return value of the `bulk()` function is the total number of actions
-successfully processed.
+The return value of the `bulk()` function is an array with three elements:
+
+- The total number of actions successfully processed
+- The count of errors
+- An array with the details of each operation, as returned by the bulk API. Note that
+  this array is omitted when the `$stats_only` argument is set to `true`.
 
 ## Bulk actions
 

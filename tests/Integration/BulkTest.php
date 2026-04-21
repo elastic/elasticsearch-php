@@ -177,11 +177,13 @@ class BulkTest extends TestCase
             assert($response['hits']['total']['value'] == 3);
         }
 
-        $count = Bulk::bulk(
+        $response = Bulk::bulk(
             $this->client, self::TEST_INDEX,
-            flushByCountActions($this->client, self::TEST_INDEX), 2
+            flushByCountActions($this->client, self::TEST_INDEX), true, 2
         );
-        $this->assertEquals($count, 6);
+        $this->assertEquals($response[0], 6);
+        $this->assertEquals($response[1], 0);
+        $this->assertEquals($response[2], []);  // only stats in this response
 
         $response = readIndex($this->client, self::TEST_INDEX);
         $this->assertEquals(200, $response->getStatusCode());
@@ -232,11 +234,15 @@ class BulkTest extends TestCase
             assert($response['hits']['total']['value'] == 4);
         }
 
-        $count = Bulk::bulk(
+        $response = Bulk::bulk(
             $this->client, self::TEST_INDEX,
-            flushBySizeActions($this->client, self::TEST_INDEX), 500, 40
+            flushBySizeActions($this->client, self::TEST_INDEX),
+            false,  // include individual item results
+            500, 40,
         );
-        $this->assertEquals($count, 6);
+        $this->assertEquals($response[0], 6);
+        $this->assertEquals($response[1], 0);
+        $this->assertEquals(sizeof($response[2]), 6);
 
         $response = readIndex($this->client, self::TEST_INDEX);
         $this->assertEquals(200, $response->getStatusCode());
@@ -294,11 +300,14 @@ class BulkTest extends TestCase
             assert($response['hits']['total']['value'] == 3);
         }
 
-        $count = Bulk::bulk(
+        $response = Bulk::bulk(
             $this->client, self::TEST_INDEX,
-            explicitFlushActions($this->client, self::TEST_INDEX)
+            explicitFlushActions($this->client, self::TEST_INDEX),
+            true,  // stats only
         );
-        $this->assertEquals($count, 6);
+        $this->assertEquals($response[0], 6);
+        $this->assertEquals($response[1], 0);
+        $this->assertEquals($response[2], []);
 
         $response = readIndex($this->client, self::TEST_INDEX);
         $this->assertEquals(200, $response->getStatusCode());

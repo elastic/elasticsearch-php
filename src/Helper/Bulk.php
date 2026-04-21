@@ -28,14 +28,27 @@ class Bulk
      * @param $client Elasticsearch client
      * @param $defaultIndex The index that the bulk operation applies to
      * @param $actions Iterator that provides actions to include in the bulk requests
+     * @param $stats_only set to true to omit the individual operation results.
      * @param $chunkSize the maximum number of operations in a bulk request (DEFAULT: 500)
      * @param $maxChunkBytes the maximum size of a bulk request (DEFAULT: 10MB)
-     * @throws BulkHelperException
+     * @return array<mixed> an array where the first and second elements are the 
+     *     total number of operations processed and the total number of errors.
+     *     If $stats_only is false, a third element is returned, with an array of
+     *     individual operation results, as returned by the bulk API.
      * @throws ClientResponseException
      * @throws ServerResponseException
      */
-    public static function bulk(Client $client, string $index, Iterator $actions, int $chunk_size = 500, int $max_chunk_bytes = 100 * 1024 * 1024): int {
+    public static function bulk(
+        Client $client,
+        string $index,
+        Iterator $actions,
+        bool $stats_only = false,
+        int $chunk_size = 500,
+        int $max_chunk_bytes = 100 * 1024 * 1024,
+    ): array {
         $totalCount = 0;
+        $totalErrors = 0;
+        $results = [];
         $chunkCount = 0;
         $chunkBytes = 0;
         $body = [];
@@ -51,10 +64,14 @@ class Bulk
             }
             if (count($action) == 0 || $chunkCount >= $chunk_size || $chunkBytes >= $max_chunk_bytes) {
                 $response = $client->bulk(['index' => $index, 'body' => $body]);
-                if ($response['errors']) {
-                    $error = new BulkHelperException('Bulk upload error');
-                    $error->setResponse($response);
-                    throw $error;
+                foreach ($response['items'] as $item) {
+                    $status = $item[array_key_first($item)]['status'];
+                    if ($status < 200 || $status >= 300) {
+                        $totalErrors += 1;
+                    }
+                    if (!$stats_only) {
+                        $results[] = $item;
+                    }
                 }
                 $body = [];
                 $chunkCount = 0;
@@ -64,15 +81,17 @@ class Bulk
         }
         if (!empty($body)) {
             $response = $client->bulk(['index' => $index, 'body' => $body]);
-            if ($response['errors']) {
-                $error = new BulkHelperException('Bulk upload error');
-                $error->setResponse($response);
-                throw $error;
+            foreach ($response['items'] as $item) {
+                $status = $item[array_key_first($item)]['status'];
+                if ($status < 200 || $status >= 300) {
+                    $totalErrors += 1;
+                }
+                $results[] = $item;
             }
             unset($body);
             unset($response);
         }
-        return $totalCount;
+        return [$totalCount, $totalErrors, $results];
     }
 
     private static function action(string $action, array $metadata, ?array $document): array {

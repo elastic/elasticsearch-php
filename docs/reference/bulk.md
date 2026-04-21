@@ -40,7 +40,7 @@ The bulk helper can be called as follows:
 ```php
 use Elastic\Elasticsearch\Helper\Bulk;
 
-$response = Bulk::bulk($client, $index, $actions, $statS_only = false, $chunk_size = 500, $max_chunk_bytes = 100 * 1024 * 1024);
+$response = Bulk::bulk($client, $index, $actions, $stats_only = false, $chunk_size = 500, $max_chunk_bytes = 100 * 1024 * 1024);
 ```
 
 This function has three required arguments:
@@ -50,7 +50,7 @@ This function has three required arguments:
 - `$actions` is the iterable that yields the bulk actions, normally implemented
    as a generator.
 
-The `$stats_only` optional argument controls wether details of each individual
+The `$stats_only` optional argument controls whether details of each individual
 operation are included in the response. A value of `true` can be passed to only
 return total amount of operations processed and count of errors.
 

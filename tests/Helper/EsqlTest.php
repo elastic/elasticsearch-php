@@ -92,6 +92,56 @@ class EsqlTest extends TestCase
 
     }
 
+    public function testSet(): void
+    {
+        $query = Query::from("many_numbers")
+            ->stats(sum: "SUM(sv)")
+            ->set(approximation: true);
+        $this->assertEquals(<<<ESQL
+            SET approximation = true;
+            FROM many_numbers
+            | STATS sum = SUM(sv)\n
+            ESQL,
+            (string) $query
+        );
+
+
+        $query = Query::from("many_numbers")
+            ->stats(median: "MEDIAN(sv)")
+            ->set(approximation: ["rows" => 10000]);
+        $this->assertEquals(<<<ESQL
+            SET approximation = {"rows":10000};
+            FROM many_numbers
+            | STATS median = MEDIAN(sv)\n
+            ESQL,
+            (string) $query
+        );
+
+        $query = Query::row(a: 1)->set(approximation: true);
+        $this->assertEquals(<<<ESQL
+            SET approximation = true;
+            ROW a = 1\n
+            ESQL,
+            (string) $query
+        );
+
+        $query = Query::show("INFO")->set(approximation: true);
+        $this->assertEquals(<<<ESQL
+            SET approximation = true;
+            SHOW INFO\n
+            ESQL,
+            (string) $query
+        );
+    
+        $query = Query::ts("many_numbers")->set(approximation: true);
+        $this->assertEquals(<<<ESQL
+            SET approximation = true;
+            TS many_numbers\n
+            ESQL,
+            (string) $query
+        );
+    }
+
     public function testChangePoint(): void
     {
         $query = Query::row(key: range(1, 25))
@@ -531,6 +581,84 @@ class EsqlTest extends TestCase
         );
     }
 
+    public function testMetricsInfo(): void
+    {
+        $query = Query::ts("k8s")
+            ->metricsInfo()
+            ->sort("metric_name");
+        $this->assertEquals(<<<ESQL
+            TS k8s
+            | METRICS_INFO
+            | SORT metric_name\n
+            ESQL,
+            (string) $query
+        );
+        $query = Query::ts("k8s")
+            ->where("cluster == \"prod\"")
+            ->metricsInfo()
+            ->sort("metric_name");
+        $this->assertEquals(<<<ESQL
+            TS k8s
+            | WHERE cluster == "prod"
+            | METRICS_INFO
+            | SORT metric_name\n
+            ESQL,
+            (string) $query
+        );
+    }
+
+    public function testMmr(): void
+    {
+        $query = Query::from("mmr_text_vector_keyword")
+            ->sort("keyword_field")
+            ->limit(10)
+            ->mmr("text_vector")->mmr_limit(3)
+            ->drop("text_vector", "byte_vector", "bit_vector");
+        $this->assertEquals(<<<ESQL
+            FROM mmr_text_vector_keyword
+            | SORT keyword_field
+            | LIMIT 10
+            | MMR ON text_vector LIMIT 3
+            | DROP text_vector, byte_vector, bit_vector\n
+            ESQL,
+            (string) $query
+        );
+
+        $query = Query::from("mmr_text_vector_keyword")
+            ->sort("keyword_field")
+            ->limit(10)
+            ->mmr("text_vector", [0.1, 0.2, 0.3])->mmr_limit(3)->with(lambda: 0.1)
+            ->drop("text_vector", "byte_vector", "bit_vector");
+        $this->assertEquals(<<<ESQL
+            FROM mmr_text_vector_keyword
+            | SORT keyword_field
+            | LIMIT 10
+            | MMR [0.1,0.2,0.3] ON text_vector LIMIT 3 WITH {"lambda":0.1}
+            | DROP text_vector, byte_vector, bit_vector\n
+            ESQL,
+            (string) $query
+        );
+
+        $query = Query::from("dense_vector_text")->metadata("_score")
+            ->eval(query_embedding: "TEXT_EMBEDDING(\"be excellent to each other\", \"test_dense_inference\")")
+            ->where("KNN(text_embedding_field, query_embedding)")
+            ->sort("_score DESC")
+            ->limit(10)
+            ->mmr("text_embedding_field", "TEXT_EMBEDDING(\"be excellent to each other\", \"test_dense_inference\")")->mmr_limit(3)->with(lambda: 0.2)
+            ->keep("text_field", "query_embedding");
+        $this->assertEquals(<<<ESQL
+            FROM dense_vector_text METADATA _score
+            | EVAL query_embedding = TEXT_EMBEDDING("be excellent to each other", "test_dense_inference")
+            | WHERE KNN(text_embedding_field, query_embedding)
+            | SORT _score DESC
+            | LIMIT 10
+            | MMR TEXT_EMBEDDING("be excellent to each other", "test_dense_inference") ON text_embedding_field LIMIT 3 WITH {"lambda":0.2}
+            | KEEP text_field, query_embedding\n
+            ESQL,
+            (string) $query
+        );
+    }
+
     public function testMvExpand(): void
     {
         $query = Query::row(a: [1, 2, 3], b: "b", j: ["a", "b"])
@@ -538,6 +666,33 @@ class EsqlTest extends TestCase
         $this->assertEquals(<<<ESQL
             ROW a = [1,2,3], b = "b", j = ["a","b"]
             | MV_EXPAND a\n
+            ESQL,
+            (string) $query
+        );
+    }
+
+    public function testRegisteredDomain(): void
+    {
+        $query = Query::row(fqdn: "www.example.co.uk")
+            ->registeredDomain(rd: "fqdn")
+            ->keep("rd.*");
+        $this->assertEquals(<<<ESQL
+            ROW fqdn = "www.example.co.uk"
+            | REGISTERED_DOMAIN rd = fqdn
+            | KEEP rd.*\n
+            ESQL,
+            (string) $query
+        );
+        $query = Query::from("web_logs")
+            ->registeredDomain(rd: "domain")
+            ->where("rd.registered_domain == \"elastic.co\"")
+            ->stats("COUNT(*)")->by("rd.subdomain");
+        $this->assertEquals(<<<ESQL
+            FROM web_logs
+            | REGISTERED_DOMAIN rd = domain
+            | WHERE rd.registered_domain == "elastic.co"
+            | STATS COUNT(*)
+                    BY rd.subdomain\n
             ESQL,
             (string) $query
         );
@@ -768,6 +923,86 @@ class EsqlTest extends TestCase
                     BY hired, languages.long
             | EVAL avg_salary = ROUND(avg_salary)
             | SORT hired, languages.long\n
+            ESQL,
+            (string) $query
+        );
+    }
+
+    public function testTsInfo(): void
+    {
+        $query = Query::ts("k8s")
+            ->tsInfo()
+            ->sort("metric_name", "dimensions");
+        $this->assertEquals(<<<ESQL
+            TS k8s
+            | TS_INFO
+            | SORT metric_name, dimensions\n
+            ESQL,
+            (string) $query
+        );
+        $query = Query::ts("k8s")
+            ->where("cluster == \"prod\"")
+            ->tsInfo()
+            ->sort("metric_name", "dimensions");
+        $this->assertEquals(<<<ESQL
+            TS k8s
+            | WHERE cluster == "prod"
+            | TS_INFO
+            | SORT metric_name, dimensions\n
+            ESQL,
+            (string) $query
+        );
+    }
+
+    public function testUriParts(): void
+    {
+        $query = Query::row(uri: "http://myusername:mypassword@www.example.com:80/foo.gif?key1=val1&key2=val2#fragment")
+            ->uriParts(parts: "uri")
+            ->keep("parts.*");
+        $this->assertEquals(<<<ESQL
+            ROW uri = "http://myusername:mypassword@www.example.com:80/foo.gif?key1=val1&key2=val2#fragment"
+            | URI_PARTS parts = uri
+            | KEEP parts.*\n
+            ESQL,
+            (string) $query
+        );
+        $query = Query::from("web_logs")
+            ->uriParts(p: "uri")
+            ->where("p.domain == \"www.example.com\"")
+            ->stats("COUNT(*)")->by("p.path");
+        $this->assertEquals(<<<ESQL
+            FROM web_logs
+            | URI_PARTS p = uri
+            | WHERE p.domain == "www.example.com"
+            | STATS COUNT(*)
+                    BY p.path\n
+            ESQL,
+            (string) $query
+        );
+    }
+
+    public function testUserAgent(): void
+    {
+        $query = Query::row(input: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.149 Safari/537.36")
+            ->userAgent(ua: "input")->with(extract_device_type: true)
+            ->keep("ua.*");
+        $this->assertEquals(<<<ESQL
+            ROW input = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.149 Safari/537.36"
+            | USER_AGENT ua = input WITH {"extract_device_type":true}
+            | KEEP ua.*\n
+            ESQL,
+            (string) $query
+        );
+        $query = Query::row(input: "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15")
+            ->userAgent(ua: "input")->with(
+                properties: ["name", "version", "device"],
+                extract_device_type: true,
+            )
+            ->keep("ua.*");
+        $this->assertEquals(<<<ESQL
+            ROW input = "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15"
+            | USER_AGENT ua = input WITH {"properties":["name","version","device"],"extract_device_type":true}
+            | KEEP ua.*\n
             ESQL,
             (string) $query
         );

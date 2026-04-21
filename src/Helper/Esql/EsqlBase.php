@@ -18,6 +18,15 @@ use RuntimeException;
 
 abstract class EsqlBase {
     private ?EsqlBase $previous_command = null;
+    private array $directives = [];
+
+    /**
+     * JSON formatting without escaped forward slaehs.
+     */
+    protected function esql_json_encode(mixed $data): string
+    {
+        return json_encode($data, JSON_UNESCAPED_SLASHES);
+    }
 
     /**
      * Formatting helper that renders an identifier using proper escaping rules.
@@ -37,6 +46,14 @@ abstract class EsqlBase {
         return "`" . str_replace("`", "``", $id) . "`";
     }
 
+    protected function formatExpression(mixed $expr): string
+    {
+        if (is_string($expr)) {
+            return $expr;
+        }
+        return $this->esql_json_encode($expr);
+    }
+
     /**
      * Formatting helper that renders an associative array as needed by ES|QL.
      * Used by several ES|QL commands.
@@ -51,7 +68,7 @@ abstract class EsqlBase {
                 return $key . " " . $joinText . " " . $value;
             },
             array_keys($map),
-            array_map($jsonEncode ? 'json_encode' : array($this, 'formatId'), $map),
+            array_map($jsonEncode ? array($this, 'esql_json_encode') : array($this, 'formatId'), $map),
         ));
     }
 
@@ -65,7 +82,7 @@ abstract class EsqlBase {
             return true;
         }
         if ($named_count != 0) {
-            throw new RuntimeException("foo");
+            throw new RuntimeException("Mixed keyword and positional arguments found");
         }
         return false;
     }
@@ -87,6 +104,7 @@ abstract class EsqlBase {
     public function __construct(?EsqlBase $previous_command)
     {
         $this->previous_command = $previous_command;
+        $this->directives = [];
     }
 
     /**
@@ -98,6 +116,11 @@ abstract class EsqlBase {
         if ($this->previous_command) {
             $query .= $this->previous_command->render() . "\n| ";
         }
+        else {
+            foreach ($this->directives as $directive) {
+                $query .= $directive->renderInternal() . ";\n";
+            }
+        }
         $query .= $this->renderInternal();
         return $query;
     }
@@ -107,9 +130,40 @@ abstract class EsqlBase {
      */
     protected abstract function renderInternal(): string;
 
+    private function add_directive(self $directive): void
+    {
+        if ($this->previous_command == null) {
+            array_push($this->directives, $directive);
+        }
+        else {
+            $this->previous_command->add_directive($directive);
+        }
+    }
+
     public function __toString(): string
     {
         return $this->render() . "\n";
+    }
+
+    /**
+     * `SET` can be used to specify query settings that modify the behavior of
+     * an ES|QL query.
+     *
+     * @param string ...$params the settings, given as keyword arguments.
+     *
+     * Examples:
+     *
+     *     $query1 = Query::from("many_numbers")
+     *         ->stats(sum: "SUM(sv)")
+     *         ->set(approximation: true);
+     *     $query2 = Query::from("many_numbers")
+     *         ->stats(median: "MEDIAN(sv)")
+     *         ->set(approximation: ["rows" => 10000]);
+     */
+    public function set(mixed ...$params): self
+    {
+        $this->add_directive(new SetDirective($params));
+        return $this;
     }
 
     /**
@@ -441,6 +495,63 @@ abstract class EsqlBase {
     }
 
     /**
+     * The ``METRICS_INFO`` processing command retrieves information about
+     * the metrics available in time series data streams, along with their
+     * applicable dimensions and other metadata.
+     *
+     * Examples:
+     *
+     *     $query1 = Query::ts("k8s")
+     *         ->metricsInfo()
+     *         ->sort("metric_name");
+     *     $query2 = Query::ts("k8s")
+     *         ->where("cluster == \"prod\"")
+     *         ->metricsInfo()
+     *         ->sort("metric_name");
+     */
+    public function metricsInfo(): MetricsInfoCommand
+    {
+        return new MetricsInfoCommand($this);
+    }
+
+    /**
+     * The `MMR` command reduces the result set from a set of input rows by
+     * applying a diversification strategy to the return rows.
+     *
+     * @param string $field The name of the field that will use its values for the
+     *               diversification process. The field must be a dense_vector
+     *               type.
+     * @param mixed $query_vector The query vector to use as part of the
+     *                            diversification algorithm for comparison. Must
+     *                            have the same number of dimensions as the vector
+     *                            field you are searching against.
+     *
+     * Examples:
+     *
+     *     $query1 = Query::from("mmr_text_vector_keyword")
+     *         ->sort("keyword_field")
+     *         ->limit(10)
+     *         ->mmr("text_vector")->mmr_limit(3)
+     *         ->drop("text_vector", "byte_vector", "bit_vector");
+     *     $query2 = Query::from("mmr_text_vector_keyword")
+     *         ->sort("keyword_field")
+     *         ->limit(10)
+     *         ->mmr("text_vector", [0.1, 0.2, 0.3])->mmr_limit(3)->with(lambda: 0.1)
+     *         ->drop("text_vector", "byte_vector", "bit_vector");
+     *     $query3 = Query::from("dense_vector_text")->metadata("_score")
+     *         ->eval(query_embedding: "TEXT_EMBEDDING(\"be excellent to each other\", \"test_dense_inference\")")
+     *         ->where("KNN(text_embedding_field, query_embedding)")
+     *         ->sort("_score DESC")
+     *         ->limit(10)
+     *         ->mmr("text_embedding_field", "TEXT_EMBEDDING(\"be excellent to each other\", \"test_dense_inference\")")->mmr_limit(3)->with(lambda: 0.2)
+     *         ->keep("text_field", "query_embedding");
+     */
+    public function mmr(string $field, mixed $query_vector = null): MmrCommand
+    {
+        return new MmrCommand($this, $field, $query_vector);
+    }
+
+    /**
      * The `MV_EXPAND` processing command expands multivalued columns into one row per
      * value, duplicating other columns.
      * 
@@ -475,6 +586,22 @@ abstract class EsqlBase {
     public function rename(string ...$columns): RenameCommand
     {
         return new RenameCommand($this, $columns);
+    }
+
+    /**
+     * The `REGISTERED_DOMAIN` processing command parses a fully qualified
+     * domain name (FQDN) string and extracts its parts (domain, registered
+     * domain, top-level domain, subdomain) into new columns using the public
+     * suffix list.
+     *
+     * @param string ...$prefix A keyword argument, where the argument name is
+     *                          the prefix fir the output columns, and the value
+     *                          is the string expression containing the FQDN
+     *                          to parse.
+     */
+    public function registeredDomain(string ...$prefix): RegisteredDomainCommand
+    {
+        return new RegisteredDomainCommand($this, $prefix);
     }
 
     /**
@@ -611,6 +738,67 @@ abstract class EsqlBase {
     public function stats(string ...$expressions): StatsCommand
     {
         return new StatsCommand($this, $expressions);
+    }
+
+    /**
+     * The ``TS_INFO`` processing command retrieves information about
+     * individual time series available in time series data streams, along
+     * with the dimension values that identify each series.
+     *
+     * Examples:
+     *
+     *     $query1 = Query::ts("k8s")
+     *         ->tsInfo()
+     *         ->sort("metric_name", "dimensions");
+     *     $query2 = Query::ts("k8s")
+     *         ->where("cluster == \"prod\"")
+     *         ->tsInfo()
+     *         ->sort("metric_name", "dimensions");
+     */
+    public function tsInfo(): TsInfoCommand
+    {
+        return new TsInfoCommand($this);
+    }
+
+    /**
+     * The `URI_PARTS` processing command parses a Uniform Resource
+     * Identifier (URI) string and extracts its components into new columns.
+     *
+     * @param string ...$prefix A keyword argument, where the argument name is
+     *                          the prefix fir the output columns, and the value
+     *                          is the string expression containing the URI
+     *                          to parse.
+     *
+     */
+    public function uriParts(string ...$prefix): UriPartsCommand
+    {
+        return new UriPartsCommand($this, $prefix);
+    }
+   
+    /**
+     * The `USER_AGENT` processing command parses a user-agent string and
+     * extracts its components (name, version, OS, device) into new columns.
+     *
+     * @param string ...$prefix A keyword argument, where the argument name is
+     *                          the prefix fir the output columns, and the value
+     *                          is the string expression containing the user
+     *                          agent string to parse.
+     *
+     * Examples:
+     *
+     *     $query1 = Query::row(input: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.149 Safari/537.36")
+     *         ->userAgent(ua: "input")->with(extract_device_type: true)
+     *         ->keep("ua.*");
+     *     $query2 = Query::row(input: "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15")
+     *         ->userAgent(ua: "input")->with(
+     *             properties: ["name", "version", "device"],
+     *             extract_device_type: true,
+     *         )
+     *         ->keep("ua.*");
+     */
+    public function userAgent(string ...$prefix): UserAgentCommand
+    {
+        return new UserAgentCommand($this, $prefix);
     }
 
     /**

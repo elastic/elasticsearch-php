@@ -1545,6 +1545,7 @@ class Inference extends AbstractEndpoint
 	 * Perform streaming inference
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-stream-inference
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
@@ -1628,6 +1629,7 @@ class Inference extends AbstractEndpoint
 	 * Update an inference endpoint
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-update
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id

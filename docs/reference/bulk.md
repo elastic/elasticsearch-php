@@ -51,22 +51,22 @@ This function has three required arguments:
    as a generator.
 
 The `$stats_only` optional argument controls whether details of each individual
-operation are included in the response. A value of `true` can be passed to only
-return total amount of operations processed and count of errors.
+operation are included in the response. When this argument is set to `true`,
+these details are omitted. The default is `false`.
 
-The two optional arguments, `$chunk_size` and`$max_chunk_bytes`, determine when
-a Bulk API request is issued. The helper accumulates actions and submits a Bulk
-API request when the action count reaches `$chunk_size` or the payload size
-reaches `$max_chunk_bytes`, whichever happens first. The application can
-trigger a Bulk API request to be sent at specific times by yielding a `flush`
-action from its generator.
+The two optional arguments `$chunk_size` and`$max_chunk_bytes` determine how
+often Bulk API requests are issued. The helper stores actions in memory and
+only submits a Bulk API request when the action count reaches `$chunk_size` or
+the payload size reaches `$max_chunk_bytes`, whichever happens first. The
+application can also trigger an explicit Bulk API request to be issued by
+yielding a `flush` action from its generator.
 
 The return value of the `bulk()` function is an array with three elements:
 
-- The total number of actions successfully processed
+- The total number of actions that were processed
 - The count of errors
-- An array with the details of each operation, as returned by the bulk API. Note that
-  this array is omitted when the `$stats_only` argument is set to `true`.
+- An array with the status of each operation, as returned by the bulk API. This
+  array is omitted when the `$stats_only` argument is set to `true`.
 
 ## Bulk actions
 

@@ -119,6 +119,7 @@ class Synonyms extends AbstractEndpoint
 	 *     id: string, // (REQUIRED) The name of the synonyms set to be retrieved
 	 *     from?: int, // The starting offset for query rules to retrieve.
 	 *     size?: int, // The max number of query rules to retrieve. (DEFAULT: 10)
+	 *     search_after?: string, // The rule ID of the last result from the previous page, for cursor-based pagination
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -140,7 +141,7 @@ class Synonyms extends AbstractEndpoint
 		$url = '/_synonyms/' . $this->encode($params['id']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['from','size','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['from','size','search_after','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

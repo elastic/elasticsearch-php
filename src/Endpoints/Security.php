@@ -1214,6 +1214,7 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name?: string|array<string>, // A comma-separated list of role names
+	 *     include_implicit?: bool, // If true, include privileges that are implicitly granted by registered ImplicitPrivilegesProviders alongside the explicitly configured privileges.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1237,7 +1238,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/role';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['include_implicit','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

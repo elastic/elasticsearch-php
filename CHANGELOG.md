@@ -1,3 +1,8 @@
+## Release 9.4.0
+
+- Added a Bulk Helper function [#1560](https://github.com/elastic/elasticsearch-php/pull/1560)
+- Updated the APIs and the ES|QL Query Builder to Elasticsearch [9.4.0](https://www.elastic.co/docs/release-notes/elasticsearch#elasticsearch-9.4.0-release-notes)
+
 ## Release 9.3.0
 
 - Updated the APIs to Elasticsearch [9.3.0](https://www.elastic.co/docs/release-notes/elasticsearch#elasticsearch-9.3.0-release-notes)

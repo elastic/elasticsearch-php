@@ -20,6 +20,58 @@ To check for security updates, go to [Security announcements for the Elastic sta
 % ### Fixes [elasticsearch-php-client-next-fixes]
 % *
 
+## 9.4.0 [elasticsearch-php-client-940-release-notes]
+
+### Features and enhancements [elasticsearch-php-client-940-features-enhancements]
+
+- New Bulk Helper function [#1560](https://github.com/elastic/elasticsearch-php/pull/1560)
+- ES|QL query builder updates
+
+### Inference.embedding (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.4/rest-api-spec/src/main/resources/rest-api-spec/api/inference.embedding.json
+
+### Inference.putFireworksai (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.4/rest-api-spec/src/main/resources/rest-api-spec/api/inference.put_fireworksai.json
+
+### Project.createManyRouting (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.4/rest-api-spec/src/main/resources/rest-api-spec/api/project.create_many_routing.json
+
+### Project.createRouting (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.4/rest-api-spec/src/main/resources/rest-api-spec/api/project.create_routing.json
+
+### Project.deleteRouting (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.4/rest-api-spec/src/main/resources/rest-api-spec/api/project.delete_routing.json
+
+### Project.getManyRouting (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.4/rest-api-spec/src/main/resources/rest-api-spec/api/project.get_many_routing.json
+
+### Project.getRouting (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.4/rest-api-spec/src/main/resources/rest-api-spec/api/project.get_routing.json
+
+### Security.cloneApiKey (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.4/rest-api-spec/src/main/resources/rest-api-spec/api/security.clone_api_key.json
+
+### AsyncSearch.get
+
+- Added the `return_intermediate_results` parameter
+
+### Streams.logsDisable
+
+- Added the `name` parameter
+
+### Streams.logsEnable
+
+- Added the `name` parameter
+
+
 ## 9.3.0 [elasticsearch-php-client-930-release-notes]
 
 ### Features and enhancements [elasticsearch-php-client-930-features-enhancements]

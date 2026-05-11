@@ -1214,7 +1214,7 @@ class Security extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     name?: string|array<string>, // A comma-separated list of role names
-	 *     include_implicit?: bool, // If true, include privileges that are implicitly granted by registered ImplicitPrivilegesProviders alongside the explicitly configured privileges.
+	 *     include_implicit?: bool, // If `true`, include privileges that are implicitly granted by registered `ImplicitPrivilegesProviders` alongside the explicitly configured privileges. Each implicit entry in the response is annotated with `implicitly_granted: true`.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

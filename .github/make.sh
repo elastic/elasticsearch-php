@@ -123,7 +123,7 @@ esac
 build_container() {
     echo -e "\033[34;1mINFO: building $product container\033[0m"
 
-    docker build --file $repo/.github/Dockerfile --tag ${product} \
+    docker build --file $repo/.buildkite/Dockerfile --tag ${product} \
       --build-arg USER_ID="$(id -u)" \
       --build-arg GROUP_ID="$(id -g)" .
 }

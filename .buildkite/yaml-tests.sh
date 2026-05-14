@@ -8,9 +8,3 @@ php tests/build_es_tests.php tests/elasticsearch-clients-tests/tests stack tests
 
 # Run YAML tests
 vendor/bin/phpunit -c "phpunit-yaml-stack-tests.xml"
-
-# Remove Yaml tests
-rm -rf tests/Yaml
-
-# Remove elasticsearch-clients-tests folder
-rm -rf tests/elasticsearch-clients-tests

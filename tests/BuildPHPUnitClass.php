@@ -302,7 +302,10 @@ class BuildPHPUnitClass
         switch(gettype($value)) {
             case 'string':
                 if ($value[0] === '/') {
-                    $output .= sprintf("\$this->assertMatchesRegularExpression('%s', %s);\n", $value, $key);
+                    if( preg_match("/\n/", $value)) {
+                        $value = preg_replace("/\n/", "\\n", $value);
+                    }
+                    $output .= sprintf("\$this->assertMatchesRegularExpression(\"%s\", %s);\n", $value, $key);
                 } elseif ($value[0] === '$') {
                     $output .= sprintf("\$this->assertEquals(%s, %s);\n", $value, $key);
                 } else {

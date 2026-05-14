@@ -398,28 +398,28 @@ class BuildPHPUnitClass
     {
         $key = $this->parseValue(key($actions));
         $value = current($actions);
-        return sprintf("\$this->assertGreaterThanOrEqual(%s, %d);\n", $key, $value);
+        return sprintf("\$this->assertGreaterThanOrEqual(%d, %s);\n", $value, $key);
     }
 
     protected function gt(array $actions): string
     {
         $key = $this->parseValue(key($actions));
         $value = current($actions);
-        return sprintf("\$this->assertGreaterThan(%s, %d);\n", $key, $value);
+        return sprintf("\$this->assertGreaterThan(%d, %s);\n", $value, $key);
     }
 
     protected function lte(array $actions): string
     {
         $key = $this->parseValue(key($actions));
         $value = current($actions);
-        return sprintf("\$this->assertLessThanOrEqual(%s, %d);\n", $key, $value);
+        return sprintf("\$this->assertLessThanOrEqual(%d, %s);\n", $value, $key);
     }
 
     protected function lt(array $actions): string
     {
         $key = $this->parseValue(key($actions));
         $value = current($actions);
-        return sprintf("\$this->assertLessThan(%s, %d);\n", $key, $value);
+        return sprintf("\$this->assertLessThan(%d, %s);\n", $value, $key);
     }
 
     protected function skip(array $actions): string

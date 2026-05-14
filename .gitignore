@@ -51,3 +51,4 @@ tests/Yaml
 
 # Exclude .ci/make.sh artifcats
 .ci/output
+tests/elasticsearch-clients-tests

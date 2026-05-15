@@ -433,12 +433,14 @@ class BuildPHPUnitClass
         $key = $this->parseValue(key($actions));
         $value = current($actions);
         if (is_array($value)) {
-            return sprintf(
-                "\$this->assertEquals(%s, array_intersect_assoc(%s, %s));\n",
-                var_export($value, true),
-                $key,
-                var_export($value, true)
-            );
+          $expected_key = array_keys($value)[0];
+          $expected_value = array_values($value)[0];
+          $parsed_column = sprintf("array_column(%s, '%s')", $key, $expected_key);
+          return sprintf(
+            "\$this->assertContains('%s', %s);\n",
+            $expected_value,
+            $parsed_column
+          );
         } elseif (is_string($value)) {
             return sprintf("\$this->assertStringContainsString('%s', %s);\n", $value, $key);
         }

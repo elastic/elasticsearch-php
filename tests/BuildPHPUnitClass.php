@@ -286,12 +286,28 @@ class BuildPHPUnitClass
             }
             if (isset($catch)) {
                 $output .= "} catch (ClientResponseException \$e) {\n";
-                $output .= sprintf("\t\$this->assertMatchesRegularExpression('%s', \$e->getMessage());\n", $catch);
+                $output .= $this->catchable($catch);
                 $output .= "}\n";
                 unset($catch);
             }
         }
         return $output;
+    }
+
+    protected function catchable(string $catch): string {
+      switch($catch) {
+      case (preg_match('/bad_request/', $catch) == 1):
+        return sprintf("\t\$this->assertMatchesRegularExpression('/Bad Request/', \$e->getMessage());\n");
+        break;
+      case (
+        preg_match('/resource_not_found_exception/', $catch) == 1 ||
+          preg_match('/missing/', $catch) == 1
+      ):
+        return sprintf("\t\$this->assertMatchesRegularExpression('/404 Not Found/', \$e->getMessage());\n");
+        break;
+      default:
+        return sprintf("\t\$this->assertMatchesRegularExpression('%s', \$e->getMessage());\n", $catch);
+      }
     }
 
     protected function match(array $actions): string

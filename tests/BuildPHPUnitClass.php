@@ -360,8 +360,8 @@ class BuildPHPUnitClass
             return "\$this->assertNotEmpty(\$response->getBody()->getContents());\n";
         } else {
             return sprintf(
-                "\$this->assertTrue(isset(%s) && %s);\n", 
-                $this->parseValue($action), 
+                "\$this->assertTrue(isset(%s) && %s !== false);\n",
+                $this->parseValue($action),
                 $this->parseValue($action)
             );
         }

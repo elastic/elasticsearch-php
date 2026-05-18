@@ -215,7 +215,7 @@ class BuildPHPUnitClass
         foreach ($arr as $key => $value) {
             // Format the key
             $formattedKey = is_numeric($key) ? $key : "'" . addslashes($key) . "'";
-    
+
             // Handle the value recursively
             if (is_array($value)) {
                 $formattedValue = $this->arrayToPhpCode($value); // recursion
@@ -224,10 +224,10 @@ class BuildPHPUnitClass
             } else {
                 $formattedValue = var_export($value, true);
             }
-    
+
             $parts[] = "{$formattedKey} => {$formattedValue}";
         }
-    
+
         return '[' . implode(', ', $parts) . ']';
     }
 
@@ -266,12 +266,12 @@ class BuildPHPUnitClass
             }
             $method = str_replace('.', '()->', $endpoint);
             $output .= sprintf(
-                "%s\$response = self::\$client->%s(\n", 
+                "%s\$response = self::\$client->%s(\n",
                 isset($catch) || isset($ignore) ? "\t" : '',
                 $this->normalizeFunctionName($method)
             );
             $output .= sprintf(
-                "%s%s", 
+                "%s%s",
                 isset($catch) || isset($ignore) ? "\t\t" : "\t",
                 $this->arrayToPhpCode($params)
             );
@@ -350,9 +350,9 @@ class BuildPHPUnitClass
                 break;
             default:
                 throw new Exception(sprintf(
-                    "Type %s is not supported for %s => %s", 
-                    gettype($value), 
-                    $key, 
+                    "Type %s is not supported for %s => %s",
+                    gettype($value),
+                    $key,
                     var_export($value, true)
                 ));
         }

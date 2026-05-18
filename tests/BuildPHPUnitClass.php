@@ -225,6 +225,8 @@ class BuildPHPUnitClass
                 $formattedValue = var_export($value, true);
             }
 
+            # Don't use quotes around variables when in body:
+            $formattedValue = preg_replace('/"(\$[a-z_]+)"/', '${1}', $formattedValue);
             $parts[] = "{$formattedKey} => {$formattedValue}";
         }
 

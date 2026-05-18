@@ -389,10 +389,10 @@ class BuildPHPUnitClass
     protected function is_false(string $action): string
     {
         if (empty($action)) {
-            return "\$this->assertNotEmpty(\$response->getBody()->getContents());\n";
+            return "\$this->assertEmpty(\$response->getBody()->getContents());\n";
         }
         $key = $this->parseValue($action);
-        return sprintf("\$this->assertTrue(!isset(%s) || !%s);\n", $key, $key);
+        return sprintf("\$this->assertTrue(!isset(%s) || !%s || %s == 'false');\n", $key, $key, $key);
     }
 
     protected function length(array $actions): string

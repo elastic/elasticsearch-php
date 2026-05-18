@@ -347,7 +347,12 @@ class BuildPHPUnitClass
                 if (empty((array) $value)) {
                     $output .= sprintf("\$this->assertEmpty(%s);\n", $key);
                 } else {
-                    $output .= sprintf("\$this->assertEquals(%s, %s);\n", var_export($value, true), $key);
+                    // Check for variables in test body:
+                    $body = var_export($value, true);
+                    if (str_contains($body, '$')){
+                      $body = preg_replace('/"|\'(\$[a-z_]+)"|\'/', '${1}', $body);
+                    }
+                    $output .= sprintf("\$this->assertEquals(%s, %s);\n", $body, $key);
                 }
                 break;
             default:

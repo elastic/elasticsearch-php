@@ -36,7 +36,7 @@ class Inference extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
-	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference request to complete. (DEFAULT: 30s)
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference request to complete. (DEFAULT: 120s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -78,7 +78,7 @@ class Inference extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
-	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference request to complete. (DEFAULT: 30s)
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference request to complete. (DEFAULT: 120s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

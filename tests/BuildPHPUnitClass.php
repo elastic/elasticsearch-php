@@ -305,6 +305,9 @@ class BuildPHPUnitClass
       ):
         return sprintf("\t\$this->assertMatchesRegularExpression('/404 Not Found/', \$e->getMessage());\n");
         break;
+      case (preg_match('/forbidden/', $catch) == 1):
+        return sprintf("\t\$this->assertMatchesRegularExpression('/Forbidden/i', \$e->getMessage());\n");
+        break;
       default:
         return sprintf("\t\$this->assertMatchesRegularExpression('%s', \$e->getMessage());\n", $catch);
       }

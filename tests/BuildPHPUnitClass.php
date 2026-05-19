@@ -219,8 +219,16 @@ class BuildPHPUnitClass
             // Handle the value recursively
             if (is_array($value)) {
                 $formattedValue = $this->arrayToPhpCode($value); // recursion
-            } elseif (is_string($value) && str_starts_with($value, '$')) {
+            } elseif (is_string($value)) {
+              if(str_starts_with($value, '$')){
                 $formattedValue = $value; // treat as variable
+              } elseif(str_contains($value, '$')) {
+                # Replace variables like [$user_key_id] with ["' . $user_key_id . '"]
+                $formattedValue = var_export($value, true);
+                $formattedValue = preg_replace('/("|\')(\$[a-z_]+)("|\')/', '"\' . ${2} . \'"', $formattedValue);
+              } else {
+                $formattedValue = var_export($value, true);
+              }
             } else {
                 $formattedValue = var_export($value, true);
             }

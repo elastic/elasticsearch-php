@@ -409,12 +409,11 @@ class BuildPHPUnitClass
     {
         $key = $this->parseValue(key($actions));
         $value = current($actions);
-        $output = sprintf(
-            "\$_len_ = is_string(%s) ? strlen(%s) : (is_countable(%s) ? count(%s) : null);\n",
-            $key,
-            $key,
-            $key,
-            $key
+        $output = "\$body = " . $key . ";\n";
+        $output .= "if (is_string(\$body) && str_starts_with(\$body, '[')) {\n" .
+          "\t\$body = json_decode(\$body);\n}\n";
+        $output .= sprintf(
+            "\$_len_ = is_string(\$body) ? strlen(\$body) : (is_countable(\$body) ? count(\$body) : null);\n"
         );
         $output .= sprintf("\$this->assertEquals(%d, \$_len_);\n", $value);
         return $output;

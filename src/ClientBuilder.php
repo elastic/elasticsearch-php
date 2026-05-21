@@ -173,7 +173,7 @@ class ClientBuilder
         }
 
         if ($quiet === false && count($config) > 0) {
-            $unknown = implode(array_keys($config));
+            $unknown = implode(", ", array_keys($config));
             throw new ConfigException("Unknown parameters provided: $unknown");
         }
         return $builder->build();

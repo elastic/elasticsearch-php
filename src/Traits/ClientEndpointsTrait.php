@@ -188,6 +188,7 @@ trait ClientEndpointsTrait
 	 *     df?: string, // The field to use as a default when no field prefix is given in the query string. This parameter can be used only when the `q` query string parameter is specified.
 	 *     lenient?: bool, // If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored. This parameter can be used only when the `q` query string parameter is specified.
 	 *     terminate_after?: int, // The maximum number of documents to collect for each shard. If a query reaches this limit, Elasticsearch terminates the query early. Elasticsearch collects documents before sorting.  IMPORTANT: Use with caution. Elasticsearch applies this parameter to each shard handling the request. When possible, let Elasticsearch perform early termination automatically. Avoid specifying this parameter for requests that target data streams with backing indices across multiple data tiers.
+	 *     stats?: string|array<string>, // Specific 'tag' of the request for logging and statistical purposes
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -212,7 +213,7 @@ trait ClientEndpointsTrait
 			$url = '/_count';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','min_score','preference','routing','q','analyzer','analyze_wildcard','default_operator','df','lenient','terminate_after','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','min_score','preference','routing','q','analyzer','analyze_wildcard','default_operator','df','lenient','terminate_after','stats','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1466,6 +1467,121 @@ trait ClientEndpointsTrait
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, [], $request, 'reindex');
+		return $this->sendRequest($request);
+	}
+
+
+	/**
+	 * Cancel a reindex operation
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+	 *
+	 * @param array{
+	 *     task_id: string, // (REQUIRED) Cancel the reindex operation with specified id
+	 *     wait_for_completion?: bool, // Should the request block until the cancellation of the reindex operation is completed. Defaults to true (DEFAULT: 1)
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function reindexCancel(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['task_id'], $params);
+		$url = '/_reindex/' . $this->encode($params['task_id']) . '/_cancel';
+		$method = 'POST';
+
+		$url = $this->addQueryString($url, $params, ['wait_for_completion','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['task_id'], $request, 'reindex_cancel');
+		return $this->sendRequest($request);
+	}
+
+
+	/**
+	 * Get information for a reindex operation
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+	 *
+	 * @param array{
+	 *     task_id: string, // (REQUIRED) Return the reindex operation with specified id
+	 *     wait_for_completion?: bool, // Wait for the reindex operation to complete (default: false)
+	 *     timeout?: int|string, // Explicit operation timeout, only used when wait_for_completion is true
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function reindexGet(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['task_id'], $params);
+		$url = '/_reindex/' . $this->encode($params['task_id']);
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['wait_for_completion','timeout','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['task_id'], $request, 'reindex_get');
+		return $this->sendRequest($request);
+	}
+
+
+	/**
+	 * List all running reindex operations
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+	 *
+	 * @param array{
+	 *     detailed?: bool, // Return detailed reindex information (default: false)
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function reindexList(?array $params = null)
+	{
+		$params = $params ?? [];
+		$url = '/_reindex';
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['detailed','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'reindex_list');
 		return $this->sendRequest($request);
 	}
 

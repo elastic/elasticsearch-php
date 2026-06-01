@@ -359,7 +359,7 @@ trait ClientEndpointsTrait
 	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The `timeout` value controls how long each write request waits for unavailable shards to become available. (DEFAULT: 1)
 	 *     scroll_size?: int, // The size of the scroll request that powers the operation. (DEFAULT: 1000)
 	 *     wait_for_completion?: bool, // If `true`, the request blocks until the operation is complete. If `false`, Elasticsearch performs some preflight checks, launches the request, and returns a task you can use to cancel or get the status of the task. Elasticsearch creates a record of this task as a document at `.tasks/task/${taskId}`. When you are done with a task, you should delete the task document so Elasticsearch can reclaim the space. (DEFAULT: 1)
-	 *     requests_per_second?: int, // The throttle for this request in sub-requests per second. (DEFAULT: -1)
+	 *     requests_per_second?: int, // The maximum number of documents to delete per second, across the entire delete-by-query operation (including slices). It can be either `-1` to turn off throttling or any decimal number like `1.7` or `12` to throttle to that level. (DEFAULT: -1)
 	 *     slices?: int|string, // The number of slices this task should be divided into. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -401,7 +401,7 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) The task id to rethrottle
-	 *     requests_per_second?: int, // The throttle for this request in sub-requests per second. To disable throttling, set it to `-1`.
+	 *     requests_per_second?: int, // The maximum number of documents to delete per second, across the entire delete-by-query operation (including slices). It can be either `-1` to turn off throttling or any decimal number like `1.7` or `12` to throttle to that level.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1100,7 +1100,7 @@ trait ClientEndpointsTrait
 	 *     allow_no_indices?: bool, // A setting that does two separate checks on the index expression. If `false`, the request returns an error (1) if any wildcard expression (including `_all` and `*`) resolves to zero matching indices or (2) if the complete set of resolved indices, aliases or data streams is empty after all expressions are evaluated. If `true`, index expressions that resolve to no indices are allowed and the request returns an empty result.
 	 *     expand_wildcards?: string|array<string>, // Type of index that wildcard expressions can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. (DEFAULT: open)
 	 *     project_routing?: string, // Specifies a subset of projects to target for a search using project metadata tags in a subset Lucene syntax. Allowed Lucene queries: the _alias tag and a single value (possible wildcarded). Examples:  _alias:my-project  _alias:_origin  _alias:*pr* Supported in serverless only.
-	 *     routing?: string|array<string>, // Custom routing value used to route search operations to a specific shard.
+	 *     routing?: string|array<string>, // Custom routing value used to route search operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     include_named_queries_score?: bool, // Indicates whether hit.matched_queries should be rendered as a map that includes the name of the matched query associated with its score (true) or as an array containing the name of the matched queries (false) This functionality reruns each named query on every hit in a search response. Typically, this adds a small overhead to a request. However, using computationally expensive named queries on a large number of hits may add significant overhead.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -1434,8 +1434,8 @@ trait ClientEndpointsTrait
 	 *     timeout?: int|string, // The period each indexing waits for automatic index creation, dynamic mapping updates, and waiting for active shards. By default, Elasticsearch waits for at least one minute before failing. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
 	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. Set it to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default value is one, which means it waits for each primary shard to be active. (DEFAULT: 1)
 	 *     wait_for_completion?: bool, // If `true`, the request blocks until the operation is complete. (DEFAULT: 1)
-	 *     requests_per_second?: int, // The throttle for this request in sub-requests per second. By default, there is no throttle. (DEFAULT: -1)
-	 *     scroll?: int|string, // The period of time that a consistent view of the index should be maintained for scrolled search. (DEFAULT: 5m)
+	 *     requests_per_second?: int, // The maximum number of documents to index per second, across the entire reindex operation (including slices). It can be either `-1` to turn off throttling or any decimal number like `1.7` or `12` to throttle to that level. (DEFAULT: -1)
+	 *     scroll?: int|string, // The period of time that a consistent view of the index should be maintained for scrolled search. In serverless, and stack versions >= v9.5.0, we use PIT rather than scroll for pagination. We only use scroll for reindexing from remote clusters that are older than v7.10.0. Therefore, this parameter is ignored unless you are reindexing from a remote cluster that is older than v7.10.0. (DEFAULT: 5m)
 	 *     slices?: int|string, // The number of slices this task should be divided into. It defaults to one slice, which means the task isn't sliced into subtasks.  Reindex supports sliced scroll to parallelize the reindexing process. This parallelization can improve efficiency and provide a convenient way to break the request down into smaller parts.  NOTE: Reindexing from remote clusters does not support manual or automatic slicing.  If set to `auto`, Elasticsearch chooses the number of slices to use. This setting will use one slice per shard, up to a certain limit. If there are multiple sources, it will choose the number of slices based on the index or backing index with the smallest number of shards. (DEFAULT: 1)
 	 *     max_docs?: int, // The maximum number of documents to reindex. By default, all documents are reindexed. If it is a value less then or equal to `scroll_size`, a scroll will not be used to retrieve the results for the operation.  If `conflicts` is set to `proceed`, the reindex operation could attempt to reindex more documents from the source than `max_docs` until it has successfully indexed `max_docs` documents into the target or it has gone through every document in the source query.
 	 *     require_alias?: bool, // If `true`, the destination must be an index alias.
@@ -1590,10 +1590,11 @@ trait ClientEndpointsTrait
 	 * Throttle a reindex operation
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-reindex
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) The task id to rethrottle
-	 *     requests_per_second?: int, // The throttle for this request in sub-requests per second. It can be either `-1` to turn off throttling or any decimal number like `1.7` or `12` to throttle to that level.
+	 *     requests_per_second?: int, // The maximum number of documents to index per second, across the entire reindex operation (including slices). It can be either `-1` to turn off throttling or any decimal number like `1.7` or `12` to throttle to that level.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1903,7 +1904,7 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
 	 *     preference?: string, // The node or shard the operation should be performed on. It is random by default.
-	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     local?: bool, // If `true`, the request retrieves information from the local node only.
 	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a concrete (non-wildcarded) index, alias, or data stream that is missing, closed, or otherwise unavailable. If `true`, unavailable concrete targets are silently ignored.
 	 *     allow_no_indices?: bool, // A setting that does two separate checks on the index expression. If `false`, the request returns an error (1) if any wildcard expression (including `_all` and `*`) resolves to zero matching indices or (2) if the complete set of resolved indices, aliases or data streams is empty after all expressions are evaluated. If `true`, index expressions that resolve to no indices are allowed and the request returns an empty result.
@@ -2189,7 +2190,7 @@ trait ClientEndpointsTrait
 	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The `timeout` parameter controls how long each write request waits for unavailable shards to become available. Both work exactly the way they work in the bulk API. (DEFAULT: 1)
 	 *     scroll_size?: int, // The size of the scroll request that powers the operation. (DEFAULT: 1000)
 	 *     wait_for_completion?: bool, // If `true`, the request blocks until the operation is complete. If `false`, Elasticsearch performs some preflight checks, launches the request, and returns a task ID that you can use to cancel or get the status of the task. Elasticsearch creates a record of this task as a document at `.tasks/task/${taskId}`. (DEFAULT: 1)
-	 *     requests_per_second?: int, // The throttle for this request in sub-requests per second. (DEFAULT: -1)
+	 *     requests_per_second?: int, // The maximum number of documents to update per second, across the entire update_by_query operation (including slices). It can be either `-1` to turn off throttling or any decimal number like `1.7` or `12` to throttle to that level. (DEFAULT: -1)
 	 *     slices?: int|string, // The number of slices this task should be divided into. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -2231,7 +2232,7 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) The task id to rethrottle
-	 *     requests_per_second?: int, // The throttle for this request in sub-requests per second. To turn off throttling, set it to `-1`.
+	 *     requests_per_second?: int, // The maximum number of documents to update per second, across the entire update_by_query operation (including slices). It can be either `-1` to turn off throttling or any decimal number like `1.7` or `12` to throttle to that level.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)

@@ -193,7 +193,7 @@ if [[ "$CMD" == "codegen" ]]; then
       --rm -v $repo:/code/elasticsearch-php \
       $product \
       /bin/bash -x -c "cd /code && mkdir codegen && \
-      git clone https://$CLIENTS_GITHUB_TOKEN@github.com/elastic/elastic-client-generator-php.git && \
+      git clone https://x-access-token:$CLIENTS_GITHUB_TOKEN@github.com/elastic/elastic-client-generator-php.git && \
       cd /code/elastic-client-generator-php && composer install && \
       bin/elasticsearch9.php $ES_VERSION $BRANCH /code/codegen config/elasticsearch9.json && \
       find /code/elasticsearch-php/src/Endpoints/ -name "*.php" -not -name AbstractEndpoint.php -exec rm {} \;

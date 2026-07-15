@@ -772,6 +772,7 @@ class Ml extends AbstractEndpoint
 	 * Predict future behavior of a time series
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-ml-forecast
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     job_id: string, // (REQUIRED) The ID of the job to forecast for

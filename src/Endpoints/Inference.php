@@ -159,6 +159,42 @@ class Inference extends AbstractEndpoint
 
 
 	/**
+	 * Delete the inference region policy
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-delete-region-policy
+	 * @group serverless
+	 *
+	 * @param array{
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function deleteRegionPolicy(?array $params = null)
+	{
+		$params = $params ?? [];
+		$url = '/_inference/_region_policy';
+		$method = 'DELETE';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'inference.delete_region_policy');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
 	 * Perform embedding inference on the service
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-embedding
@@ -247,6 +283,42 @@ class Inference extends AbstractEndpoint
 
 
 	/**
+	 * Get the inference region policy
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-get-region-policy
+	 * @group serverless
+	 *
+	 * @param array{
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function getRegionPolicy(?array $params = null)
+	{
+		$params = $params ?? [];
+		$url = '/_inference/_region_policy';
+		$method = 'GET';
+
+		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'inference.get_region_policy');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
 	 * Perform inference on the service
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-inference
@@ -302,7 +374,7 @@ class Inference extends AbstractEndpoint
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
 	 *     task_type?: string, // The task type
-	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created. (DEFAULT: 30s)
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be created. The default depends on the task type: 120s for `completion` and `chat_completion`, and 30s for all other task types. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1372,6 +1444,46 @@ class Inference extends AbstractEndpoint
 
 
 	/**
+	 * Create or update the inference region policy
+	 *
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-region-policy
+	 * @group serverless
+	 *
+	 * @param array{
+	 *     force?: bool, // If `true`, the region policy is applied even if it would deny access to inference endpoints that are currently in use by ingest pipeline or indices.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The region policy configuration. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function putRegionPolicy(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['body'], $params);
+		$url = '/_inference/_region_policy';
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['force','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, [], $request, 'inference.put_region_policy');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
 	 * Create a VoyageAI inference endpoint
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-inference-put-voyageai
@@ -1634,6 +1746,7 @@ class Inference extends AbstractEndpoint
 	 * @param array{
 	 *     inference_id: string, // (REQUIRED) The inference Id
 	 *     task_type?: string, // The task type
+	 *     timeout?: int|string, // Specifies the amount of time to wait for the inference endpoint to be updated. The default depends on the task type: 120s for `completion` and `chat_completion`, and 30s for all other task types.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1660,7 +1773,7 @@ class Inference extends AbstractEndpoint
 			$url = '/_inference/' . $this->encode($params['inference_id']) . '/_update';
 			$method = 'PUT';
 		}
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

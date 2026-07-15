@@ -2067,7 +2067,7 @@ class Indices extends AbstractEndpoint
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array<mixed>, // (REQUIRED) The data stream lifecycle configuration that consist of the data retention. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) The data stream lifecycle configuration, supporting fields: 'enabled', 'data_retention', 'downsampling', and 'frozen_after'. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing

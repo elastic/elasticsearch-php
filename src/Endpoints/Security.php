@@ -576,6 +576,7 @@ class Security extends AbstractEndpoint
 	 * Create a service account token
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-service-token
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     namespace: string, // (REQUIRED) An identifier for the namespace
@@ -778,6 +779,7 @@ class Security extends AbstractEndpoint
 	 * Delete service account tokens
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-delete-service-token
+	 * @group serverless
 	 *
 	 * @param array{
 	 *     namespace: string, // (REQUIRED) An identifier for the namespace

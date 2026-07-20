@@ -152,7 +152,7 @@ class Ingest extends AbstractEndpoint
 	/**
 	 * Get GeoIP statistics
 	 *
-	 * @link https://www.elastic.co/docs/reference/enrich-processor/geoip-processor
+	 * @link https://www.elastic.co/docs/reference/ingest-processor/geoip-processor
 	 *
 	 * @param array{
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
@@ -310,7 +310,7 @@ class Ingest extends AbstractEndpoint
 	/**
 	 * Run a grok processor
 	 *
-	 * @link https://www.elastic.co/docs/reference/enrich-processor/grok-processor
+	 * @link https://www.elastic.co/docs/reference/ingest-processor/grok-processor
 	 * @group serverless
 	 *
 	 * @param array{

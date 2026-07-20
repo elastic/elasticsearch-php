@@ -38,7 +38,7 @@ trait ClientEndpointsTrait
 	 *     index?: string, // Default index for items which don't provide one
 	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default is `1`, which waits for each primary shard to be active. (DEFAULT: 1)
 	 *     refresh?: string, // If `true`, Elasticsearch refreshes the affected shards to make this operation visible to search. If `wait_for`, wait for a refresh to make this operation visible to search. If `false`, do nothing with refreshes. Valid values: `true`, `false`, `wait_for`. (DEFAULT: false)
-	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     timeout?: int|string, // The period each action waits for the following operations: automatic index creation, dynamic mapping updates, and waiting for active shards. The default is `1m` (one minute), which guarantees Elasticsearch waits for at least the timeout before failing. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
 	 *     _source?: string|array<string>, // Indicates whether to return the `_source` field (`true` or `false`) or contains a list of fields to return.
 	 *     _source_excludes?: string|array<string>, // A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
@@ -180,7 +180,7 @@ trait ClientEndpointsTrait
 	 *     expand_wildcards?: string|array<string>, // The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. It supports comma-separated values, such as `open,hidden`. (DEFAULT: open)
 	 *     min_score?: float, // The minimum `_score` value that documents must have to be included in the result.
 	 *     preference?: string, // The node or shard the operation should be performed on. By default, it is random.
-	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     q?: string, // The query in Lucene query string syntax. This parameter cannot be used with a request body.
 	 *     analyzer?: string, // The analyzer to use for the query string. This parameter can be used only when the `q` query string parameter is specified.
 	 *     analyze_wildcard?: bool, // If `true`, wildcard and prefix queries are analyzed. This parameter can be used only when the `q` query string parameter is specified.
@@ -188,7 +188,7 @@ trait ClientEndpointsTrait
 	 *     df?: string, // The field to use as a default when no field prefix is given in the query string. This parameter can be used only when the `q` query string parameter is specified.
 	 *     lenient?: bool, // If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored. This parameter can be used only when the `q` query string parameter is specified.
 	 *     terminate_after?: int, // The maximum number of documents to collect for each shard. If a query reaches this limit, Elasticsearch terminates the query early. Elasticsearch collects documents before sorting.  IMPORTANT: Use with caution. Elasticsearch applies this parameter to each shard handling the request. When possible, let Elasticsearch perform early termination automatically. Avoid specifying this parameter for requests that target data streams with backing indices across multiple data tiers.
-	 *     stats?: string|array<string>, // Specific 'tag' of the request for logging and statistical purposes
+	 *     stats?: string|array<string>, // Specific `tag` of the request for logging and statistical purposes.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -287,7 +287,7 @@ trait ClientEndpointsTrait
 	 *     index: string, // (REQUIRED) The name of the index
 	 *     wait_for_active_shards?: string, // The minimum number of shard copies that must be active before proceeding with the operation. You can set it to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default value of `1` means it waits for each primary shard to be active. (DEFAULT: 1)
 	 *     refresh?: string, // If `true`, Elasticsearch refreshes the affected shards to make this operation visible to search. If `wait_for`, it waits for a refresh to make this operation visible to search. If `false`, it does nothing with refreshes. (DEFAULT: false)
-	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     timeout?: int|string, // The period to wait for active shards.  This parameter is useful for situations where the primary shard assigned to perform the delete operation might not be available when the delete operation runs. Some reasons for this might be that the primary shard is currently recovering from a store or undergoing relocation. By default, the delete operation will wait on the primary shard to become available for up to 1 minute before failing and responding with an error. (DEFAULT: 1m)
 	 *     if_seq_no?: int, // Only perform the operation if the document has this sequence number.
 	 *     if_primary_term?: int, // Only perform the operation if the document has this primary term.
@@ -344,7 +344,7 @@ trait ClientEndpointsTrait
 	 *     lenient?: bool, // If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored. This parameter can be used only when the `q` query string parameter is specified.
 	 *     preference?: string, // The node or shard the operation should be performed on. It is random by default.
 	 *     q?: string, // A query in the Lucene query string syntax.
-	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     scroll?: int|string, // The period to retain the search context for scrolling.
 	 *     search_type?: string, // The type of the search operation. Available options include `query_then_fetch` and `dfs_query_then_fetch`.
 	 *     search_timeout?: int|string, // The explicit timeout for each search request. It defaults to no timeout.
@@ -590,7 +590,7 @@ trait ClientEndpointsTrait
 	 *     lenient?: bool, // If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored. This parameter can be used only when the `q` query string parameter is specified.
 	 *     preference?: string, // The node or shard the operation should be performed on. It is random by default.
 	 *     q?: string, // The query in the Lucene query string syntax.
-	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     _source?: string|array<string>, // `True` or `false` to return the `_source` field or not or a list of fields to return.
 	 *     _source_excludes?: string|array<string>, // A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
 	 *     _source_includes?: string|array<string>, // A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
@@ -692,7 +692,8 @@ trait ClientEndpointsTrait
 	 *     preference?: string, // The node or shard the operation should be performed on. By default, the operation is randomized between the shard replicas.  If it is set to `_local`, the operation will prefer to be run on a local allocated shard when possible. If it is set to a custom value, the value is used to guarantee that the same shards will be used for the same custom value. This can help with "jumping values" when hitting different shards in different refresh states. A sample value can be something like the web session ID or the user name.
 	 *     realtime?: bool, // If `true`, the request is real-time as opposed to near-real-time. (DEFAULT: 1)
 	 *     refresh?: bool, // If `true`, the request refreshes the relevant shards before retrieving the document. Setting it to `true` should be done after careful thought and verification that this does not cause a heavy load on the system (and slow down indexing).
-	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
+	 *     _slice?: string, // The slice identifier used to route the operation to a specific slice. Use the special value `_all` to target all slices without restricting to a routing value. Required when `index.slice.enabled` is `true` for the target index; not allowed when `index.slice.enabled` is `false`.
 	 *     _source?: string|array<string>, // Indicates whether to return the `_source` field (`true` or `false`) or lists the fields to return.
 	 *     _source_excludes?: string|array<string>, // A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
 	 *     _source_includes?: string|array<string>, // A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
@@ -720,7 +721,7 @@ trait ClientEndpointsTrait
 		$url = '/' . $this->encode($params['index']) . '/_doc/' . $this->encode($params['id']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['force_synthetic_source','stored_fields','preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','_source_exclude_vectors','version','version_type','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['force_synthetic_source','stored_fields','preference','realtime','refresh','routing','_slice','_source','_source_excludes','_source_includes','_source_exclude_vectors','version','version_type','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -944,7 +945,8 @@ trait ClientEndpointsTrait
 	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. You can set it to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default value of `1` means it waits for each primary shard to be active. (DEFAULT: 1)
 	 *     op_type?: string, // Set to `create` to only index the document if it does not already exist (put if absent). If a document with the specified `_id` already exists, the indexing operation will fail. The behavior is the same as using the `<index>/_create` endpoint. If a document ID is specified, this paramater defaults to `index`. Otherwise, it defaults to `create`. If the request targets a data stream, an `op_type` of `create` is required.
 	 *     refresh?: string, // If `true`, Elasticsearch refreshes the affected shards to make this operation visible to search. If `wait_for`, it waits for a refresh to make this operation visible to search. If `false`, it does nothing with refreshes. (DEFAULT: false)
-	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
+	 *     _slice?: string, // The slice identifier used to route the operation to a specific slice. Use the special value `_all` to target all slices without restricting to a routing value. Required when `index.slice.enabled` is `true` for the target index; not allowed when `index.slice.enabled` is `false`.
 	 *     timeout?: int|string, // The period the request waits for the following operations: automatic index creation, dynamic mapping updates, waiting for active shards.  This parameter is useful for situations where the primary shard assigned to perform the operation might not be available when the operation runs. Some reasons for this might be that the primary shard is currently recovering from a gateway or undergoing relocation. By default, the operation will wait on the primary shard to become available for at least 1 minute before failing and responding with an error. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
 	 *     version?: int, // An explicit version number for concurrency control. It must be a non-negative long number.
 	 *     version_type?: string, // The version type.
@@ -980,7 +982,7 @@ trait ClientEndpointsTrait
 			$url = '/' . $this->encode($params['index']) . '/_doc';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','op_type','refresh','routing','timeout','version','version_type','if_seq_no','if_primary_term','pipeline','require_alias','require_data_stream','include_source_on_error','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','op_type','refresh','routing','_slice','timeout','version','version_type','if_seq_no','if_primary_term','pipeline','require_alias','require_data_stream','include_source_on_error','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1040,7 +1042,7 @@ trait ClientEndpointsTrait
 	 *     preference?: string, // Specifies the node or shard the operation should be performed on. Random by default.
 	 *     realtime?: bool, // If `true`, the request is real-time as opposed to near-real-time. (DEFAULT: 1)
 	 *     refresh?: bool, // If `true`, the request refreshes relevant shards before retrieving documents.
-	 *     routing?: string|array<string>, // Custom value used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // Custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     _source?: string|array<string>, // True or false to return the `_source` field or not, or a list of fields to return.
 	 *     _source_excludes?: string|array<string>, // A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter.
 	 *     _source_includes?: string|array<string>, // A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
@@ -1204,7 +1206,7 @@ trait ClientEndpointsTrait
 	 *     positions?: bool, // If `true`, the response includes term positions. (DEFAULT: 1)
 	 *     payloads?: bool, // If `true`, the response includes term payloads. (DEFAULT: 1)
 	 *     preference?: string, // The node or shard the operation should be performed on. It is random by default.
-	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     realtime?: bool, // If true, the request is real-time as opposed to near-real-time. (DEFAULT: 1)
 	 *     version?: int, // If `true`, returns the document version as part of a hit.
 	 *     version_type?: string, // The version type.
@@ -1433,11 +1435,11 @@ trait ClientEndpointsTrait
 	 *     refresh?: bool, // If `true`, the request refreshes affected shards to make this operation visible to search.
 	 *     timeout?: int|string, // The period each indexing waits for automatic index creation, dynamic mapping updates, and waiting for active shards. By default, Elasticsearch waits for at least one minute before failing. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
 	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. Set it to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default value is one, which means it waits for each primary shard to be active. (DEFAULT: 1)
-	 *     wait_for_completion?: bool, // If `true`, the request blocks until the operation is complete. (DEFAULT: 1)
+	 *     wait_for_completion?: bool, // If `true`, the request blocks until the operation is complete. If your requested reindex operation is complex or time-consuming, it might timeout due to transport-layer limitations. While the reindex will continue to be processed by the cluster, your client will not receive updates on status automatically after timeout. Set this option `true` if you anticipate a long-running reindex. (DEFAULT: 1)
 	 *     requests_per_second?: int, // The maximum number of documents to index per second, across the entire reindex operation (including slices). It can be either `-1` to turn off throttling or any decimal number like `1.7` or `12` to throttle to that level. (DEFAULT: -1)
 	 *     scroll?: int|string, // The period of time that a consistent view of the index should be maintained for scrolled search. In serverless, and stack versions >= v9.5.0, we use PIT rather than scroll for pagination. We only use scroll for reindexing from remote clusters that are older than v7.10.0. Therefore, this parameter is ignored unless you are reindexing from a remote cluster that is older than v7.10.0. (DEFAULT: 5m)
 	 *     slices?: int|string, // The number of slices this task should be divided into. It defaults to one slice, which means the task isn't sliced into subtasks.  Reindex supports sliced scroll to parallelize the reindexing process. This parallelization can improve efficiency and provide a convenient way to break the request down into smaller parts.  NOTE: Reindexing from remote clusters does not support manual or automatic slicing.  If set to `auto`, Elasticsearch chooses the number of slices to use. This setting will use one slice per shard, up to a certain limit. If there are multiple sources, it will choose the number of slices based on the index or backing index with the smallest number of shards. (DEFAULT: 1)
-	 *     max_docs?: int, // The maximum number of documents to reindex. By default, all documents are reindexed. If it is a value less then or equal to `scroll_size`, a scroll will not be used to retrieve the results for the operation.  If `conflicts` is set to `proceed`, the reindex operation could attempt to reindex more documents from the source than `max_docs` until it has successfully indexed `max_docs` documents into the target or it has gone through every document in the source query.
+	 *     max_docs?: int, // The maximum number of documents to reindex. By default, all documents are reindexed. If it is a value less then or equal to `scroll_size`, a scroll will not be used to retrieve the results for the operation.  If `conflicts` is set to `proceed`, the reindex operation could attempt to reindex more documents from the source than `max_docs` until it has successfully indexed `max_docs` documents into the target or it has gone through every document in the source query.  If `slices` is set, the `max_docs` limit is split evenly across the slices. If the number of documents in the source is equal to or slightly more than `max_docs`, this could result in slightly fewer than `max_docs` documents being reindexed, due to skew in the slicing.
 	 *     require_alias?: bool, // If `true`, the destination must be an index alias.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -1474,7 +1476,7 @@ trait ClientEndpointsTrait
 	/**
 	 * Cancel a reindex operation
 	 *
-	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-cancel-reindex
 	 *
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) Cancel the reindex operation with specified id
@@ -1513,7 +1515,7 @@ trait ClientEndpointsTrait
 	/**
 	 * Get information for a reindex operation
 	 *
-	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-get-reindex
 	 *
 	 * @param array{
 	 *     task_id: string, // (REQUIRED) Return the reindex operation with specified id
@@ -1553,7 +1555,7 @@ trait ClientEndpointsTrait
 	/**
 	 * List all running reindex operations
 	 *
-	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-list-reindex
 	 *
 	 * @param array{
 	 *     detailed?: bool, // Return detailed reindex information (default: false)
@@ -1780,7 +1782,8 @@ trait ClientEndpointsTrait
 	 *     lenient?: bool, // If `true`, format-based query failures (such as providing text to a numeric field) in the query string will be ignored. This parameter can be used only when the `q` query string parameter is specified.
 	 *     preference?: string, // The nodes and shards used for the search. By default, Elasticsearch selects from eligible nodes and shards using adaptive replica selection, accounting for allocation awareness. Valid values are:  * `_only_local` to run the search only on shards on the local node. * `_local` to, if possible, run the search on shards on the local node, or if not, select shards using the default method. * `_only_nodes:<node-id>,<node-id>` to run the search on only the specified nodes IDs. If suitable shards exist on more than one selected node, use shards on those nodes using the default method. If none of the specified nodes are available, select shards from any available node using the default method. * `_prefer_nodes:<node-id>,<node-id>` to if possible, run the search on the specified nodes IDs. If not, select shards using the default method. * `_shards:<shard>,<shard>` to run the search only on the specified shards. You can combine this value with other `preference` values. However, the `_shards` value must come first. For example: `_shards:2,3|_local`. * `<custom-string>` (any string that does not start with `_`) to route searches with the same `<custom-string>` to the same shards in the same order.
 	 *     q?: string, // A query in the Lucene query string syntax. Query parameter searches do not support the full Elasticsearch Query DSL but are handy for testing.  IMPORTANT: This parameter overrides the query parameter in the request body. If both parameters are specified, documents matching the query request body parameter are not returned.
-	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
+	 *     _slice?: string, // The slice identifier used to route the operation to a specific slice. Use the special value `_all` to target all slices without restricting to a routing value. Required when `index.slice.enabled` is `true` for the target index; not allowed when `index.slice.enabled` is `false`.
 	 *     scroll?: int|string, // The period to retain the search context for scrolling. By default, this value cannot exceed `1d` (24 hours). You can change this limit by using the `search.max_keep_alive` cluster-level setting.
 	 *     search_type?: string, // Indicates how distributed term frequencies are calculated for relevance scoring.
 	 *     size?: int, // The number of hits to return. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter. (DEFAULT: 10)
@@ -1832,7 +1835,7 @@ trait ClientEndpointsTrait
 			$url = '/_search';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','ccs_minimize_roundtrips','default_operator','df','explain','stored_fields','docvalue_fields','from','force_synthetic_source','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','lenient','preference','q','routing','scroll','search_type','size','sort','_source','_source_excludes','_source_includes','_source_exclude_vectors','terminate_after','stats','suggest_field','suggest_mode','suggest_size','suggest_text','timeout','track_scores','track_total_hits','allow_partial_search_results','typed_keys','version','seq_no_primary_term','request_cache','batched_reduce_size','max_concurrent_shard_requests','pre_filter_shard_size','rest_total_hits_as_int','include_named_queries_score','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','ccs_minimize_roundtrips','default_operator','df','explain','stored_fields','docvalue_fields','from','force_synthetic_source','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','lenient','preference','q','routing','_slice','scroll','search_type','size','sort','_source','_source_excludes','_source_includes','_source_exclude_vectors','terminate_after','stats','suggest_field','suggest_mode','suggest_size','suggest_text','timeout','track_scores','track_total_hits','allow_partial_search_results','typed_keys','version','seq_no_primary_term','request_cache','batched_reduce_size','max_concurrent_shard_requests','pre_filter_shard_size','rest_total_hits_as_int','include_named_queries_score','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -2057,7 +2060,7 @@ trait ClientEndpointsTrait
 	 *     positions?: bool, // If `true`, the response includes term positions. (DEFAULT: 1)
 	 *     payloads?: bool, // If `true`, the response includes term payloads. (DEFAULT: 1)
 	 *     preference?: string, // The node or shard the operation should be performed on. It is random by default.
-	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     realtime?: bool, // If true, the request is real-time as opposed to near-real-time. (DEFAULT: 1)
 	 *     version?: int, // If `true`, returns the document version as part of a hit.
 	 *     version_type?: string, // The version type.
@@ -2114,7 +2117,7 @@ trait ClientEndpointsTrait
 	 *     lang?: string, // The script language. (DEFAULT: painless)
 	 *     refresh?: string, // If 'true', Elasticsearch refreshes the affected shards to make this operation visible to search. If 'wait_for', it waits for a refresh to make this operation visible to search. If 'false', it does nothing with refreshes. (DEFAULT: false)
 	 *     retry_on_conflict?: int, // The number of times the operation should be retried when a conflict occurs.
-	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     timeout?: int|string, // The period to wait for the following operations: dynamic mapping updates and waiting for active shards. Elasticsearch waits for at least the timeout period before failing. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
 	 *     if_seq_no?: int, // Only perform the operation if the document has this sequence number.
 	 *     if_primary_term?: int, // Only perform the operation if the document has this primary term.
@@ -2174,7 +2177,7 @@ trait ClientEndpointsTrait
 	 *     pipeline?: string, // The ID of the pipeline to use to preprocess incoming documents. If the index has a default ingest pipeline specified, then setting the value to `_none` disables the default ingest pipeline for this request. If a final pipeline is configured it will always run, regardless of the value of this parameter.
 	 *     preference?: string, // The node or shard the operation should be performed on. It is random by default.
 	 *     q?: string, // A query in the Lucene query string syntax.
-	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     scroll?: int|string, // The period to retain the search context for scrolling. (DEFAULT: 5m)
 	 *     search_type?: string, // The type of the search operation. Available options include `query_then_fetch` and `dfs_query_then_fetch`.
 	 *     search_timeout?: int|string, // An explicit timeout for each search request. By default, there is no timeout.
@@ -2187,7 +2190,7 @@ trait ClientEndpointsTrait
 	 *     request_cache?: bool, // If `true`, the request cache is used for this request. It defaults to the index-level setting.
 	 *     refresh?: bool, // If `true`, Elasticsearch refreshes affected shards to make the operation visible to search after the request completes. This is different than the update API's `refresh` parameter, which causes just the shard that received the request to be refreshed.
 	 *     timeout?: int|string, // The period each update request waits for the following operations: dynamic mapping updates, waiting for active shards. By default, it is one minute. This guarantees Elasticsearch waits for at least the timeout before failing. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
-	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The `timeout` parameter controls how long each write request waits for unavailable shards to become available. Both work exactly the way they work in the bulk API. (DEFAULT: 1)
+	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The `timeout` parameter controls how long each write request waits for unavailable shards to become available. Both work exactly the way they work in the bulk API. Update by query uses scrolled searches, so you can also specify the `scroll` parameter to control how long it keeps the search context alive, for example `?scroll=10m`. (DEFAULT: 1)
 	 *     scroll_size?: int, // The size of the scroll request that powers the operation. (DEFAULT: 1000)
 	 *     wait_for_completion?: bool, // If `true`, the request blocks until the operation is complete. If `false`, Elasticsearch performs some preflight checks, launches the request, and returns a task ID that you can use to cancel or get the status of the task. Elasticsearch creates a record of this task as a document at `.tasks/task/${taskId}`. (DEFAULT: 1)
 	 *     requests_per_second?: int, // The maximum number of documents to update per second, across the entire update_by_query operation (including slices). It can be either `-1` to turn off throttling or any decimal number like `1.7` or `12` to throttle to that level. (DEFAULT: -1)

@@ -117,9 +117,9 @@ class Synonyms extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     id: string, // (REQUIRED) The name of the synonyms set to be retrieved
-	 *     from?: int, // The starting offset for query rules to retrieve.
-	 *     size?: int, // The max number of query rules to retrieve. (DEFAULT: 10)
-	 *     search_after?: string, // The rule ID of the last result from the previous page, for cursor-based pagination
+	 *     from?: int, // The starting offset for synonym rules to retrieve.
+	 *     size?: int, // The max number of synonym rules to retrieve. (DEFAULT: 10)
+	 *     search_after?: string, // The synonym rule ID to use as a cursor for pagination. The next page of results will start after this rule ID. This parameter cannot be used with `from`.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -239,6 +239,7 @@ class Synonyms extends AbstractEndpoint
 	 * @param array{
 	 *     id: string, // (REQUIRED) The id of the synonyms set to be created or updated
 	 *     refresh?: bool, // If `true`, the request will refresh the analyzers with the new synonyms set and wait for the new synonyms to be available before returning. If `false`, analyzers will not be reloaded with the new synonym set (DEFAULT: 1)
+	 *     append?: bool, // If `true`, the provided synonym rules are appended to the existing set, with matching IDs overwriting existing rules. If `false`, the entire synonyms set is replaced with the new synonym rules definitions.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -261,7 +262,7 @@ class Synonyms extends AbstractEndpoint
 		$url = '/_synonyms/' . $this->encode($params['id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['refresh','append','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

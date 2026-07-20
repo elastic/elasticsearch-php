@@ -43,7 +43,7 @@ class Esql extends AbstractEndpoint
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array<mixed>, // (REQUIRED) Use the `query` element to start a query. Use `columnar` to format the answer.. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) Use the `query` element to start a query. Use `columnar` to format the answer. Use the `settings` object to supply per-query settings (e.g. `time_zone`) — the request-body equivalent of in-query `SET`.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline
@@ -193,6 +193,7 @@ class Esql extends AbstractEndpoint
 	 * Delete one or more ES|QL data sources. Fails with 409 if any dataset references them.
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-data-source-delete
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -233,6 +234,7 @@ class Esql extends AbstractEndpoint
 	 * Delete one or more ES|QL datasets.
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-dataset-delete
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -314,6 +316,7 @@ class Esql extends AbstractEndpoint
 	 * Get one or more ES|QL data sources. Secret setting values are returned masked.
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-data-source-get
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -356,6 +359,7 @@ class Esql extends AbstractEndpoint
 	 * Get one or more ES|QL datasets.
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-dataset-get
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -520,6 +524,7 @@ class Esql extends AbstractEndpoint
 	 * Creates or replaces an ES|QL data source.
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-data-source-put
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -561,6 +566,7 @@ class Esql extends AbstractEndpoint
 	 * Creates or replaces an ES|QL dataset referencing a parent data source.
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-dataset-put
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -570,7 +576,7 @@ class Esql extends AbstractEndpoint
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array<mixed>, // (REQUIRED) Dataset definition: parent data_source name, resource path, optional description, and type-specific settings.. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) Dataset definition: parent data_source name, resource path, optional description, type-specific settings, and an optional mappings block (column types, path renames, format, _id).. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws MissingParameterException if a required parameter is missing
@@ -656,7 +662,7 @@ class Esql extends AbstractEndpoint
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
 	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
 	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
-	 *     body: string|array<mixed>, // (REQUIRED) Use the `query` element to start a query. Use `columnar` to format the answer.. If body is a string must be a valid JSON.
+	 *     body: string|array<mixed>, // (REQUIRED) Use the `query` element to start a query. Use `columnar` to format the answer. Use the `settings` object to supply per-query settings (e.g. `time_zone`) — the request-body equivalent of in-query `SET`.. If body is a string must be a valid JSON.
 	 * } $params
 	 *
 	 * @throws NoNodeAvailableException if all the hosts are offline

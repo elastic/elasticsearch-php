@@ -159,10 +159,11 @@ class Transform extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     transform_id: string|array<string>, // (REQUIRED) Comma-separated list of transform identifiers or wildcard expressions. You can get information for all transforms by using `_all`, by specifying `*` as the `<transform_id>`, or by omitting the `<transform_id>`.
+	 *     allow_no_match?: bool, // Specifies what to do when the request:  1. Contains wildcard expressions and there are no transforms that match. 2. Contains the _all string or no identifiers and there are no matches. 3. Contains wildcard expressions and there are only partial matches.  If this parameter is false, the request returns a 404 status code when there are no matches or only partial matches. (DEFAULT: 1)
+	 *     basic?: bool, // If true, the response includes `id`, `state`, `node`, `stats`, `health`, and basic `checkpointing` information (the last and next checkpoint numbers, and the next checkpoint's `position` and `progress`). Skips statistics that require heavy computations to calculate: `operations_behind`, `changes_last_detected_at`, `last_search_time`, and the checkpoint timestamps.
 	 *     from?: int, // Skips the specified number of transforms.
 	 *     size?: int, // Specifies the maximum number of transforms to obtain. (DEFAULT: 100)
 	 *     timeout?: int|string, // Controls the time to wait for the stats (DEFAULT: 30s)
-	 *     allow_no_match?: bool, // Specifies what to do when the request:  1. Contains wildcard expressions and there are no transforms that match. 2. Contains the _all string or no identifiers and there are no matches. 3. Contains wildcard expressions and there are only partial matches.  If this parameter is false, the request returns a 404 status code when there are no matches or only partial matches. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -184,7 +185,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . $this->encode($this->convertValue($params['transform_id'])) . '/_stats';
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['from','size','timeout','allow_no_match','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['allow_no_match','basic','from','size','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

@@ -193,6 +193,7 @@ class Esql extends AbstractEndpoint
 	 * Delete one or more ES|QL data sources. Fails with 409 if any dataset references them.
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-data-source-delete
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -233,6 +234,7 @@ class Esql extends AbstractEndpoint
 	 * Delete one or more ES|QL datasets.
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-dataset-delete
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -314,6 +316,7 @@ class Esql extends AbstractEndpoint
 	 * Get one or more ES|QL data sources. Secret setting values are returned masked.
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-data-source-get
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -356,6 +359,7 @@ class Esql extends AbstractEndpoint
 	 * Get one or more ES|QL datasets.
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-dataset-get
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -520,6 +524,7 @@ class Esql extends AbstractEndpoint
 	 * Creates or replaces an ES|QL data source.
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-data-source-put
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -561,6 +566,7 @@ class Esql extends AbstractEndpoint
 	 * Creates or replaces an ES|QL dataset referencing a parent data source.
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-esql-dataset-put
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{

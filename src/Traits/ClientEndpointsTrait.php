@@ -236,6 +236,7 @@ trait ClientEndpointsTrait
 	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. You can set it to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default value of `1` means it waits for each primary shard to be active. (DEFAULT: 1)
 	 *     refresh?: string, // If `true`, Elasticsearch refreshes the affected shards to make this operation visible to search. If `wait_for`, it waits for a refresh to make this operation visible to search. If `false`, it does nothing with refreshes. (DEFAULT: false)
 	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard.
+	 *     slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); required to scope the operation to that slice
 	 *     timeout?: int|string, // The period the request waits for the following operations: automatic index creation, dynamic mapping updates, waiting for active shards. Elasticsearch waits for at least the specified timeout period before failing. The actual wait time could be longer, particularly when multiple waits occur.  This parameter is useful for situations where the primary shard assigned to perform the operation might not be available when the operation runs. Some reasons for this might be that the primary shard is currently recovering from a gateway or undergoing relocation. By default, the operation will wait on the primary shard to become available for at least 1 minute before failing and responding with an error. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
 	 *     version?: int, // The explicit version number for concurrency control. It must be a non-negative long number.
 	 *     version_type?: string, // The version type.
@@ -265,7 +266,7 @@ trait ClientEndpointsTrait
 		$url = '/' . $this->encode($params['index']) . '/_create/' . $this->encode($params['id']);
 		$method = 'PUT';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','version','version_type','pipeline','include_source_on_error','require_alias','require_data_stream','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','slice','timeout','version','version_type','pipeline','include_source_on_error','require_alias','require_data_stream','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -288,6 +289,7 @@ trait ClientEndpointsTrait
 	 *     wait_for_active_shards?: string, // The minimum number of shard copies that must be active before proceeding with the operation. You can set it to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default value of `1` means it waits for each primary shard to be active. (DEFAULT: 1)
 	 *     refresh?: string, // If `true`, Elasticsearch refreshes the affected shards to make this operation visible to search. If `wait_for`, it waits for a refresh to make this operation visible to search. If `false`, it does nothing with refreshes. (DEFAULT: false)
 	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
+	 *     slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); required to scope the operation to that slice
 	 *     timeout?: int|string, // The period to wait for active shards.  This parameter is useful for situations where the primary shard assigned to perform the delete operation might not be available when the delete operation runs. Some reasons for this might be that the primary shard is currently recovering from a store or undergoing relocation. By default, the delete operation will wait on the primary shard to become available for up to 1 minute before failing and responding with an error. (DEFAULT: 1m)
 	 *     if_seq_no?: int, // Only perform the operation if the document has this sequence number.
 	 *     if_primary_term?: int, // Only perform the operation if the document has this primary term.
@@ -314,7 +316,7 @@ trait ClientEndpointsTrait
 		$url = '/' . $this->encode($params['index']) . '/_doc/' . $this->encode($params['id']);
 		$method = 'DELETE';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','if_seq_no','if_primary_term','version','version_type','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','slice','timeout','if_seq_no','if_primary_term','version','version_type','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -693,7 +695,7 @@ trait ClientEndpointsTrait
 	 *     realtime?: bool, // If `true`, the request is real-time as opposed to near-real-time. (DEFAULT: 1)
 	 *     refresh?: bool, // If `true`, the request refreshes the relevant shards before retrieving the document. Setting it to `true` should be done after careful thought and verification that this does not cause a heavy load on the system (and slow down indexing).
 	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
-	 *     _slice?: string, // The slice identifier used to route the operation to a specific slice. Use the special value `_all` to target all slices without restricting to a routing value. Required when `index.slice.enabled` is `true` for the target index; not allowed when `index.slice.enabled` is `false`.
+	 *     slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); required to scope the operation to that slice
 	 *     _source?: string|array<string>, // Indicates whether to return the `_source` field (`true` or `false`) or lists the fields to return.
 	 *     _source_excludes?: string|array<string>, // A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
 	 *     _source_includes?: string|array<string>, // A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
@@ -721,7 +723,7 @@ trait ClientEndpointsTrait
 		$url = '/' . $this->encode($params['index']) . '/_doc/' . $this->encode($params['id']);
 		$method = 'GET';
 
-		$url = $this->addQueryString($url, $params, ['force_synthetic_source','stored_fields','preference','realtime','refresh','routing','_slice','_source','_source_excludes','_source_includes','_source_exclude_vectors','version','version_type','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['force_synthetic_source','stored_fields','preference','realtime','refresh','routing','slice','_source','_source_excludes','_source_includes','_source_exclude_vectors','version','version_type','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -946,7 +948,7 @@ trait ClientEndpointsTrait
 	 *     op_type?: string, // Set to `create` to only index the document if it does not already exist (put if absent). If a document with the specified `_id` already exists, the indexing operation will fail. The behavior is the same as using the `<index>/_create` endpoint. If a document ID is specified, this paramater defaults to `index`. Otherwise, it defaults to `create`. If the request targets a data stream, an `op_type` of `create` is required.
 	 *     refresh?: string, // If `true`, Elasticsearch refreshes the affected shards to make this operation visible to search. If `wait_for`, it waits for a refresh to make this operation visible to search. If `false`, it does nothing with refreshes. (DEFAULT: false)
 	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
-	 *     _slice?: string, // The slice identifier used to route the operation to a specific slice. Use the special value `_all` to target all slices without restricting to a routing value. Required when `index.slice.enabled` is `true` for the target index; not allowed when `index.slice.enabled` is `false`.
+	 *     slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); required to scope the operation to that slice
 	 *     timeout?: int|string, // The period the request waits for the following operations: automatic index creation, dynamic mapping updates, waiting for active shards.  This parameter is useful for situations where the primary shard assigned to perform the operation might not be available when the operation runs. Some reasons for this might be that the primary shard is currently recovering from a gateway or undergoing relocation. By default, the operation will wait on the primary shard to become available for at least 1 minute before failing and responding with an error. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
 	 *     version?: int, // An explicit version number for concurrency control. It must be a non-negative long number.
 	 *     version_type?: string, // The version type.
@@ -982,7 +984,7 @@ trait ClientEndpointsTrait
 			$url = '/' . $this->encode($params['index']) . '/_doc';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','op_type','refresh','routing','_slice','timeout','version','version_type','if_seq_no','if_primary_term','pipeline','require_alias','require_data_stream','include_source_on_error','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','op_type','refresh','routing','slice','timeout','version','version_type','if_seq_no','if_primary_term','pipeline','require_alias','require_data_stream','include_source_on_error','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1783,7 +1785,7 @@ trait ClientEndpointsTrait
 	 *     preference?: string, // The nodes and shards used for the search. By default, Elasticsearch selects from eligible nodes and shards using adaptive replica selection, accounting for allocation awareness. Valid values are:  * `_only_local` to run the search only on shards on the local node. * `_local` to, if possible, run the search on shards on the local node, or if not, select shards using the default method. * `_only_nodes:<node-id>,<node-id>` to run the search on only the specified nodes IDs. If suitable shards exist on more than one selected node, use shards on those nodes using the default method. If none of the specified nodes are available, select shards from any available node using the default method. * `_prefer_nodes:<node-id>,<node-id>` to if possible, run the search on the specified nodes IDs. If not, select shards using the default method. * `_shards:<shard>,<shard>` to run the search only on the specified shards. You can combine this value with other `preference` values. However, the `_shards` value must come first. For example: `_shards:2,3|_local`. * `<custom-string>` (any string that does not start with `_`) to route searches with the same `<custom-string>` to the same shards in the same order.
 	 *     q?: string, // A query in the Lucene query string syntax. Query parameter searches do not support the full Elasticsearch Query DSL but are handy for testing.  IMPORTANT: This parameter overrides the query parameter in the request body. If both parameters are specified, documents matching the query request body parameter are not returned.
 	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
-	 *     _slice?: string, // The slice identifier used to route the operation to a specific slice. Use the special value `_all` to target all slices without restricting to a routing value. Required when `index.slice.enabled` is `true` for the target index; not allowed when `index.slice.enabled` is `false`.
+	 *     slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the search to that slice, or `_all` to search across all slices
 	 *     scroll?: int|string, // The period to retain the search context for scrolling. By default, this value cannot exceed `1d` (24 hours). You can change this limit by using the `search.max_keep_alive` cluster-level setting.
 	 *     search_type?: string, // Indicates how distributed term frequencies are calculated for relevance scoring.
 	 *     size?: int, // The number of hits to return. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter. (DEFAULT: 10)
@@ -1835,7 +1837,7 @@ trait ClientEndpointsTrait
 			$url = '/_search';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','ccs_minimize_roundtrips','default_operator','df','explain','stored_fields','docvalue_fields','from','force_synthetic_source','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','lenient','preference','q','routing','_slice','scroll','search_type','size','sort','_source','_source_excludes','_source_includes','_source_exclude_vectors','terminate_after','stats','suggest_field','suggest_mode','suggest_size','suggest_text','timeout','track_scores','track_total_hits','allow_partial_search_results','typed_keys','version','seq_no_primary_term','request_cache','batched_reduce_size','max_concurrent_shard_requests','pre_filter_shard_size','rest_total_hits_as_int','include_named_queries_score','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','ccs_minimize_roundtrips','default_operator','df','explain','stored_fields','docvalue_fields','from','force_synthetic_source','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','lenient','preference','q','routing','slice','scroll','search_type','size','sort','_source','_source_excludes','_source_includes','_source_exclude_vectors','terminate_after','stats','suggest_field','suggest_mode','suggest_size','suggest_text','timeout','track_scores','track_total_hits','allow_partial_search_results','typed_keys','version','seq_no_primary_term','request_cache','batched_reduce_size','max_concurrent_shard_requests','pre_filter_shard_size','rest_total_hits_as_int','include_named_queries_score','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -2118,6 +2120,7 @@ trait ClientEndpointsTrait
 	 *     refresh?: string, // If 'true', Elasticsearch refreshes the affected shards to make this operation visible to search. If 'wait_for', it waits for a refresh to make this operation visible to search. If 'false', it does nothing with refreshes. (DEFAULT: false)
 	 *     retry_on_conflict?: int, // The number of times the operation should be retried when a conflict occurs.
 	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
+	 *     slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); required to scope the operation to that slice
 	 *     timeout?: int|string, // The period to wait for the following operations: dynamic mapping updates and waiting for active shards. Elasticsearch waits for at least the timeout period before failing. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
 	 *     if_seq_no?: int, // Only perform the operation if the document has this sequence number.
 	 *     if_primary_term?: int, // Only perform the operation if the document has this primary term.
@@ -2145,7 +2148,7 @@ trait ClientEndpointsTrait
 		$url = '/' . $this->encode($params['index']) . '/_update/' . $this->encode($params['id']);
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','_source','_source_excludes','_source_includes','lang','refresh','retry_on_conflict','routing','timeout','if_seq_no','if_primary_term','require_alias','include_source_on_error','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','_source','_source_excludes','_source_includes','lang','refresh','retry_on_conflict','routing','slice','timeout','if_seq_no','if_primary_term','require_alias','include_source_on_error','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

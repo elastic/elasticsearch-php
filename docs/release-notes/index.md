@@ -20,6 +20,92 @@ To check for security updates, go to [Security announcements for the Elastic sta
 % ### Fixes [elasticsearch-php-client-next-fixes]
 % *
 
+## 9.5.0 [elasticsearch-php-client-950-release-notes]
+
+### Fixes [elasticsearch-php-client-950-fixes]
+
+- Separate unknown parameters with commas in `ClientBuilder::fromConfig()` error messages [#1595](https://github.com/elastic/elasticsearch-php/pull/1595)
+
+### Esql.deleteView (new experimental API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.5/rest-api-spec/src/main/resources/rest-api-spec/api/esql.delete_view.json
+
+### Esql.getView (new experimental API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.5/rest-api-spec/src/main/resources/rest-api-spec/api/esql.get_view.json
+
+### Esql.putView (new experimental API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.5/rest-api-spec/src/main/resources/rest-api-spec/api/esql.put_view.json
+
+### Inference.deleteRegionPolicy (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.5/rest-api-spec/src/main/resources/rest-api-spec/api/inference.delete_region_policy.json
+
+### Inference.getRegionPolicy (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.5/rest-api-spec/src/main/resources/rest-api-spec/api/inference.get_region_policy.json
+
+### Inference.putRegionPolicy (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.5/rest-api-spec/src/main/resources/rest-api-spec/api/inference.put_region_policy.json
+
+### reindexCancel (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.5/rest-api-spec/src/main/resources/rest-api-spec/api/reindex_cancel.json
+
+### reindexGet (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.5/rest-api-spec/src/main/resources/rest-api-spec/api/reindex_get.json
+
+### reindexList (new API)
+
+- API: https://github.com/elastic/elasticsearch/blob/9.5/rest-api-spec/src/main/resources/rest-api-spec/api/reindex_list.json
+
+### count
+
+- Added the `stats` parameter
+
+### get
+
+- Added the `_slice` parameter
+
+### index
+
+- Added the `_slice` parameter
+
+### Inference.update
+
+- Added the `timeout` parameter
+
+### search
+
+- Added the `_slice` parameter
+
+### Security.getRole
+
+- Added the `include_implicit` parameter
+
+### Snapshot.repositoryAnalyze
+
+- Added the `check_overwrite_protection` parameter
+
+### Synonyms.getSynonym
+
+- Added the `search_after` parameter
+
+### Synonyms.putSynonym
+
+- Added the `append` parameter
+
+### Transform.getTransformStats
+
+- Added the `basic` parameter
+
+### Transform.scheduleNowTransform
+
+- Added the `defer` parameter
+
 ## 9.4.0 [elasticsearch-php-client-940-release-notes]
 
 ### Features and enhancements [elasticsearch-php-client-940-features-enhancements]

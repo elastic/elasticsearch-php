@@ -1,3 +1,8 @@
+## Release 9.5.0
+
+- Fixed error messages for multiple unknown parameters passed to `ClientBuilder::fromConfig()` [#1595](https://github.com/elastic/elasticsearch-php/pull/1595)
+- Updated the APIs to Elasticsearch [9.5.0](https://www.elastic.co/docs/release-notes/elasticsearch#elasticsearch-9.5.0-release-notes)
+
 ## Release 9.4.0
 
 - Added a Bulk Helper function [#1560](https://github.com/elastic/elasticsearch-php/pull/1560)

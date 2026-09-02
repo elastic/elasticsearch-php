@@ -65,4 +65,14 @@ class GuzzleTest extends TestCase
         $this->assertInstanceOf(Client::class, $result);
         $this->assertEquals('test', $result->getConfig(GuzzleOptions::VERIFY));
     }
+
+    public function testSetConfigWithSslVerifyFalseAndSslCa()
+    {
+        $result = $this->guzzleAdapter->setConfig(new Client(), [
+            RequestOptions::SSL_VERIFY => false,
+            RequestOptions::SSL_CA => 'test'
+        ], []);
+        $this->assertInstanceOf(Client::class, $result);
+        $this->assertEquals(false, $result->getConfig(GuzzleOptions::VERIFY));
+    }
 }

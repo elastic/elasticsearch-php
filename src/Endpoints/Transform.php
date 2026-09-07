@@ -411,6 +411,7 @@ class Transform extends AbstractEndpoint
 	 * @param array{
 	 *     transform_id: string, // (REQUIRED) The id of the transform to start
 	 *     from?: string, // Restricts the set of transformed entities to those changed after this time. Relative times like now-30d are supported. Only applicable for continuous transforms.
+	 *     initial_delay?: int|string, // One-time reduced sync delay applied until the transform has processed its first document, then it reverts to the steady-state sync.time.delay
 	 *     timeout?: int|string, // Period to wait for a response. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -433,7 +434,7 @@ class Transform extends AbstractEndpoint
 		$url = '/_transform/' . $this->encode($params['transform_id']) . '/_start';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['from','timeout','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['from','initial_delay','timeout','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

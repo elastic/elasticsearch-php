@@ -1589,6 +1589,7 @@ class Indices extends AbstractEndpoint
 	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     local?: bool, // If true, the request retrieves information from the local node only. Defaults to false, which means information is retrieved from the master node.
 	 *     include_defaults?: bool, // If true, returns all relevant default configurations for the index template.
+	 *     include_managed_fields?: bool, // Include internally managed fields (default: false)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1612,7 +1613,7 @@ class Indices extends AbstractEndpoint
 			$url = '/_index_template';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','local','include_defaults','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['flat_settings','master_timeout','local','include_defaults','include_managed_fields','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -2422,7 +2423,7 @@ class Indices extends AbstractEndpoint
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
 	 *     detailed?: bool, // If `true`, the response includes detailed information about shard recoveries.
-	 *     active_only?: bool, // If `true`, the response only includes ongoing shard recoveries.
+	 *     active_only?: bool, // If `true`, the response only includes shard recoveries that have not yet completed (excludes `DONE` stage).
 	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a concrete (non-wildcarded) index, alias, or data stream that is missing, closed, or otherwise unavailable. If `true`, unavailable concrete targets are silently ignored.
 	 *     allow_no_indices?: bool, // A setting that does two separate checks on the index expression. If `false`, the request returns an error (1) if any wildcard expression (including `_all` and `*`) resolves to zero matching indices or (2) if the complete set of resolved indices, aliases or data streams is empty after all expressions are evaluated. If `true`, index expressions that resolve to no indices are allowed and the request returns an empty result. (DEFAULT: 1)
 	 *     expand_wildcards?: string|array<string>, // Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. (DEFAULT: open)

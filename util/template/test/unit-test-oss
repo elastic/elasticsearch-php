@@ -29,6 +29,11 @@ use stdClass;
  */
 class :test-name extends TestCase
 {
+    /**
+     * @var \Elasticsearch\Client
+     */
+    private $client;
+
     protected function setUp(): void
     {
         $this->client = Utility::getClient();

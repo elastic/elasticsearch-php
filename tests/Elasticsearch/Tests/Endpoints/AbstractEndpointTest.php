@@ -32,6 +32,28 @@ class AbstractEndpointTest extends \PHPUnit\Framework\TestCase
         $this->endpoint = $this->getMockForAbstractClass(AbstractEndpoint::class);
     }
 
+    public static function indexArrays(): array
+    {
+        return [
+            'whitespace' => [[' first ', "\tsecond\n"], 'first%2Csecond'],
+            'nulls' => [[null, null, null], '%2C%2C'],
+            'mixed values' => [[' first ', null, 123, true, false], 'first%2C%2C123%2C1%2C'],
+            'empty array' => [[], ''],
+        ];
+    }
+
+    /**
+     * @dataProvider indexArrays
+     *
+     * @covers AbstractEndpoint::setIndex
+     * @covers AbstractEndpoint::getIndex
+     */
+    public function testIndexArraysAreTrimmedJoinedAndEncoded(array $index, string $expected)
+    {
+        $this->assertSame($this->endpoint, $this->endpoint->setIndex($index));
+        $this->assertSame($expected, $this->endpoint->getIndex());
+    }
+
     public static function invalidParameters(): array
     {
         return [

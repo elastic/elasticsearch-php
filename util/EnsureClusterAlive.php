@@ -19,7 +19,7 @@ declare(strict_types = 1);
 use Elasticsearch\ClientBuilder;
 use Elasticsearch\Tests\Utility;
 
-error_reporting(E_ALL | E_STRICT);
+error_reporting(E_ALL);
 
 // Set the default timezone. While this doesn't cause any tests to fail, PHP
 // complains if it is not set in 'date.timezone' of php.ini.
@@ -54,7 +54,6 @@ while (!$client->ping()) {
                     echo $log;
                     break;
                 }
-
             }
         }
 
@@ -62,4 +61,3 @@ while (!$client->ping()) {
     }
     sleep(1);
 }
-

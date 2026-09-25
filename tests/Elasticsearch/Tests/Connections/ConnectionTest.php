@@ -323,7 +323,9 @@ class ConnectionTest extends \PHPUnit\Framework\TestCase
 
         $reflection = new ReflectionClass(Connection::class);
         $tryDeserializeError = $reflection->getMethod('tryDeserializeError');
-        $tryDeserializeError->setAccessible(true);
+        if (PHP_VERSION_ID < 80100) {
+            $tryDeserializeError->setAccessible(true);
+        }
 
         $body = '{"error":{"root_cause":[{"type":"master_not_discovered_exception","reason":null}],"type":"master_not_discovered_exception","reason":null},"status":503}';
         $response = [

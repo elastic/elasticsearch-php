@@ -121,7 +121,9 @@ abstract class AbstractEndpoint
         }
 
         if (is_array($index) === true) {
-            $index = array_map('trim', $index);
+            $index = array_map(static function (?string $index): string {
+                return trim($index ?? '');
+            }, $index);
             $index = implode(",", $index);
         }
 

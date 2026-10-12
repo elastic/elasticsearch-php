@@ -1262,6 +1262,7 @@ trait ClientEndpointsTrait
 	 *     keep_alive?: int|string, // Extend the length of time that the point in time persists.
 	 *     allow_partial_search_results?: bool, // Indicates whether the point in time tolerates unavailable shards or shard failures when initially creating the PIT. If `false`, creating a point in time request when a shard is missing or unavailable will throw an exception. If `true`, the point in time will contain all the shards that are available at the time of the request.
 	 *     max_concurrent_shard_requests?: int, // Maximum number of concurrent shard requests that each sub-search request executes per node. (DEFAULT: 5)
+	 *     slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the point in time to that slice. Defaults to `_all` (all slices) when omitted on slice-enabled indices.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1284,7 +1285,7 @@ trait ClientEndpointsTrait
 		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_pit';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['preference','routing','ignore_unavailable','expand_wildcards','keep_alive','allow_partial_search_results','max_concurrent_shard_requests','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['preference','routing','ignore_unavailable','expand_wildcards','keep_alive','allow_partial_search_results','max_concurrent_shard_requests','slice','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',

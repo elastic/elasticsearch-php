@@ -857,6 +857,47 @@ class Security extends AbstractEndpoint
 
 
 	/**
+	 * Delete a user-managed service account
+	 *
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     namespace: string, // (REQUIRED) An identifier for the namespace
+	 *     service: string, // (REQUIRED) An identifier for the service name
+	 *     refresh?: string, // If `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `true` then refresh the affected shards to make this operation visible to search, if `false` then do nothing with refreshes. (DEFAULT: wait_for)
+	 *     force?: bool, // If `false` (the default), deleting a service account that still has service tokens is rejected. If `true`, the account is deleted and its tokens are left in place.
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function deleteUserManagedServiceAccount(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['namespace','service'], $params);
+		$url = '/_security/service/' . $this->encode($params['namespace']) . '/' . $this->encode($params['service']);
+		$method = 'DELETE';
+
+		$url = $this->addQueryString($url, $params, ['refresh','force','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['namespace', 'service'], $request, 'security.delete_user_managed_service_account');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
 	 * Disable users
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-disable-user
@@ -1298,6 +1339,8 @@ class Security extends AbstractEndpoint
 	 * @param array{
 	 *     namespace?: string, // An identifier for the namespace
 	 *     service?: string, // An identifier for the service name
+	 *     with_profile_uid?: bool, // flag to also retrieve the profile uid of each user-managed service account's creator and last updater, if they exist
+	 *     type?: string|array<string>, // A comma-separated list of the kinds of service account to return. If it is omitted, it defaults to `built_in` when no namespace is given and to `built_in,user_managed` otherwise.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1324,7 +1367,7 @@ class Security extends AbstractEndpoint
 			$url = '/_security/service';
 			$method = 'GET';
 		}
-		$url = $this->addQueryString($url, $params, ['pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['with_profile_uid','type','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
@@ -2070,6 +2113,48 @@ class Security extends AbstractEndpoint
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
 		$request = $this->addOtelAttributes($params, ['username'], $request, 'security.put_user');
+		return $this->client->sendRequest($request);
+	}
+
+
+	/**
+	 * Create or update a user-managed service account
+	 *
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     namespace: string, // (REQUIRED) An identifier for the namespace
+	 *     service: string, // (REQUIRED) An identifier for the service name
+	 *     refresh?: string, // If `wait_for` (the default) then wait for a refresh to make this operation visible to search, if `true` then refresh the affected shards to make this operation visible to search, if `false` then do nothing with refreshes. (DEFAULT: wait_for)
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The names of the roles the account is granted, whether it is enabled, and an optional free-text description. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function putUserManagedServiceAccount(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['namespace','service','body'], $params);
+		$url = '/_security/service/' . $this->encode($params['namespace']) . '/' . $this->encode($params['service']);
+		$method = 'PUT';
+
+		$url = $this->addQueryString($url, $params, ['refresh','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['namespace', 'service'], $request, 'security.put_user_managed_service_account');
 		return $this->client->sendRequest($request);
 	}
 

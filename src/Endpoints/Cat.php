@@ -881,7 +881,7 @@ class Cat extends AbstractEndpoint
 	 * @param array{
 	 *     index?: string|array<string>, // Comma-separated list or wildcard expression of index names to limit the returned information
 	 *     format?: string, // a short version of the Accept header, e.g. json, yaml (DEFAULT: text)
-	 *     active_only?: bool, // If `true`, the response only includes ongoing shard recoveries.
+	 *     active_only?: bool, // If `true`, the response only includes shard recoveries that have not yet completed (excludes `done` stage).
 	 *     bytes?: string, // The unit in which to display byte values
 	 *     detailed?: bool, // If `true`, the response includes detailed information about shard recoveries.
 	 *     h?: string|array<string>, // A comma-separated list of columns names to display. It supports simple wildcards. (DEFAULT: ip,hp,rp,r,m,n,cpu,l)

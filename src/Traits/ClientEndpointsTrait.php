@@ -36,6 +36,7 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index?: string, // Default index for items which don't provide one
+	 *     _slice?: string, // Default slice identifier for a slice-enabled index (`index.slice.enabled=true`); applied to items that don't provide their own
 	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. Set to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default is `1`, which waits for each primary shard to be active. (DEFAULT: 1)
 	 *     refresh?: string, // If `true`, Elasticsearch refreshes the affected shards to make this operation visible to search. If `wait_for`, wait for a refresh to make this operation visible to search. If `false`, do nothing with refreshes. Valid values: `true`, `false`, `wait_for`. (DEFAULT: false)
 	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
@@ -66,7 +67,10 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
-		if (isset($params['index'])) {
+		if (isset($params['index']) && isset($params['_slice'])) {
+			$url = '/' . $this->encode($params['index']) . '/' . $this->encode($params['_slice']) . '/_bulk';
+			$method = 'POST';
+		} elseif (isset($params['index'])) {
 			$url = '/' . $this->encode($params['index']) . '/_bulk';
 			$method = 'POST';
 		} else {
@@ -79,7 +83,7 @@ trait ClientEndpointsTrait
 			'Content-Type' => 'application/x-ndjson',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index'], $request, 'bulk');
+		$request = $this->addOtelAttributes($params, ['index', '_slice'], $request, 'bulk');
 		return $this->sendRequest($request);
 	}
 
@@ -174,6 +178,7 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of indices to restrict the results
+	 *     _slice?: string|array<string>, // Slice identifier(s) for a slice-enabled index (`index.slice.enabled=true`). A single slice, a comma-separated list (for example `tenant-a,tenant-b`), or the reserved token `_all` to count across all slices.
 	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a concrete (non-wildcarded) index, alias, or data stream that is missing, closed, or otherwise unavailable. If `true`, unavailable concrete targets are silently ignored.
 	 *     ignore_throttled?: bool, // If `true`, concrete, expanded, or aliased indices are ignored when frozen. (DEFAULT: 1)
 	 *     allow_no_indices?: bool, // A setting that does two separate checks on the index expression. If `false`, the request returns an error (1) if any wildcard expression (including `_all` and `*`) resolves to zero matching indices or (2) if the complete set of resolved indices, aliases or data streams is empty after all expressions are evaluated. If `true`, index expressions that resolve to no indices are allowed and the request returns an empty result. (DEFAULT: 1)
@@ -206,7 +211,10 @@ trait ClientEndpointsTrait
 	public function count(?array $params = null)
 	{
 		$params = $params ?? [];
-		if (isset($params['index'])) {
+		if (isset($params['index']) && isset($params['_slice'])) {
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/' . $this->encode($this->convertValue($params['_slice'])) . '/_count';
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		} elseif (isset($params['index'])) {
 			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_count';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
@@ -219,7 +227,7 @@ trait ClientEndpointsTrait
 			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index'], $request, 'count');
+		$request = $this->addOtelAttributes($params, ['index', '_slice'], $request, 'count');
 		return $this->sendRequest($request);
 	}
 
@@ -233,10 +241,10 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) Document ID
 	 *     index: string, // (REQUIRED) The name of the index
+	 *     _slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the operation to that slice
 	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. You can set it to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default value of `1` means it waits for each primary shard to be active. (DEFAULT: 1)
 	 *     refresh?: string, // If `true`, Elasticsearch refreshes the affected shards to make this operation visible to search. If `wait_for`, it waits for a refresh to make this operation visible to search. If `false`, it does nothing with refreshes. (DEFAULT: false)
-	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard.
-	 *     slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); required to scope the operation to that slice
+	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     timeout?: int|string, // The period the request waits for the following operations: automatic index creation, dynamic mapping updates, waiting for active shards. Elasticsearch waits for at least the specified timeout period before failing. The actual wait time could be longer, particularly when multiple waits occur.  This parameter is useful for situations where the primary shard assigned to perform the operation might not be available when the operation runs. Some reasons for this might be that the primary shard is currently recovering from a gateway or undergoing relocation. By default, the operation will wait on the primary shard to become available for at least 1 minute before failing and responding with an error. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
 	 *     version?: int, // The explicit version number for concurrency control. It must be a non-negative long number.
 	 *     version_type?: string, // The version type.
@@ -263,16 +271,20 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','index','body'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_create/' . $this->encode($params['id']);
-		$method = 'PUT';
-
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','slice','timeout','version','version_type','pipeline','include_source_on_error','require_alias','require_data_stream','pretty','human','error_trace','source','filter_path']);
+		if (isset($params['_slice'])) {
+			$url = '/' . $this->encode($params['index']) . '/' . $this->encode($params['_slice']) . '/_create/' . $this->encode($params['id']);
+			$method = 'PUT';
+		} else {
+			$url = '/' . $this->encode($params['index']) . '/_create/' . $this->encode($params['id']);
+			$method = 'PUT';
+		}
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','version','version_type','pipeline','include_source_on_error','require_alias','require_data_stream','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'create');
+		$request = $this->addOtelAttributes($params, ['id', 'index', '_slice'], $request, 'create');
 		return $this->sendRequest($request);
 	}
 
@@ -286,10 +298,10 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
+	 *     _slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the operation to that slice
 	 *     wait_for_active_shards?: string, // The minimum number of shard copies that must be active before proceeding with the operation. You can set it to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default value of `1` means it waits for each primary shard to be active. (DEFAULT: 1)
 	 *     refresh?: string, // If `true`, Elasticsearch refreshes the affected shards to make this operation visible to search. If `wait_for`, it waits for a refresh to make this operation visible to search. If `false`, it does nothing with refreshes. (DEFAULT: false)
 	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
-	 *     slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); required to scope the operation to that slice
 	 *     timeout?: int|string, // The period to wait for active shards.  This parameter is useful for situations where the primary shard assigned to perform the delete operation might not be available when the delete operation runs. Some reasons for this might be that the primary shard is currently recovering from a store or undergoing relocation. By default, the delete operation will wait on the primary shard to become available for up to 1 minute before failing and responding with an error. (DEFAULT: 1m)
 	 *     if_seq_no?: int, // Only perform the operation if the document has this sequence number.
 	 *     if_primary_term?: int, // Only perform the operation if the document has this primary term.
@@ -313,15 +325,19 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','index'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_doc/' . $this->encode($params['id']);
-		$method = 'DELETE';
-
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','slice','timeout','if_seq_no','if_primary_term','version','version_type','pretty','human','error_trace','source','filter_path']);
+		if (isset($params['_slice'])) {
+			$url = '/' . $this->encode($params['index']) . '/' . $this->encode($params['_slice']) . '/_doc/' . $this->encode($params['id']);
+			$method = 'DELETE';
+		} else {
+			$url = '/' . $this->encode($params['index']) . '/_doc/' . $this->encode($params['id']);
+			$method = 'DELETE';
+		}
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','refresh','routing','timeout','if_seq_no','if_primary_term','version','version_type','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'delete');
+		$request = $this->addOtelAttributes($params, ['id', 'index', '_slice'], $request, 'delete');
 		return $this->sendRequest($request);
 	}
 
@@ -334,6 +350,7 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+	 *     _slice?: string|array<string>, // Slice identifier(s) for a slice-enabled index (`index.slice.enabled=true`). A single slice, a comma-separated list (for example `tenant-a,tenant-b`), or the reserved token `_all` to delete across all slices.
 	 *     analyzer?: string, // Analyzer to use for the query string. This parameter can be used only when the `q` query string parameter is specified.
 	 *     analyze_wildcard?: bool, // If `true`, wildcard and prefix queries are analyzed. This parameter can be used only when the `q` query string parameter is specified.
 	 *     default_operator?: string, // The default operator for query string query: `and` or `or`. This parameter can be used only when the `q` query string parameter is specified. (DEFAULT: or)
@@ -382,16 +399,20 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index','body'], $params);
-		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_delete_by_query';
-		$method = 'POST';
-
+		if (isset($params['_slice'])) {
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/' . $this->encode($this->convertValue($params['_slice'])) . '/_delete_by_query';
+			$method = 'POST';
+		} else {
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_delete_by_query';
+			$method = 'POST';
+		}
 		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','default_operator','df','from','ignore_unavailable','allow_no_indices','conflicts','expand_wildcards','lenient','preference','q','routing','scroll','search_type','search_timeout','max_docs','sort','terminate_after','stats','version','request_cache','refresh','timeout','wait_for_active_shards','scroll_size','wait_for_completion','requests_per_second','slices','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index'], $request, 'delete_by_query');
+		$request = $this->addOtelAttributes($params, ['index', '_slice'], $request, 'delete_by_query');
 		return $this->sendRequest($request);
 	}
 
@@ -485,11 +506,12 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
+	 *     _slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the operation to that slice
 	 *     stored_fields?: string|array<string>, // A comma-separated list of stored fields to return as part of a hit. If no fields are specified, no stored fields are included in the response. If this field is specified, the `_source` parameter defaults to `false`.
 	 *     preference?: string, // The node or shard the operation should be performed on. By default, the operation is randomized between the shard replicas.  If it is set to `_local`, the operation will prefer to be run on a local allocated shard when possible. If it is set to a custom value, the value is used to guarantee that the same shards will be used for the same custom value. This can help with "jumping values" when hitting different shards in different refresh states. A sample value can be something like the web session ID or the user name.
 	 *     realtime?: bool, // If `true`, the request is real-time as opposed to near-real-time. (DEFAULT: 1)
 	 *     refresh?: bool, // If `true`, the request refreshes the relevant shards before retrieving the document. Setting it to `true` should be done after careful thought and verification that this does not cause a heavy load on the system (and slow down indexing).
-	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     _source?: string|array<string>, // Indicates whether to return the `_source` field (`true` or `false`) or lists the fields to return.
 	 *     _source_excludes?: string|array<string>, // A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
 	 *     _source_includes?: string|array<string>, // A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
@@ -513,15 +535,19 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','index'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_doc/' . $this->encode($params['id']);
-		$method = 'HEAD';
-
+		if (isset($params['_slice'])) {
+			$url = '/' . $this->encode($params['index']) . '/' . $this->encode($params['_slice']) . '/_doc/' . $this->encode($params['id']);
+			$method = 'HEAD';
+		} else {
+			$url = '/' . $this->encode($params['index']) . '/_doc/' . $this->encode($params['id']);
+			$method = 'HEAD';
+		}
 		$url = $this->addQueryString($url, $params, ['stored_fields','preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','version','version_type','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'exists');
+		$request = $this->addOtelAttributes($params, ['id', 'index', '_slice'], $request, 'exists');
 		return $this->sendRequest($request);
 	}
 
@@ -584,6 +610,7 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
+	 *     _slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the operation to that slice
 	 *     analyze_wildcard?: bool, // If `true`, wildcard and prefix queries are analyzed. This parameter can be used only when the `q` query string parameter is specified.
 	 *     analyzer?: string, // The analyzer to use for the query string. This parameter can be used only when the `q` query string parameter is specified.
 	 *     default_operator?: string, // The default operator for query string query: `and` or `or`. This parameter can be used only when the `q` query string parameter is specified. (DEFAULT: or)
@@ -615,16 +642,20 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','index'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_explain/' . $this->encode($params['id']);
-		$method = empty($params['body']) ? 'GET' : 'POST';
-
+		if (isset($params['_slice'])) {
+			$url = '/' . $this->encode($params['index']) . '/' . $this->encode($params['_slice']) . '/_explain/' . $this->encode($params['id']);
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		} else {
+			$url = '/' . $this->encode($params['index']) . '/_explain/' . $this->encode($params['id']);
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		}
 		$url = $this->addQueryString($url, $params, ['analyze_wildcard','analyzer','default_operator','df','stored_fields','lenient','preference','q','routing','_source','_source_excludes','_source_includes','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'explain');
+		$request = $this->addOtelAttributes($params, ['id', 'index', '_slice'], $request, 'explain');
 		return $this->sendRequest($request);
 	}
 
@@ -689,13 +720,13 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) The document ID
 	 *     index: string, // (REQUIRED) The name of the index
+	 *     _slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the operation to that slice
 	 *     force_synthetic_source?: bool, // Indicates whether the request forces synthetic `_source`. Use this parameter to test if the mapping supports synthetic `_source` and to get a sense of the worst case performance. Fetches with this parameter enabled will be slower than enabling synthetic source natively in the index.
 	 *     stored_fields?: string|array<string>, // A comma-separated list of stored fields to return as part of a hit. If no fields are specified, no stored fields are included in the response. If this field is specified, the `_source` parameter defaults to `false`. Only leaf fields can be retrieved with the `stored_fields` option. Object fields can't be returned; if specified, the request fails.
 	 *     preference?: string, // The node or shard the operation should be performed on. By default, the operation is randomized between the shard replicas.  If it is set to `_local`, the operation will prefer to be run on a local allocated shard when possible. If it is set to a custom value, the value is used to guarantee that the same shards will be used for the same custom value. This can help with "jumping values" when hitting different shards in different refresh states. A sample value can be something like the web session ID or the user name.
 	 *     realtime?: bool, // If `true`, the request is real-time as opposed to near-real-time. (DEFAULT: 1)
 	 *     refresh?: bool, // If `true`, the request refreshes the relevant shards before retrieving the document. Setting it to `true` should be done after careful thought and verification that this does not cause a heavy load on the system (and slow down indexing).
 	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
-	 *     slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); required to scope the operation to that slice
 	 *     _source?: string|array<string>, // Indicates whether to return the `_source` field (`true` or `false`) or lists the fields to return.
 	 *     _source_excludes?: string|array<string>, // A comma-separated list of source fields to exclude from the response. You can also use this parameter to exclude fields from the subset specified in `_source_includes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
 	 *     _source_includes?: string|array<string>, // A comma-separated list of source fields to include in the response. If this parameter is specified, only these source fields are returned. You can exclude fields from this subset using the `_source_excludes` query parameter. If the `_source` parameter is `false`, this parameter is ignored.
@@ -720,15 +751,19 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','index'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_doc/' . $this->encode($params['id']);
-		$method = 'GET';
-
-		$url = $this->addQueryString($url, $params, ['force_synthetic_source','stored_fields','preference','realtime','refresh','routing','slice','_source','_source_excludes','_source_includes','_source_exclude_vectors','version','version_type','pretty','human','error_trace','source','filter_path']);
+		if (isset($params['_slice'])) {
+			$url = '/' . $this->encode($params['index']) . '/' . $this->encode($params['_slice']) . '/_doc/' . $this->encode($params['id']);
+			$method = 'GET';
+		} else {
+			$url = '/' . $this->encode($params['index']) . '/_doc/' . $this->encode($params['id']);
+			$method = 'GET';
+		}
+		$url = $this->addQueryString($url, $params, ['force_synthetic_source','stored_fields','preference','realtime','refresh','routing','_source','_source_excludes','_source_includes','_source_exclude_vectors','version','version_type','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'get');
+		$request = $this->addOtelAttributes($params, ['id', 'index', '_slice'], $request, 'get');
 		return $this->sendRequest($request);
 	}
 
@@ -944,11 +979,11 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id?: string, // Document ID
 	 *     index: string, // (REQUIRED) The name of the index
+	 *     _slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the operation to that slice
 	 *     wait_for_active_shards?: string, // The number of shard copies that must be active before proceeding with the operation. You can set it to `all` or any positive integer up to the total number of shards in the index (`number_of_replicas+1`). The default value of `1` means it waits for each primary shard to be active. (DEFAULT: 1)
 	 *     op_type?: string, // Set to `create` to only index the document if it does not already exist (put if absent). If a document with the specified `_id` already exists, the indexing operation will fail. The behavior is the same as using the `<index>/_create` endpoint. If a document ID is specified, this paramater defaults to `index`. Otherwise, it defaults to `create`. If the request targets a data stream, an `op_type` of `create` is required.
 	 *     refresh?: string, // If `true`, Elasticsearch refreshes the affected shards to make this operation visible to search. If `wait_for`, it waits for a refresh to make this operation visible to search. If `false`, it does nothing with refreshes. (DEFAULT: false)
 	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
-	 *     slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); required to scope the operation to that slice
 	 *     timeout?: int|string, // The period the request waits for the following operations: automatic index creation, dynamic mapping updates, waiting for active shards.  This parameter is useful for situations where the primary shard assigned to perform the operation might not be available when the operation runs. Some reasons for this might be that the primary shard is currently recovering from a gateway or undergoing relocation. By default, the operation will wait on the primary shard to become available for at least 1 minute before failing and responding with an error. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
 	 *     version?: int, // An explicit version number for concurrency control. It must be a non-negative long number.
 	 *     version_type?: string, // The version type.
@@ -977,20 +1012,26 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index','body'], $params);
-		if (isset($params['id'])) {
+		if (isset($params['id']) && isset($params['_slice'])) {
+			$url = '/' . $this->encode($params['index']) . '/' . $this->encode($params['_slice']) . '/_doc/' . $this->encode($params['id']);
+			$method = 'PUT';
+		} elseif (isset($params['id'])) {
 			$url = '/' . $this->encode($params['index']) . '/_doc/' . $this->encode($params['id']);
 			$method = 'PUT';
+		} elseif (isset($params['_slice'])) {
+			$url = '/' . $this->encode($params['index']) . '/' . $this->encode($params['_slice']) . '/_doc';
+			$method = 'POST';
 		} else {
 			$url = '/' . $this->encode($params['index']) . '/_doc';
 			$method = 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','op_type','refresh','routing','slice','timeout','version','version_type','if_seq_no','if_primary_term','pipeline','require_alias','require_data_stream','include_source_on_error','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','op_type','refresh','routing','timeout','version','version_type','if_seq_no','if_primary_term','pipeline','require_alias','require_data_stream','include_source_on_error','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'index');
+		$request = $this->addOtelAttributes($params, ['id', 'index', '_slice'], $request, 'index');
 		return $this->sendRequest($request);
 	}
 
@@ -1032,6 +1073,51 @@ trait ClientEndpointsTrait
 
 
 	/**
+	 * Estimate the recall and cost of approximate kNN search configurations on a bbq_disk, hnsw, int8_hnsw, int4_hnsw or bbq_hnsw dense_vector field against a more thorough baseline. Requires the read and view_index_metadata index privileges: the field mapping is validated as the calling user. Refused when search.knn_eval.enabled or the index's index.knn_eval.enabled is false. The bounded default baseline is never exact: bbq_disk uses 20% visit with rescore_vector.oversample 100, and the hnsw family uses num_candidates of 100 times k, at least 1000 and at most the 10000 limit (9999 with sampling), with rescore_vector.oversample 100 unless the field is unquantized hnsw, so the beam and the rescored window are the same 100 times k; a knn_settings entry that searches deeper than an approximate baseline (a wider num_candidates or k times oversample beam, or a higher visit_percentage) is rejected, so deeper candidates need an explicit, deeper baseline; an exact full-precision baseline must be requested explicitly with allow_exact_baseline:true and is limited to 100 million vector-by-query comparisons. Each knn_settings entry reports mean recall of the baseline's top-k, not of relevance judgments, plus included/excluded query counts and cost totals. A query is excluded from mean recall when the candidate finds a document scoring above the baseline's lowest top-k score. A baseline returning fewer than k hits fails that query because recall@k is undefined. For hnsw-family fields index_info reports each index's hnsw_early_termination (index.dense_vector.hnsw_enable_early_termination); when true, the baseline and candidates may stop short of num_candidates, and the baseline can fall short of exact. A rescore_window_capped flag reports when search_size multiplied by oversample exceeds the 10,000-vector rescore limit. All configurations run against one point-in-time.
+	 *
+	 * @group serverless
+	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
+	 *
+	 * @param array{
+	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index names to search
+	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a missing or closed index.
+	 *     allow_no_indices?: bool, // If `false`, the request returns an error if any wildcard expression, index alias, or `_all` value targets only missing or closed indices. This behavior applies even if the request targets other open indices. (DEFAULT: 1)
+	 *     expand_wildcards?: string|array<string>, // The type of index that wildcard patterns can match. It supports comma-separated values, such as `open,hidden`. (DEFAULT: open)
+	 *     wait_for_completion?: bool, // If `true`, the request waits for the evaluation to complete. A large evaluation can run for minutes, and closing the connection, for example because of a client or proxy timeout, cancels it. If `false`, the request returns a task identifier, and stores the completed response for retrieval through the task management API. (DEFAULT: 1)
+	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
+	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
+	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
+	 *     source?: string, // The URL-encoded request definition. Useful for libraries that do not accept a request body for non-POST requests.
+	 *     filter_path?: string|array<string>, // A comma-separated list of filters used to reduce the response.
+	 *     body: string|array<mixed>, // (REQUIRED) The kNN evaluation definition: a bbq_disk or hnsw-family dense_vector field (not inside a nested object); k from 1 to 1000; a query_source object with a from discriminator (docs to sample from stored documents, vectors to supply explicit query vectors); an optional baseline (default depends on the index type, see the endpoint description; exact:true also requires allow_exact_baseline:true); and 1 to 32 unique knn_settings entries (visit_percentage for bbq_disk only, num_candidates up to 10000, or 9999 with sampling, and rescore_vector for quantized types, not plain hnsw). Explicit visit_percentage:0 selects DiskBBQ's automatic visit calculation.. If body is a string must be a valid JSON.
+	 * } $params
+	 *
+	 * @throws MissingParameterException if a required parameter is missing
+	 * @throws NoNodeAvailableException if all the hosts are offline
+	 * @throws ClientResponseException if the status code of response is 4xx
+	 * @throws ServerResponseException if the status code of response is 5xx
+	 *
+	 * @return Elasticsearch|Promise
+	 */
+	public function knnEval(?array $params = null)
+	{
+		$params = $params ?? [];
+		$this->checkRequiredParameters(['index','body'], $params);
+		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_knn_eval';
+		$method = empty($params['body']) ? 'GET' : 'POST';
+
+		$url = $this->addQueryString($url, $params, ['ignore_unavailable','allow_no_indices','expand_wildcards','wait_for_completion','pretty','human','error_trace','source','filter_path']);
+		$headers = [
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
+		];
+		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
+		$request = $this->addOtelAttributes($params, ['index'], $request, 'knn_eval');
+		return $this->sendRequest($request);
+	}
+
+
+	/**
 	 * Get multiple documents
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-mget
@@ -1039,6 +1125,7 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index?: string, // The name of the index
+	 *     _slice?: string, // Default slice identifier for a slice-enabled index (`index.slice.enabled=true`); applied to items that don't provide their own
 	 *     force_synthetic_source?: bool, // Should this request force synthetic _source? Use this to test if the mapping supports synthetic _source and to get a sense of the worst case performance. Fetches with this enabled will be slower the enabling synthetic source natively in the index.
 	 *     stored_fields?: string|array<string>, // If `true`, retrieves the document fields stored in the index rather than the document `_source`. (DEFAULT: false)
 	 *     preference?: string, // Specifies the node or shard the operation should be performed on. Random by default.
@@ -1066,7 +1153,10 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
-		if (isset($params['index'])) {
+		if (isset($params['index']) && isset($params['_slice'])) {
+			$url = '/' . $this->encode($params['index']) . '/' . $this->encode($params['_slice']) . '/_mget';
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		} elseif (isset($params['index'])) {
 			$url = '/' . $this->encode($params['index']) . '/_mget';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
@@ -1079,7 +1169,7 @@ trait ClientEndpointsTrait
 			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index'], $request, 'mget');
+		$request = $this->addOtelAttributes($params, ['index', '_slice'], $request, 'mget');
 		return $this->sendRequest($request);
 	}
 
@@ -1200,6 +1290,7 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index?: string, // The index in which the document resides.
+	 *     _slice?: string, // Default slice identifier for a slice-enabled index (`index.slice.enabled=true`); applied to items that don't provide their own
 	 *     ids?: string|array<string>, // A comma-separated list of documents ids. You must define ids as parameter or set "ids" or "docs" in the request body
 	 *     term_statistics?: bool, // If true, the response includes term frequency and document frequency.
 	 *     field_statistics?: bool, // If `true`, the response includes the document count, sum of document frequencies, and sum of total term frequencies. (DEFAULT: 1)
@@ -1229,7 +1320,10 @@ trait ClientEndpointsTrait
 	public function mtermvectors(?array $params = null)
 	{
 		$params = $params ?? [];
-		if (isset($params['index'])) {
+		if (isset($params['index']) && isset($params['_slice'])) {
+			$url = '/' . $this->encode($params['index']) . '/' . $this->encode($params['_slice']) . '/_mtermvectors';
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		} elseif (isset($params['index'])) {
 			$url = '/' . $this->encode($params['index']) . '/_mtermvectors';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
@@ -1242,7 +1336,7 @@ trait ClientEndpointsTrait
 			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index'], $request, 'mtermvectors');
+		$request = $this->addOtelAttributes($params, ['index', '_slice'], $request, 'mtermvectors');
 		return $this->sendRequest($request);
 	}
 
@@ -1256,12 +1350,13 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index names to open point in time; use `_all` or empty string to perform the operation on all indices
 	 *     preference?: string, // The node or shard the operation should be performed on. By default, it is random.
-	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a concrete (non-wildcarded) index, alias, or data stream that is missing, closed, or otherwise unavailable. If `true`, unavailable concrete targets are silently ignored.
 	 *     expand_wildcards?: string|array<string>, // The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. It supports comma-separated values, such as `open,hidden`. (DEFAULT: open)
 	 *     keep_alive?: int|string, // Extend the length of time that the point in time persists.
 	 *     allow_partial_search_results?: bool, // Indicates whether the point in time tolerates unavailable shards or shard failures when initially creating the PIT. If `false`, creating a point in time request when a shard is missing or unavailable will throw an exception. If `true`, the point in time will contain all the shards that are available at the time of the request.
 	 *     max_concurrent_shard_requests?: int, // Maximum number of concurrent shard requests that each sub-search request executes per node. (DEFAULT: 5)
+	 *     _slice?: string, // The slice identifier for a slice-enabled index (`index.slice.enabled` set to `true`), which scopes the point in time to that slice. When omitted, the point in time covers all slices.
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -1284,7 +1379,7 @@ trait ClientEndpointsTrait
 		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_pit';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['preference','routing','ignore_unavailable','expand_wildcards','keep_alive','allow_partial_search_results','max_concurrent_shard_requests','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['preference','routing','ignore_unavailable','expand_wildcards','keep_alive','allow_partial_search_results','max_concurrent_shard_requests','_slice','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
@@ -1767,6 +1862,7 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+	 *     _slice?: string|array<string>, // Slice identifier(s) for a slice-enabled index (`index.slice.enabled=true`). A single slice, a comma-separated list (for example `tenant-a,tenant-b`), or the reserved token `_all` to search all slices.
 	 *     analyzer?: string, // The analyzer to use for the query string. This parameter can be used only when the `q` query string parameter is specified.
 	 *     analyze_wildcard?: bool, // If `true`, wildcard and prefix queries are analyzed. This parameter can be used only when the `q` query string parameter is specified.
 	 *     ccs_minimize_roundtrips?: bool, // If `true`, network round-trips between the coordinating node and the remote clusters are minimized when running cross-cluster search (CCS) requests. (DEFAULT: 1)
@@ -1785,7 +1881,6 @@ trait ClientEndpointsTrait
 	 *     preference?: string, // The nodes and shards used for the search. By default, Elasticsearch selects from eligible nodes and shards using adaptive replica selection, accounting for allocation awareness. Valid values are:  * `_only_local` to run the search only on shards on the local node. * `_local` to, if possible, run the search on shards on the local node, or if not, select shards using the default method. * `_only_nodes:<node-id>,<node-id>` to run the search on only the specified nodes IDs. If suitable shards exist on more than one selected node, use shards on those nodes using the default method. If none of the specified nodes are available, select shards from any available node using the default method. * `_prefer_nodes:<node-id>,<node-id>` to if possible, run the search on the specified nodes IDs. If not, select shards using the default method. * `_shards:<shard>,<shard>` to run the search only on the specified shards. You can combine this value with other `preference` values. However, the `_shards` value must come first. For example: `_shards:2,3|_local`. * `<custom-string>` (any string that does not start with `_`) to route searches with the same `<custom-string>` to the same shards in the same order.
 	 *     q?: string, // A query in the Lucene query string syntax. Query parameter searches do not support the full Elasticsearch Query DSL but are handy for testing.  IMPORTANT: This parameter overrides the query parameter in the request body. If both parameters are specified, documents matching the query request body parameter are not returned.
 	 *     routing?: string|array<string>, // A custom value that is used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
-	 *     slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the search to that slice, or `_all` to search across all slices
 	 *     scroll?: int|string, // The period to retain the search context for scrolling. By default, this value cannot exceed `1d` (24 hours). You can change this limit by using the `search.max_keep_alive` cluster-level setting.
 	 *     search_type?: string, // Indicates how distributed term frequencies are calculated for relevance scoring.
 	 *     size?: int, // The number of hits to return. By default, you cannot page through more than 10,000 hits using the `from` and `size` parameters. To page through more hits, use the `search_after` parameter. (DEFAULT: 10)
@@ -1830,20 +1925,23 @@ trait ClientEndpointsTrait
 	public function search(?array $params = null)
 	{
 		$params = $params ?? [];
-		if (isset($params['index'])) {
+		if (isset($params['index']) && isset($params['_slice'])) {
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/' . $this->encode($this->convertValue($params['_slice'])) . '/_search';
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		} elseif (isset($params['index'])) {
 			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_search';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/_search';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		}
-		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','ccs_minimize_roundtrips','default_operator','df','explain','stored_fields','docvalue_fields','from','force_synthetic_source','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','lenient','preference','q','routing','slice','scroll','search_type','size','sort','_source','_source_excludes','_source_includes','_source_exclude_vectors','terminate_after','stats','suggest_field','suggest_mode','suggest_size','suggest_text','timeout','track_scores','track_total_hits','allow_partial_search_results','typed_keys','version','seq_no_primary_term','request_cache','batched_reduce_size','max_concurrent_shard_requests','pre_filter_shard_size','rest_total_hits_as_int','include_named_queries_score','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','ccs_minimize_roundtrips','default_operator','df','explain','stored_fields','docvalue_fields','from','force_synthetic_source','ignore_unavailable','ignore_throttled','allow_no_indices','expand_wildcards','lenient','preference','q','routing','scroll','search_type','size','sort','_source','_source_excludes','_source_includes','_source_exclude_vectors','terminate_after','stats','suggest_field','suggest_mode','suggest_size','suggest_text','timeout','track_scores','track_total_hits','allow_partial_search_results','typed_keys','version','seq_no_primary_term','request_cache','batched_reduce_size','max_concurrent_shard_requests','pre_filter_shard_size','rest_total_hits_as_int','include_named_queries_score','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index'], $request, 'search');
+		$request = $this->addOtelAttributes($params, ['index', '_slice'], $request, 'search');
 		return $this->sendRequest($request);
 	}
 
@@ -1956,12 +2054,13 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index?: string|array<string>, // A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+	 *     _slice?: string|array<string>, // Slice identifier(s) for a slice-enabled index (`index.slice.enabled=true`). A single slice, a comma-separated list (for example `tenant-a,tenant-b`), or the reserved token `_all` to search all slices.
 	 *     ignore_unavailable?: bool, // If `false`, the request returns an error if it targets a concrete (non-wildcarded) index, alias, or data stream that is missing, closed, or otherwise unavailable. If `true`, unavailable concrete targets are silently ignored.
 	 *     ignore_throttled?: bool, // If `true`, specified concrete, expanded, or aliased indices are not included in the response when throttled. (DEFAULT: 1)
 	 *     allow_no_indices?: bool, // A setting that does two separate checks on the index expression. If `false`, the request returns an error (1) if any wildcard expression (including `_all` and `*`) resolves to zero matching indices or (2) if the complete set of resolved indices, aliases or data streams is empty after all expressions are evaluated. If `true`, index expressions that resolve to no indices are allowed and the request returns an empty result. (DEFAULT: 1)
 	 *     expand_wildcards?: string|array<string>, // The type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. (DEFAULT: open)
 	 *     preference?: string, // The node or shard the operation should be performed on. It is random by default.
-	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard.
+	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
 	 *     scroll?: int|string, // Specifies how long a consistent view of the index should be maintained for scrolled search.
 	 *     search_type?: string, // The type of the search operation.
 	 *     explain?: bool, // If `true`, the response includes additional details about score computation as part of a hit.
@@ -1987,7 +2086,10 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['body'], $params);
-		if (isset($params['index'])) {
+		if (isset($params['index']) && isset($params['_slice'])) {
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/' . $this->encode($this->convertValue($params['_slice'])) . '/_search/template';
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		} elseif (isset($params['index'])) {
 			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_search/template';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
@@ -2000,7 +2102,7 @@ trait ClientEndpointsTrait
 			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index'], $request, 'search_template');
+		$request = $this->addOtelAttributes($params, ['index', '_slice'], $request, 'search_template');
 		return $this->sendRequest($request);
 	}
 
@@ -2055,6 +2157,7 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     index: string, // (REQUIRED) The index in which the document resides.
 	 *     id?: string, // The id of the document, when not specified a doc param should be supplied.
+	 *     _slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the operation to that slice
 	 *     term_statistics?: bool, // If `true`, the response includes:  * The total term frequency (how often a term occurs in all documents). * The document frequency (the number of documents containing the current term).  By default these values are not returned since term statistics can have a serious performance impact.
 	 *     field_statistics?: bool, // If `true`, the response includes:  * The document count (how many documents contain this field). * The sum of document frequencies (the sum of document frequencies for all terms in this field). * The sum of total term frequencies (the sum of total term frequencies of each term in this field). (DEFAULT: 1)
 	 *     fields?: string|array<string>, // A comma-separated list or wildcard expressions of fields to include in the statistics. It is used as the default list unless a specific field list is provided in the `completion_fields` or `fielddata_fields` parameters.
@@ -2085,8 +2188,14 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
-		if (isset($params['id'])) {
+		if (isset($params['id']) && isset($params['_slice'])) {
+			$url = '/' . $this->encode($params['index']) . '/' . $this->encode($params['_slice']) . '/_termvectors/' . $this->encode($params['id']);
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		} elseif (isset($params['id'])) {
 			$url = '/' . $this->encode($params['index']) . '/_termvectors/' . $this->encode($params['id']);
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		} elseif (isset($params['_slice'])) {
+			$url = '/' . $this->encode($params['index']) . '/' . $this->encode($params['_slice']) . '/_termvectors';
 			$method = empty($params['body']) ? 'GET' : 'POST';
 		} else {
 			$url = '/' . $this->encode($params['index']) . '/_termvectors';
@@ -2098,7 +2207,7 @@ trait ClientEndpointsTrait
 			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index', 'id'], $request, 'termvectors');
+		$request = $this->addOtelAttributes($params, ['index', 'id', '_slice'], $request, 'termvectors');
 		return $this->sendRequest($request);
 	}
 
@@ -2112,6 +2221,7 @@ trait ClientEndpointsTrait
 	 * @param array{
 	 *     id: string, // (REQUIRED) Document ID
 	 *     index: string, // (REQUIRED) The name of the index
+	 *     _slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); scopes the operation to that slice
 	 *     wait_for_active_shards?: string, // The number of copies of each shard that must be active before proceeding with the operation. Set to 'all' or any positive integer up to the total number of shards in the index (`number_of_replicas`+1). The default value of `1` means it waits for each primary shard to be active. (DEFAULT: 1)
 	 *     _source?: string|array<string>, // If `false`, source retrieval is turned off. You can also specify a comma-separated list of the fields you want to retrieve. (DEFAULT: true)
 	 *     _source_excludes?: string|array<string>, // The source fields you want to exclude.
@@ -2120,7 +2230,6 @@ trait ClientEndpointsTrait
 	 *     refresh?: string, // If 'true', Elasticsearch refreshes the affected shards to make this operation visible to search. If 'wait_for', it waits for a refresh to make this operation visible to search. If 'false', it does nothing with refreshes. (DEFAULT: false)
 	 *     retry_on_conflict?: int, // The number of times the operation should be retried when a conflict occurs.
 	 *     routing?: string|array<string>, // A custom value used to route operations to a specific shard. Not allowed when `index.slice.enabled` is `true` for the target index; use `_slice` instead.
-	 *     slice?: string, // Slice identifier for a slice-enabled index (`index.slice.enabled=true`); required to scope the operation to that slice
 	 *     timeout?: int|string, // The period to wait for the following operations: dynamic mapping updates and waiting for active shards. Elasticsearch waits for at least the timeout period before failing. The actual wait time could be longer, particularly when multiple waits occur. (DEFAULT: 1m)
 	 *     if_seq_no?: int, // Only perform the operation if the document has this sequence number.
 	 *     if_primary_term?: int, // Only perform the operation if the document has this primary term.
@@ -2145,16 +2254,20 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['id','index','body'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_update/' . $this->encode($params['id']);
-		$method = 'POST';
-
-		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','_source','_source_excludes','_source_includes','lang','refresh','retry_on_conflict','routing','slice','timeout','if_seq_no','if_primary_term','require_alias','include_source_on_error','pretty','human','error_trace','source','filter_path']);
+		if (isset($params['_slice'])) {
+			$url = '/' . $this->encode($params['index']) . '/' . $this->encode($params['_slice']) . '/_update/' . $this->encode($params['id']);
+			$method = 'POST';
+		} else {
+			$url = '/' . $this->encode($params['index']) . '/_update/' . $this->encode($params['id']);
+			$method = 'POST';
+		}
+		$url = $this->addQueryString($url, $params, ['wait_for_active_shards','_source','_source_excludes','_source_includes','lang','refresh','retry_on_conflict','routing','timeout','if_seq_no','if_primary_term','require_alias','include_source_on_error','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['id', 'index'], $request, 'update');
+		$request = $this->addOtelAttributes($params, ['id', 'index', '_slice'], $request, 'update');
 		return $this->sendRequest($request);
 	}
 
@@ -2167,6 +2280,7 @@ trait ClientEndpointsTrait
 	 *
 	 * @param array{
 	 *     index: string|array<string>, // (REQUIRED) A comma-separated list of index names to search; use `_all` or empty string to perform the operation on all indices
+	 *     _slice?: string|array<string>, // Slice identifier(s) for a slice-enabled index (`index.slice.enabled=true`). A single slice, a comma-separated list (for example `tenant-a,tenant-b`), or the reserved token `_all` to update across all slices.
 	 *     analyzer?: string, // The analyzer to use for the query string. This parameter can be used only when the `q` query string parameter is specified.
 	 *     analyze_wildcard?: bool, // If `true`, wildcard and prefix queries are analyzed. This parameter can be used only when the `q` query string parameter is specified.
 	 *     default_operator?: string, // The default operator for query string query: `and` or `or`. This parameter can be used only when the `q` query string parameter is specified. (DEFAULT: or)
@@ -2217,16 +2331,20 @@ trait ClientEndpointsTrait
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index'], $params);
-		$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_update_by_query';
-		$method = 'POST';
-
+		if (isset($params['_slice'])) {
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/' . $this->encode($this->convertValue($params['_slice'])) . '/_update_by_query';
+			$method = 'POST';
+		} else {
+			$url = '/' . $this->encode($this->convertValue($params['index'])) . '/_update_by_query';
+			$method = 'POST';
+		}
 		$url = $this->addQueryString($url, $params, ['analyzer','analyze_wildcard','default_operator','df','from','ignore_unavailable','allow_no_indices','conflicts','expand_wildcards','lenient','pipeline','preference','q','routing','scroll','search_type','search_timeout','max_docs','sort','terminate_after','stats','version','version_type','request_cache','refresh','timeout','wait_for_active_shards','scroll_size','wait_for_completion','requests_per_second','slices','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index'], $request, 'update_by_query');
+		$request = $this->addOtelAttributes($params, ['index', '_slice'], $request, 'update_by_query');
 		return $this->sendRequest($request);
 	}
 

@@ -206,7 +206,7 @@ class Snapshot extends AbstractEndpoint
 	 *     repository: string, // (REQUIRED) A repository name
 	 *     snapshot: string|array<string>, // (REQUIRED) A comma-separated list of snapshot names
 	 *     master_timeout?: int|string, // The period to wait for the master node. If the master node is not available before the timeout expires, the request fails and returns an error. To indicate that the request should never timeout, set it to `-1`. (DEFAULT: 30s)
-	 *     wait_for_completion?: bool, // If `true`, the request returns a response when the matching snapshots are all deleted. If `false`, the request returns a response as soon as the deletes are scheduled. (DEFAULT: 1)
+	 *     wait_for_completion?: bool, // If `false`, the request returns a response as soon as the deletes are scheduled. If `true`, the request returns a response when the matching snapshots are all deleted, and the post-deletion cleanup work associated with the request has completed. If you make several requests to the delete-snapshots API targetting overlapping collections of snapshots then some of those requests may perform different parts of the associated post-deletion cleanup work, returning their responses at different times. For example, if you make two requests to delete the same snapshot then sometimes all of the post-deletion cleanup work will be associated with the first request, delaying its response, while the second request has no associated post-deletion cleanup work and receives its response as soon as the snapshot has been deleted. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -393,6 +393,7 @@ class Snapshot extends AbstractEndpoint
 	 *     detailed?: bool, // Indicates whether to return detailed results, including timing information for every operation performed during the analysis. If false, it returns only a summary of the analysis.
 	 *     rarely_abort_writes?: bool, // Indicates whether to rarely cancel writes before they complete. For realistic experiments, leave this parameter unset. (DEFAULT: 1)
 	 *     check_overwrite_protection?: bool, // Whether to run the overwrite protection check. For realistic experiments, leave this parameter unset. (DEFAULT: 1)
+	 *     check_deprecations?: bool, // Whether to fail the analysis if the repository uses critically deprecated functionality. Defaults to 'true'. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
 	 *     error_trace?: bool, // Include the stack trace of returned errors. (DEFAULT: false)
@@ -414,7 +415,7 @@ class Snapshot extends AbstractEndpoint
 		$url = '/_snapshot/' . $this->encode($params['repository']) . '/_analyze';
 		$method = 'POST';
 
-		$url = $this->addQueryString($url, $params, ['blob_count','concurrency','register_operation_count','read_node_count','early_read_node_count','seed','rare_action_probability','max_blob_size','max_total_data_size','timeout','detailed','rarely_abort_writes','check_overwrite_protection','pretty','human','error_trace','source','filter_path']);
+		$url = $this->addQueryString($url, $params, ['blob_count','concurrency','register_operation_count','read_node_count','early_read_node_count','seed','rare_action_probability','max_blob_size','max_total_data_size','timeout','detailed','rarely_abort_writes','check_overwrite_protection','check_deprecations','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 		];

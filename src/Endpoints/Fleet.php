@@ -121,8 +121,9 @@ class Fleet extends AbstractEndpoint
 	 *
 	 * @param array{
 	 *     index: string, // (REQUIRED) The index name to search.
+	 *     _slice?: string|array<string>, // Slice identifier(s) for a slice-enabled index (`index.slice.enabled=true`). A single slice, a comma-separated list (for example `tenant-a,tenant-b`), or the reserved token `_all` to search all slices.
 	 *     wait_for_checkpoints?: string|array<string>, // A comma separated list of checkpoints. When configured, the search API will only be executed on a shard after the relevant checkpoint has become visible for search. Defaults to an empty list which will cause Elasticsearch to immediately execute the search. (DEFAULT: Array)
-	 *     wait_for_checkpoints_timeout?: int|string, // Explicit wait_for_checkpoints timeout
+	 *     wait_for_checkpoints_timeout?: int|string, // The maximum time to wait for the checkpoints specified in `wait_for_checkpoints` to become visible for search. (DEFAULT: 30s)
 	 *     allow_partial_search_results?: bool, // If true, returns partial results if there are shard request timeouts or shard failures. If false, returns an error with no partial results. Defaults to the configured cluster setting `search.default_allow_partial_results`, which is true by default. (DEFAULT: 1)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)
@@ -143,16 +144,20 @@ class Fleet extends AbstractEndpoint
 	{
 		$params = $params ?? [];
 		$this->checkRequiredParameters(['index','body'], $params);
-		$url = '/' . $this->encode($params['index']) . '/_fleet/_fleet_search';
-		$method = empty($params['body']) ? 'GET' : 'POST';
-
+		if (isset($params['_slice'])) {
+			$url = '/' . $this->encode($params['index']) . '/' . $this->encode($this->convertValue($params['_slice'])) . '/_fleet/_fleet_search';
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		} else {
+			$url = '/' . $this->encode($params['index']) . '/_fleet/_fleet_search';
+			$method = empty($params['body']) ? 'GET' : 'POST';
+		}
 		$url = $this->addQueryString($url, $params, ['wait_for_checkpoints','wait_for_checkpoints_timeout','allow_partial_search_results','pretty','human','error_trace','source','filter_path']);
 		$headers = [
 			'Accept' => 'application/json',
 			'Content-Type' => 'application/json',
 		];
 		$request = $this->createRequest($method, $url, $headers, $params['body'] ?? null);
-		$request = $this->addOtelAttributes($params, ['index'], $request, 'fleet.search');
+		$request = $this->addOtelAttributes($params, ['index', '_slice'], $request, 'fleet.search');
 		return $this->client->sendRequest($request);
 	}
 }

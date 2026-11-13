@@ -231,6 +231,7 @@ class SearchApplication extends AbstractEndpoint
 	 * Create a behavioral analytics collection event
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-search-application-post-behavioral-analytics-event
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{

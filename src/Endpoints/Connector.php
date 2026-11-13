@@ -316,6 +316,7 @@ class Connector extends AbstractEndpoint
 	 * Check in a connector sync job
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-check-in
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -355,6 +356,7 @@ class Connector extends AbstractEndpoint
 	 * Claim a connector sync job
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-claim
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -435,6 +437,7 @@ class Connector extends AbstractEndpoint
 	 * Set a connector sync job error
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-error
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -595,6 +598,7 @@ class Connector extends AbstractEndpoint
 	 * Set the connector sync job stats
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-sync-job-update-stats
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -801,6 +805,7 @@ class Connector extends AbstractEndpoint
 	 * Update the connector features
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-connector-update-features
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{

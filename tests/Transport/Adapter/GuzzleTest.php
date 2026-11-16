@@ -17,6 +17,7 @@ namespace Elastic\Elasticsearch\Tests\Transport\Adapter;
 use Elastic\Elasticsearch\Transport\Adapter\Guzzle;
 use Elastic\Elasticsearch\Transport\RequestOptions;
 use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
 use GuzzleHttp\RequestOptions As GuzzleOptions;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Client\ClientInterface;
@@ -64,5 +65,12 @@ class GuzzleTest extends TestCase
         $result = $this->guzzleAdapter->setConfig(new Client(), [ RequestOptions::SSL_CA => 'test'], []);
         $this->assertInstanceOf(Client::class, $result);
         $this->assertEquals('test', $result->getConfig(GuzzleOptions::VERIFY));
+    }
+
+    public function testSetConfigButNotOverwrittenClientOptions()
+    {
+        $result = $this->guzzleAdapter->setConfig(new Client(['base_uri' => 'http://localhost:12345']), [ RequestOptions::SSL_CA => 'test'], []);
+        $this->assertInstanceOf(Client::class, $result);
+        $this->assertEquals('http://localhost:12345', $result->getConfig('base_uri'));
     }
 }

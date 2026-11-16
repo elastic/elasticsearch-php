@@ -77,7 +77,7 @@ class Ilm extends AbstractEndpoint
 	 *     index: string, // (REQUIRED) The name of the index to explain
 	 *     only_managed?: bool, // Filters the returned indices to only indices that are managed by ILM.
 	 *     only_errors?: bool, // Filters the returned indices to only indices that are managed by ILM and are in an error state, either due to an encountering an error while executing the policy, or attempting to use a policy that does not exist.
-	 *     expand_wildcards?: string|array<string>, // Whether wildcard expressions should get expanded to open, closed, or hidden indices (default: open) (DEFAULT: open)
+	 *     expand_wildcards?: string|array<string>, // Type of index that wildcard patterns can match. If the request can target data streams, this argument determines whether wildcard expressions match hidden data streams. Supports comma-separated values, such as `open,hidden`. (DEFAULT: open)
 	 *     master_timeout?: int|string, // Period to wait for a connection to the master node. If no response is received before the timeout expires, the request fails and returns an error. (DEFAULT: 30s)
 	 *     pretty?: bool, // Pretty format the returned JSON response. (DEFAULT: false)
 	 *     human?: bool, // Return human readable values for statistics. (DEFAULT: true)

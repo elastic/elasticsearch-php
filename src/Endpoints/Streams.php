@@ -32,6 +32,7 @@ class Streams extends AbstractEndpoint
 	 * Disable the Logs Streams feature for this cluster
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -73,6 +74,7 @@ class Streams extends AbstractEndpoint
 	 * Enable the Logs Streams feature for this cluster
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
@@ -114,6 +116,7 @@ class Streams extends AbstractEndpoint
 	 * Return the current status of the streams feature for each streams type
 	 *
 	 * @link https://www.elastic.co/docs/api/doc/elasticsearch#TODO
+	 * @group serverless
 	 * @internal This API is EXPERIMENTAL and may be changed or removed completely in a future release
 	 *
 	 * @param array{
